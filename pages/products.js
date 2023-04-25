@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Display from "@/components/display";
 import FilterSidebar from "@/components/filterSidebar";
 import AddtocartSidebar from "@/components/addtocartSidebar";
-import { useStore } from "zustand";
+
 
 const Products = ({products,filterCategory}) => {
 
