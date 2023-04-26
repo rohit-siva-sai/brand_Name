@@ -6,20 +6,21 @@ import { db } from "../config/firebase";
 import { getDocs, addDoc, doc, collection } from "firebase/firestore";
 
 export default function App({ Component, pageProps }) {
+  const [cart, setCart] = useState({});
+  const [key, setKey] = useState(0);
   const [products, setProducts] = useState([]);
   const [items, setItems] = useState([]);
   const router = useRouter();
   const productCollection = collection(db, "materials");
-  // const setPro = useStore((state) => state.setProducts);
+
   const getProducts = async () => {
     try {
-      // setLoading(true);
       const data = await getDocs(productCollection);
       const filteredData = data.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
       }));
-      console.log(filteredData);
+      // console.log(filteredData,"rohit siva sai");
 
       setProducts(filteredData);
       setItems(filteredData);
@@ -30,12 +31,60 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     getProducts();
+    try {
+      if (localStorage.getItem("cart")) {
+        setCart(JSON.parse(localStorage.getItem("cart")));
+        saveCart(JSON.parse(localStorage.getItem("cart")));
+        // console.log("rohit siva sai rohit siva sai", cart);
+      }
+    } catch (err) {
+      console.log(err);
+      localStorage.clear();
+    }
   }, [router]);
+
+  //save Cart
+  const saveCart = (newCart) => {
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setKey(Math.random());
+   
+  };
+
+  const addToCart = (itemcode, qty, title, imgUrl) => {
+    let newCart = {};
+    newCart = cart;
+    // console.log(cart, "rohit siva sai");
+
+    if (itemcode in cart) {
+      newCart[itemcode].qty = cart[itemcode].qty + qty;
+    } else {
+      newCart[itemcode] = { qty: 1, title, imgUrl };
+    }
+    saveCart(newCart);
+    setCart(newCart);
+  };
+
+  const removeFromCart = (itemcode, qty, title, imgUrl) => {
+    let newCart = cart;
+    if (itemcode in cart) {
+      newCart[itemcode].qty = cart[itemcode].qty - qty;
+      delete newCart[itemcode];
+    }
+    // if (newCart[itemcode].qty <= 0) {
+    // }
+    setCart(newCart);
+    saveCart(newCart);
+  };
+
+  const clearCart = () => {
+    setCart({});
+    saveCart({});
+  };
 
   // filter Search
 
   const filterSearch = (value) => {
-    let tempProducts = products;
+    let tempProducts = items;
     if (value.length > 2) {
       tempProducts = tempProducts.filter((curElement) => {
         return (
@@ -52,8 +101,8 @@ export default function App({ Component, pageProps }) {
 
   // filter category
 
-  const filterCategory = (value,loyal) => {
-    let tempProducts = products;
+  const filterCategory = (value, loyal) => {
+    let tempProducts = items;
 
     if (loyal) {
       tempProducts = tempProducts.filter((curElement) => {
@@ -69,7 +118,16 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Navbar filterSearch={filterSearch} />
-      <Component {...pageProps} products={products} filterCategory={filterCategory} />
+      <Component
+        {...pageProps}
+        products={products}
+        filterCategory={filterCategory}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        cart={cart}
+        clearCart={clearCart}
+        key={key}
+      />
     </>
   );
 }
