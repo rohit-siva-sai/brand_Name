@@ -29,7 +29,17 @@ const AddtocartSidebar = ({
             </div>
             <p className="font-bold  text-gray-700 ">Products Added</p>
           </div>
+
           <div className="flex flex-col overscroll-contain pl-2 overflow-y-scroll pb-4 h-[400px] ">
+            {Object.keys(cart).length == 0 && (
+              <div className="my-auto ">
+                <div className="flex flex-col text-sm items-center  text-gray-400 ">
+                  <HiShoppingCart className="text-3xl my-2 " />
+                  <p>No Products added in the cart.</p>
+                  <p>Add products to proceed</p>
+                </div>
+              </div>
+            )}
             {Object.keys(cart).map((item) => {
               return (
                 <div className="item items-center  flex my-2">
@@ -69,15 +79,6 @@ const AddtocartSidebar = ({
             </div>
           </div>
         </div>
-        {Object.keys(cart).length == 0 && (
-          <div className="my-auto translate-y-[150%]">
-            <div className="flex flex-col items-center  text-gray-400 ">
-              <HiShoppingCart className="text-3xl my-2 " />
-              <p>No Products added in the cart.</p>
-              <p>Add products to proceed</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
