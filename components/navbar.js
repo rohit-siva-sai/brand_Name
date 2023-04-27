@@ -47,7 +47,7 @@ const Navbar = ({filterSearch}) => {
           </div>
         </div>
       </div>
-      <button className="flex w-full my-2 md:hidden  border rounded-md items-center">
+      <button className="flex w-full  my-2  md:hidden  border rounded-md items-center">
             <input
               type="search"
               placeholder="Search Product, Category, Brand ..."
@@ -56,7 +56,7 @@ const Navbar = ({filterSearch}) => {
               onChange={(e)=>{filterSearch(e.target.value)}}
               className={`w-full py-2 px-2 focus:border-2 focus:border-blue-500  rounded-md ${styles.searchBar} outline-none`}
             />
-            <AiOutlineSearch className="text-4xl cursor-pointer h-full px-2 hover:bg-blue-100 text-blue-500 " />
+            <AiOutlineSearch className="text-4xl cursor-pointer py-2 px-2 hover:bg-blue-100 text-blue-500 " />
           </button>
     </div>
   );
