@@ -15,11 +15,20 @@ const Products = ({
   removeFromCart,
   clearCart,
   key,
+  filterMaterial,
+  filterType,
 }) => {
+  console.log(products, "rohit");
+
   return (
-    <div className="flex">
-      <FilterSidebar products={products} filterCategory={filterCategory} />
-      <div className="grid py-8 h-fit mx-auto px-2 md:px-6 grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8 border border-red-500  ">
+    <div className="flex  ">
+      <FilterSidebar
+        products={products}
+        filterCategory={filterCategory}
+        filterMaterial={filterMaterial}
+        filterType={filterType}
+      />
+      <div className="grid py-8 h-fit mx-auto px-2 md:px-6 grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8    ">
         {products.map((item) => {
           return (
             <Display

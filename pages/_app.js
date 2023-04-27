@@ -84,7 +84,7 @@ export default function App({ Component, pageProps }) {
   // filter Search
 
   const filterSearch = (value) => {
-    let tempProducts = items;
+    let tempProducts = products;
     if (value.length > 2) {
       tempProducts = tempProducts.filter((curElement) => {
         return (
@@ -114,6 +114,32 @@ export default function App({ Component, pageProps }) {
       setProducts(items);
     }
   };
+  const filterMaterial = (value, loyal) => {
+    let tempProducts = products;
+
+    if (loyal) {
+      tempProducts = tempProducts.filter((curElement) => {
+        return curElement.material == value;
+      });
+
+      setProducts(tempProducts);
+    } else {
+      setProducts(items);
+    }
+  };
+  const filterType = (value, loyal) => {
+    let tempProducts = products;
+
+    if (loyal) {
+      tempProducts = tempProducts.filter((curElement) => {
+        return curElement.type == value;
+      });
+
+      setProducts(tempProducts);
+    } else {
+      setProducts(items);
+    }
+  };
 
   return (
     <>
@@ -127,6 +153,8 @@ export default function App({ Component, pageProps }) {
         cart={cart}
         clearCart={clearCart}
         key={key}
+        filterMaterial={filterMaterial}
+        filterType={filterType}
       />
     </>
   );

@@ -20,7 +20,7 @@ const AddtocartSidebar = ({
   }, [key]);
 
   return (
-    <div className="w-1/6 md:block hidden   h-[500px] shadow-md sticky top-28 right-0   border rounded-xl ">
+    <div className="w-1/6 md:block hidden my-8   h-[500px] shadow-md sticky top-28 right-0   border rounded-xl ">
       <div className="relative">
         <div>
           <div className="flex py-2 px-4 items-center border-b space-x-3">
