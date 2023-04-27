@@ -17,6 +17,7 @@ const Products = ({
   key,
   filterMaterial,
   filterType,
+  items
 }) => {
   console.log(products, "rohit");
 
@@ -28,20 +29,24 @@ const Products = ({
         filterMaterial={filterMaterial}
         filterType={filterType}
       />
-      <div className="grid py-8 h-fit mx-auto px-2 md:px-6 grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8    ">
-        {products.map((item) => {
-          return (
-            <Display
-              id={item.id}
-              title={item.title}
-              imgUrl={item.image_url}
-              addToCart={addToCart}
-              cart={cart}
-              key={key}
-              removeFromCart={removeFromCart}
-            />
-          );
-        })}
+      <div className="px-2 md:px-6 py-8 mx-auto " >
+        <p className="text-gray-700 font-semibold" >Search all Products</p>
+        <p className="text-xs text-gray-400 pt-2 font-semibold" >Showing {products.length} out of {items.length} products </p>
+        <div className="grid  h-fit py-6  grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8    ">
+          {products.map((item) => {
+            return (
+              <Display
+                id={item.id}
+                title={item.title}
+                imgUrl={item.image_url}
+                addToCart={addToCart}
+                cart={cart}
+                key={key}
+                removeFromCart={removeFromCart}
+              />
+            );
+          })}
+        </div>
       </div>
       <AddtocartSidebar
         cart={cart}

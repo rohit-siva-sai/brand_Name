@@ -10,6 +10,7 @@ export default function App({ Component, pageProps }) {
   const [key, setKey] = useState(0);
   const [products, setProducts] = useState([]);
   const [items, setItems] = useState([]);
+  const [categoryProducts,setCategoryProducts] = useState([])
   const router = useRouter();
   const productCollection = collection(db, "materials");
 
@@ -110,6 +111,7 @@ export default function App({ Component, pageProps }) {
       });
 
       setProducts(tempProducts);
+      setCategoryProducts(tempProducts)
     } else {
       setProducts(items);
     }
@@ -155,6 +157,7 @@ export default function App({ Component, pageProps }) {
         key={key}
         filterMaterial={filterMaterial}
         filterType={filterType}
+        items={items}
       />
     </>
   );
