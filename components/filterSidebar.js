@@ -59,7 +59,7 @@ const FilterSidebar = ({
   };
 
   return (
-    <div className="md:w-1/5 w-full h-screen pl-4 md:block hidden border-r sticky my-8 top-20 z-50 ">
+    <div className="w-1/5  h-full pl-4 md:block hidden border-r sticky my-8 top-20 z-50 ">
       <div>
         <div className={`flex flex-col ${dropDown1 ? " border-b mb-2" : "border-b-0 mb-0"}  px-2 overflow-y-hidden overflow-x-hidden `}>
           <div
@@ -155,7 +155,7 @@ const FilterSidebar = ({
             </div>
           </div>
         </div>
-        <div className={`flex flex-col ${dropDown1 ? " border-b mb-2" : "border-b-0 mb-0"}  px-2  overflow-y-hidden overflow-x-hidden `}>
+        <div className={`flex flex-col ${dropDown3 ? " border-b-0 mb-2" : "border-b-0 mb-0"}  px-2  overflow-y-hidden overflow-x-hidden `}>
           <div
             onClick={() => {
               setDropDown3(!dropDown3);
