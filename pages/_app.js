@@ -337,7 +337,7 @@ export default function App({ Component, pageProps }) {
       );
     }
 
-    setProducts(updatedList);
+    setBrandList(updatedList);
   };
 
   useEffect(() => {
