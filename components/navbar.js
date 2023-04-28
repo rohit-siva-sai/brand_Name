@@ -3,6 +3,7 @@ import styles from "../styles/Navbar.module.css";
 import { FaTag, FaRegUserCircle } from "react-icons/fa";
 import { HiShoppingCart } from "react-icons/hi";
 import { AiOutlineSearch } from "react-icons/ai";
+import Link from "next/link";
 
 const Navbar = ({filterSearch}) => {
   const [searchValue, setSearchValue] = useState("");
@@ -32,10 +33,12 @@ const Navbar = ({filterSearch}) => {
             <AiOutlineSearch className="text-4xl cursor-pointer h-full px-2 hover:bg-blue-100 text-blue-500 " />
           </button>
           <div className="flex space-x-3">
+            <Link href="/brandStore">
             <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
               <FaTag className="text-white text-xl " />
               <p className="text-white font-semibold md:block hidden  ">Brand Store</p>
             </div>
+            </Link>
             <div className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
               <HiShoppingCart className="text-white text-2xl " />
               <p className="text-white font-semibold md:block hidden  ">Cart</p>

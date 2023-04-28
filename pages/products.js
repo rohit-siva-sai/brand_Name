@@ -8,37 +8,43 @@ import FilterSidebar from "@/components/filterSidebar";
 import AddtocartSidebar from "@/components/addtocartSidebar";
 import { BiSliderAlt } from "react-icons/bi";
 
-
 const Products = ({
   products,
-  filterCategory,
+
   addToCart,
   cart,
   removeFromCart,
   clearCart,
   key,
-  filterMaterial,
-  filterType,
+
   items,
+  materialMetal,
+  typeMetal,
+  materialPlastic,
+  typePlastic,
+  category,
+  changeChecked,
 }) => {
+  const [showFilter, setShowFilter] = useState(false);
 
-  const [showFilter,setShowFilter] = useState(false)
-
-  const smallFilter = ()=>{
-     setShowFilter(!showFilter)
-  }
- 
+  const smallFilter = () => {
+    setShowFilter(!showFilter);
+  };
+  console.log(products, "rohit");
 
   return (
-    <div className="flex  ">
+    <div className="flex overflow-hidden h-fit ">
       <FilterSidebar
         products={products}
-        filterCategory={filterCategory}
-        filterMaterial={filterMaterial}
-        filterType={filterType}
         showFilter={showFilter}
+        materialMetal={materialMetal}
+        typeMetal={typeMetal}
+        materialPlastic={materialPlastic}
+        typePlastic={typePlastic}
+        category={category}
+        changeChecked={changeChecked}
       />
-      <div className="px-4 md:px-6 py-6 mx-auto ">
+      <div className="px-4 md:px-6 py-6 min-w-min mx-auto h-screen overflow-y-scroll">
         <div className="flex justify-between items-center md:block">
           <div>
             <p className="text-gray-700 font-semibold">Search all Products</p>
@@ -46,9 +52,12 @@ const Products = ({
               Showing {products.length} out of {items.length} products{" "}
             </p>
           </div>
-          <div onClick={smallFilter} className="flex space-x-2 py-1 items-center rounded-md px-8 border border-blue-500 text-blue-500 md:hidden" >
-          <BiSliderAlt/>
-          <p className="text-base font-bold " >Filters</p>
+          <div
+            onClick={smallFilter}
+            className="flex space-x-2 py-1 items-center rounded-md px-8 border border-blue-500 text-blue-500 md:hidden"
+          >
+            <BiSliderAlt />
+            <p className="text-base font-bold ">Filters</p>
           </div>
         </div>
         <div className="grid  h-fit py-6  grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8    ">

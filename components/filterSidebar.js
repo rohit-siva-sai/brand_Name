@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowUp } from "react-icons/md";
 import Checkbox from "./checkbox";
+import CheckboxProton from "./checkboxProton";
 
 const FilterSidebar = ({
   products,
-  filterCategory,
-  filterMaterial,
-  filterType,
+  materialMetal,
+  typeMetal,
+  materialPlastic,
+  typePlastic,
+  category,
+  changeChecked,
 }) => {
-  // console.log(products, "filtersidebar");
+  
   const [dropDown1, setDropDown1] = useState(true);
   const [dropDown2, setDropDown2] = useState(true);
   const [dropDown3, setDropDown3] = useState(true);
-  const [category, setCategory] = useState("metal");
-  const [material, setMaterial] = useState("material");
+  const [categoryMain, setCategoryMain] = useState("metal");
+  // const [material, setMaterial] = useState("material");
   const [disable, setDisable] = useState(false);
   const [materaial1, setMaterial1] = useState(false);
   const [materaial2, setMaterial2] = useState(false);
@@ -28,8 +32,9 @@ const FilterSidebar = ({
   const [type, setType] = useState("type");
 
   const handleCategory = (value) => {
-    setCategory(value);
-    console.log("dfdfdf", value);
+    setCategoryMain(value);
+
+    // setMaterial(categoryMain=="metal" ? materialMetal : materialPlastic)
   };
 
   const handleDisable = (value) => {
@@ -57,11 +62,19 @@ const FilterSidebar = ({
       setCategory1(!category1);
     }
   };
+  const [material, setMaterial] = useState(materialMetal);
+  useEffect(() => {
+    let set = [];
+  }, [category]);
 
   return (
-    <div className="w-1/5  h-full pl-4 md:block hidden border-r sticky my-8 top-20 z-50 ">
+    <div className="w-1/5  h-full pl-4 md:block hidden border-r sticky my-0 top-8 z-50 ">
       <div>
-        <div className={`flex flex-col ${dropDown1 ? " border-b mb-2" : "border-b-0 mb-0"}  px-2 overflow-y-hidden overflow-x-hidden `}>
+        <div
+          className={`flex flex-col ${
+            dropDown1 ? " border-b mb-2" : "border-b-0 mb-0"
+          }  px-2 overflow-y-hidden overflow-x-hidden `}
+        >
           <div
             onClick={() => {
               setDropDown1(!dropDown1);
@@ -79,11 +92,21 @@ const FilterSidebar = ({
           </div>
           <div
             className={` transition flex flex-col   ${
-              dropDown1 ? "translate-y-0  " : "-translate-y-[250%] h-0 "
+              dropDown1 ? "translate-y-0  " : "-translate-y-[300%] h-0 "
             } duration-500 ease-in-out py-4 `}
           >
-            <div className={`  flex flex-col  space-y-3 `}>
-              <Checkbox
+            <div className={`  flex flex-col  space-y-0 `}>
+              {category.map((item) => (
+                <CheckboxProton
+                  key={item.id}
+                  item={item}
+                  disable={item.label === "metal" ? category1 : category2}
+                  handleDisable={handleDisable}
+                  changeChecked={changeChecked}
+                  handle={handleCategory}
+                />
+              ))}
+              {/* <Checkbox
                 heading={"Metals"}
                 value="metal"
                 filters={filterCategory}
@@ -101,11 +124,15 @@ const FilterSidebar = ({
                 category={"category"}
                 handleDisable={handleDisable}
                 disable={category2}
-              />
+              /> */}
             </div>
           </div>
         </div>
-        <div className={`flex flex-col ${dropDown2 ? " border-b mb-2" : "border-b-0 mb-0"}  px-2  overflow-y-hidden overflow-x-hidden `}>
+        <div
+          className={`flex flex-col ${
+            dropDown2 ? " border-b mb-2" : "border-b-0 mb-0"
+          }  px-2  overflow-y-hidden overflow-x-hidden `}
+        >
           <div
             onClick={() => {
               setDropDown2(!dropDown2);
@@ -123,11 +150,26 @@ const FilterSidebar = ({
           </div>
           <div
             className={` transition flex flex-col   ${
-              dropDown2 ? "translate-y-0  " : "-translate-y-[350%] h-0 "
+              dropDown2 ? "translate-y-0  " : "-translate-y-[400%] h-0 "
             } duration-500 ease-in-out py-4 `}
           >
-            <div className={`  flex flex-col  space-y-3 `}>
-              <Checkbox
+            <div className={`  flex flex-col  space-y-0 `}>
+              {categoryMain == "metal"
+                ? materialMetal.map((item) => (
+                    <CheckboxProton
+                      key={item.id}
+                      item={item}
+                      changeChecked={changeChecked}
+                    />
+                  ))
+                : materialPlastic.map((item) => (
+                    <CheckboxProton
+                      key={item.id}
+                      item={item}
+                      changeChecked={changeChecked}
+                    />
+                  ))}
+              {/* <Checkbox
                 heading={category == "metal" ? "Mild Steel" : "Nylon"}
                 value={category == "metal" ? "mild_steel" : "nylon"}
                 filters={filterMaterial}
@@ -151,11 +193,15 @@ const FilterSidebar = ({
                 material={material}
                 handleDisable={handleDisable}
                 disable={materaial3}
-              />
+              /> */}
             </div>
           </div>
         </div>
-        <div className={`flex flex-col ${dropDown3 ? " border-b-0 mb-2" : "border-b-0 mb-0"}  px-2  overflow-y-hidden overflow-x-hidden `}>
+        <div
+          className={`flex flex-col ${
+            dropDown3 ? " border-b-0 mb-2" : "border-b-0 mb-0"
+          }  px-2  overflow-y-hidden overflow-x-hidden `}
+        >
           <div
             onClick={() => {
               setDropDown3(!dropDown3);
@@ -173,10 +219,27 @@ const FilterSidebar = ({
           </div>
           <div
             className={` transition flex flex-col   ${
-              dropDown3 ? "translate-y-0  " : "-translate-y-[350%] h-0 "
+              dropDown3 ? "translate-y-0  " : "-translate-y-[400%] h-0 "
             } duration-500 ease-in-out py-4 `}
           >
-            <div className={`  flex flex-col  space-y-3 `}>
+            <div className={`  flex flex-col  space-y-0 `}>
+              {categoryMain == "metal"
+                ? typeMetal.map((item) => (
+                    <CheckboxProton
+                      key={item.id}
+                      item={item}
+                      changeChecked={changeChecked}
+                    />
+                  ))
+                : typePlastic.map((item) => (
+                    <CheckboxProton
+                      key={item.id}
+                      item={item}
+                      changeChecked={changeChecked}
+                    />
+                  ))}
+            </div>
+            {/* <div className={`  flex flex-col  space-y-3 `}>
               <Checkbox
                 heading={category == "metal" ? "Long Products" : "Round"}
                 value={category == "metal" ? "long_products" : "round"}
@@ -204,7 +267,7 @@ const FilterSidebar = ({
                   disable={type3}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

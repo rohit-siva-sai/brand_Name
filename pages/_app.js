@@ -4,14 +4,62 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { getDocs, addDoc, doc, collection } from "firebase/firestore";
+import Footer from "@/components/footer";
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({});
   const [key, setKey] = useState(0);
   const [products, setProducts] = useState([]);
   const [items, setItems] = useState([]);
-  const [categoryProducts,setCategoryProducts] = useState([])
+  const [brandList, setBrandList] = useState([]);
+  const [brandItems, setBrandItems] = useState([]);
+  const [categoryProducts, setCategoryProducts] = useState([]);
   const router = useRouter();
+
+  const [category, setCategory] = useState([
+    { id: -1, checked: false, label: "metal" },
+    { id: 0, checked: false, label: "plastic" },
+  ]);
+
+  const [materialMetal, setMaterialMetal] = useState([
+    { id: 1, checked: false, label: "mild_steel" },
+    { id: 2, checked: false, label: "stainless_steel" },
+    { id: 3, checked: false, label: "aluminium" },
+  ]);
+  const [materialPlastic, setMaterialPlastic] = useState([
+    { id: 7, checked: false, label: "nylon" },
+    { id: 8, checked: false, label: "abs" },
+    { id: 9, checked: false, label: "pvc" },
+  ]);
+  const [typeMetal, setTypeMetal] = useState([
+    { id: 4, checked: false, label: "long_products" },
+    { id: 5, checked: false, label: "flat_products" },
+    { id: 6, checked: false, label: "semi_furnished" },
+  ]);
+  const [typePlastic, setTypePlastic] = useState([
+    { id: 10, checked: false, label: "round" },
+    { id: 11, checked: false, label: "long" },
+  ]);
+  const [categoryBrand, setCategoryBrand] = useState([
+    { id: 101, checked: false, label: "metal" },
+    { id: 102, checked: false, label: "plastic" },
+  ]);
+  const [materialBrand, setMaterialBrand] = useState([
+    { id: 111, checked: false, label: "mild_steal" },
+    { id: 112, checked: false, label: "nylon" },
+    { id: 113, checked: false, label: "abs" },
+  ]);
+  const [certificateBrand, setCertificateBrand] = useState([
+    { id: 121, checked: false, label: "iso" },
+    { id: 122, checked: false, label: "fda" },
+  ]);
+  const [applicationBrand, setApplicationBrand] = useState([
+    { id: 131, checked: false, label: "automotive" },
+    { id: 132, checked: false, label: "agriculture" },
+    { id: 133, checked: false, label: "areospace" },
+    { id: 134, checked: false, label: "apparel" },
+  ]);
+
   const productCollection = collection(db, "materials");
 
   const getProducts = async () => {
@@ -23,8 +71,8 @@ export default function App({ Component, pageProps }) {
       }));
       // console.log(filteredData,"rohit siva sai");
 
-      setProducts(filteredData);
       setItems(filteredData);
+      setProducts(filteredData);
     } catch (err) {
       console.log(err);
     }
@@ -48,7 +96,6 @@ export default function App({ Component, pageProps }) {
   const saveCart = (newCart) => {
     localStorage.setItem("cart", JSON.stringify(newCart));
     setKey(Math.random());
-   
   };
 
   const addToCart = (itemcode, qty, title, imgUrl) => {
@@ -85,12 +132,14 @@ export default function App({ Component, pageProps }) {
   // filter Search
 
   const filterSearch = (value) => {
-    let tempProducts = products;
+    let tempProducts = items;
     if (value.length > 2) {
       tempProducts = tempProducts.filter((curElement) => {
         return (
-          curElement.title.toLowerCase().includes(value) ||
-          curElement.category.toLowerCase().includes(value)
+          curElement.title.toLowerCase().search(value.toLowerCase().trim()) !==
+          -1
+          // curElement.title.toLowerCase().includes(value) ||
+          // curElement.category.toLowerCase().includes(value)
         );
       });
 
@@ -102,46 +151,199 @@ export default function App({ Component, pageProps }) {
 
   // filter category
 
-  const filterCategory = (value, loyal) => {
-    let tempProducts = items;
+  // const filterCategory = (value, loyal) => {
+  //   let tempProducts = items;
 
-    if (loyal) {
-      tempProducts = tempProducts.filter((curElement) => {
-        return curElement.category == value;
-      });
+  //   if (loyal) {
+  //     tempProducts = tempProducts.filter((curElement) => {
+  //       return curElement.category == value;
+  //     });
 
-      setProducts(tempProducts);
-      setCategoryProducts(tempProducts)
-    } else {
-      setProducts(items);
+  //     setProducts(tempProducts);
+  //     setCategoryProducts(tempProducts);
+  //   } else {
+  //     setProducts(items);
+  //   }
+  // };
+  // const filterMaterial = (value, loyal) => {
+  //   let tempProducts = items;
+
+  //   if (loyal) {
+  //     tempProducts = tempProducts.filter((curElement) => {
+  //       return curElement.material == value;
+  //     });
+
+  //     setProducts(tempProducts);
+  //   } else {
+  //     setProducts(items);
+  //   }
+  // };
+
+  // const filterType = (value, loyal) => {
+  //   let tempProducts = products.length != 0 ? products : items;
+
+  //   if (loyal) {
+  //     tempProducts = tempProducts.filter((curElement) => {
+  //       return curElement.type == value;
+  //     });
+
+  //     setProducts(tempProducts);
+  //   } else {
+  //     setProducts(items);
+  //   }
+  // };
+
+  const handleChangeChecked = (id) => {
+    if (id <= 0) {
+      const categoryList = category;
+      const changeCategoryChecked = categoryList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setCategory(changeCategoryChecked);
+    } else if (id <= 3) {
+      const materialMetalList = materialMetal;
+      const changeMaterialMetalChecked = materialMetalList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setMaterialMetal(changeMaterialMetalChecked);
+    } else if (id <= 6) {
+      const typeMetalList = typeMetal;
+      const changeTypeMetalChecked = typeMetalList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setTypeMetal(changeTypeMetalChecked);
+    } else if (id <= 9) {
+      const materialPlasticList = materialPlastic;
+      const changeMaterialPlasticChecked = materialPlasticList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setMaterialPlastic(changeMaterialPlasticChecked);
+    } else if (id <= 12) {
+      const typePlasticList = typePlastic;
+      const changeTypePlasticChecked = typePlasticList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setTypePlastic(changeTypePlasticChecked);
     }
   };
-  const filterMaterial = (value, loyal) => {
-    let tempProducts = products;
 
-    if (loyal) {
-      tempProducts = tempProducts.filter((curElement) => {
-        return curElement.material == value;
-      });
+  const applyProductFilters = () => {
+    let updatedList = items;
+    let materialChild = [];
+    let typeChild = [];
+    const categoryChecked = category
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
 
-      setProducts(tempProducts);
-    } else {
-      setProducts(items);
+    console.log(categoryChecked, "rohit");
+
+    if (categoryChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        categoryChecked.includes(item.category)
+      );
+    }
+    materialChild =
+      categoryChecked[0] == "plastic" ? materialPlastic : materialMetal;
+    const materialMetalChecked = materialChild
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (materialMetalChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        materialMetalChecked.includes(item.material)
+      );
+    }
+    typeChild = categoryChecked[0] === "plastic" ? typePlastic : typeMetal;
+    const typeMetalChecked = typeChild
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (typeMetalChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        typeMetalChecked.includes(item.type)
+      );
+    }
+
+    setProducts(updatedList);
+  };
+
+  const handleBrandStoreChecked = (id) => {
+    if (id <= 110) {
+      const categoryBrandList = categoryBrand;
+      const changeCategoryBrandChecked = categoryBrandList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setCategoryBrand(changeCategoryBrandChecked);
+    } else if (id <= 120) {
+      const materialBrandList = materialBrand;
+      const changeMaterialBrandChecked = materialBrandList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setMaterialBrand(changeMaterialBrandChecked);
+    } else if (id <= 130) {
+      const certificateBrandList = certificateBrand;
+      const changeCertificateBrandChecked = certificateBrandList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setCertificateBrand(changeCertificateBrandChecked);
+    } else if (id <= 140) {
+      const applicationBrandList = applicationBrand;
+      const changeApplicationBrandChecked = applicationBrandList.map((item) =>
+        item.id === id ? { ...item, checked: !item.checked } : item
+      );
+      setApplicationBrand(changeApplicationBrandChecked);
     }
   };
-  const filterType = (value, loyal) => {
-    let tempProducts = products;
 
-    if (loyal) {
-      tempProducts = tempProducts.filter((curElement) => {
-        return curElement.type == value;
-      });
+  const applyBrandStoreFilters = () => {
+    let updatedList = brandItems;
 
-      setProducts(tempProducts);
-    } else {
-      setProducts(items);
+    const categoryChecked = categoryBrand
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (categoryChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        categoryChecked.includes(item.category)
+      );
     }
+
+    const materialBrandChecked = materialBrand
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (materialBrandChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        materialBrandChecked.includes(item.material)
+      );
+    }
+
+    const certificateBrandChecked = certificateBrand
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (certificateBrandChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        certificateBrandChecked.includes(item.certification)
+      );
+    }
+    const applicationBrandChecked = applicationBrand
+      .filter((item) => item.checked)
+      .map((item) => item.label.toLowerCase());
+
+    if (applicationBrandChecked.length) {
+      updatedList = updatedList.filter((item) =>
+        applicationBrandChecked.includes(item.application)
+      );
+    }
+
+    setProducts(updatedList);
   };
+
+  useEffect(() => {
+    applyProductFilters();
+    applyBrandStoreFilters()
+  }, [materialMetal, typeMetal, category, materialPlastic, typePlastic,categoryBrand,materialBrand,certificateBrand,applicationBrand]);
 
   return (
     <>
@@ -149,16 +351,25 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         products={products}
-        filterCategory={filterCategory}
         addToCart={addToCart}
         removeFromCart={removeFromCart}
         cart={cart}
         clearCart={clearCart}
         key={key}
-        filterMaterial={filterMaterial}
-        filterType={filterType}
         items={items}
+        materialMetal={materialMetal}
+        typeMetal={typeMetal}
+        materialPlastic={materialPlastic}
+        typePlastic={typePlastic}
+        category={category}
+        changeChecked={handleChangeChecked}
+        categoryBrand={categoryBrand}
+        materialBrand={materialBrand}
+        certificateBrand={certificateBrand}
+        applicationBrand={applicationBrand}
+        handleBrandStoreChecked={handleBrandStoreChecked}
       />
+      <Footer />
     </>
   );
 }
