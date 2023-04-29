@@ -7,16 +7,19 @@ import Display from "@/components/display";
 import FilterSidebar from "@/components/filterSidebar";
 import AddtocartSidebar from "@/components/addtocartSidebar";
 import { BiSliderAlt } from "react-icons/bi";
+import Pagination from "@/components/pagination";
+import { useMemo } from "react";
+
+let PageSize = 10;
+
 
 const Products = ({
   products,
-
   addToCart,
   cart,
   removeFromCart,
   clearCart,
   key,
-
   items,
   materialMetal,
   typeMetal,
@@ -25,12 +28,33 @@ const Products = ({
   category,
   changeChecked,
 }) => {
+  const [keyItem, setKeyItem] = useState(0);
   const [showFilter, setShowFilter] = useState(false);
+  const [sliceData, setSliceData] = useState([]);
+
+  // console.log(keyItem);
+  
+const [page,setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(page);
+
+  console.log(page,currentPage,"rohit siva sai");
+  
+
+  const sliceFun = (firstPageIndex, lastPageIndex) => {
+    const currentData = products.slice(firstPageIndex, lastPageIndex);
+    setSliceData(currentData);
+  };
+
+  useEffect(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    sliceFun(firstPageIndex, lastPageIndex);
+  },[keyItem,products]);
 
   const smallFilter = () => {
     setShowFilter(!showFilter);
   };
-  console.log(products, "rohit");
+  // console.log(sliceData, "rohit siva sai");
 
   return (
     <div className="flex overflow-hidden h-fit ">
@@ -44,7 +68,7 @@ const Products = ({
         category={category}
         changeChecked={changeChecked}
       />
-      <div className="px-4 md:px-6 py-6 min-w-min mx-auto h-screen overflow-y-scroll">
+      <div className="px-4 md:px-6 py-6 pb-56 relative min-w-min mx-auto h-screen overflow-y-hidden">
         <div className="flex justify-between items-center md:block">
           <div>
             <p className="text-gray-700 font-semibold">Search all Products</p>
@@ -60,8 +84,8 @@ const Products = ({
             <p className="text-base font-bold ">Filters</p>
           </div>
         </div>
-        <div className="grid  h-fit py-6  grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8    ">
-          {products.map((item) => {
+        <div className="grid  h-fit py-6  grid-cols-2   md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-6    ">
+          {sliceData.map((item) => {
             return (
               <Display
                 id={item.id}
@@ -74,6 +98,19 @@ const Products = ({
               />
             );
           })}
+        </div>
+        <div className="absolute bottom-40 flex justify-center w-full mx-auto" >
+          <Pagination
+            className="pagination-bar"
+            currentPage={currentPage}
+            totalCount={products.length}
+            pageSize={PageSize}
+            onPageChange={(page) => {
+              setCurrentPage(page);
+              setPage(page)
+              setKeyItem(Math.random());
+            }}
+          />
         </div>
       </div>
       <AddtocartSidebar

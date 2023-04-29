@@ -11,19 +11,24 @@ const Display = ({
   removeFromCart,
 }) => {
   const [added, setAdded] = useState(false);
-  const [brandCart, setBrandCart] = useState({});
+  const [brandCart, setBrandCart] = useState(cart);
+  const [keyItem,setKeyItem]  = useState(0)
 
-  useEffect(() => {
+  const getCart = ()=>{
     if (localStorage.getItem("cart")) {
       setBrandCart(JSON.parse(localStorage.getItem("cart")));
+      
     }
+  }
 
-    if (added || id in cart) {
+  useEffect(() => {
+    getCart()
+    if (id in brandCart) {
       setAdded(true);
     } else {
       setAdded(false);
     }
-  }, [key]);
+  }, [key,brandCart]);
 
   return (
     <div className="border relative shadow-md rounded-2xl ">
@@ -53,7 +58,7 @@ const Display = ({
             onClick={() => {
               removeFromCart(id, 1);
             }}
-            className="px-2 py-1 text-sm border-2 rounded-md w-full font-semibold text-center border-red-500 cursor-pointer text-red-500 hover:bg-red-100/50"
+            className="px-2 py-1 text-xs border-2 rounded-md w-full font-semibold text-center border-red-500 cursor-pointer text-red-500 hover:bg-red-100/50"
           >
             Remove from Cart
           </div>

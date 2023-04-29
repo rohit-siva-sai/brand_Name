@@ -100,6 +100,7 @@ export default function App({ Component, pageProps }) {
 
   const addToCart = (itemcode, qty, title, imgUrl) => {
     let newCart = {};
+
     newCart = cart;
     // console.log(cart, "rohit siva sai");
 
@@ -114,6 +115,7 @@ export default function App({ Component, pageProps }) {
 
   const removeFromCart = (itemcode, qty, title, imgUrl) => {
     let newCart = cart;
+
     if (itemcode in cart) {
       newCart[itemcode].qty = cart[itemcode].qty - qty;
       delete newCart[itemcode];
@@ -342,8 +344,18 @@ export default function App({ Component, pageProps }) {
 
   useEffect(() => {
     applyProductFilters();
-    applyBrandStoreFilters()
-  }, [materialMetal, typeMetal, category, materialPlastic, typePlastic,categoryBrand,materialBrand,certificateBrand,applicationBrand]);
+    applyBrandStoreFilters();
+  }, [
+    materialMetal,
+    typeMetal,
+    category,
+    materialPlastic,
+    typePlastic,
+    categoryBrand,
+    materialBrand,
+    certificateBrand,
+    applicationBrand,
+  ]);
 
   return (
     <>
@@ -368,6 +380,7 @@ export default function App({ Component, pageProps }) {
         certificateBrand={certificateBrand}
         applicationBrand={applicationBrand}
         handleBrandStoreChecked={handleBrandStoreChecked}
+        brandList={brandList}
       />
       <Footer />
     </>
