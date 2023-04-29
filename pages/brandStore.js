@@ -2,6 +2,7 @@ import BrandComp from "@/components/brandComp";
 import FilterSidebar from "@/components/filterSidebar";
 import FilterSidebarBrand from "@/components/filterSidebarBrand";
 import Pagination from "@/components/pagination";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 let PageSize = 10;
@@ -19,6 +20,8 @@ const BrandStore = ({
   const [sliceData, setSliceData] = useState([]);
 
   // console.log(keyItem);
+
+  const router = useRouter()
   
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +36,8 @@ const BrandStore = ({
     const lastPageIndex = firstPageIndex + PageSize;
     sliceFun(firstPageIndex, lastPageIndex);
   },[keyItem]);
+
+
 
   console.log('rohit sivas as');
   

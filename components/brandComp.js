@@ -3,7 +3,7 @@ import React from "react";
 import { FcLikePlaceholder } from "react-icons/fc";
 
 const BrandComp = ({
-  companyUrl = "https://trojanstore.vercel.app/",
+  companyUrl = "https://fictiv-clone.vercel.app/",
   bannerImg,
   logo,
   compantName,

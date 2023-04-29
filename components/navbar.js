@@ -5,7 +5,7 @@ import { HiShoppingCart } from "react-icons/hi";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 
-const Navbar = ({filterSearch}) => {
+const Navbar = ({ filterSearch }) => {
   const [searchValue, setSearchValue] = useState("");
   return (
     <div
@@ -27,18 +27,22 @@ const Navbar = ({filterSearch}) => {
               placeholder="Search Product, Category, Brand ..."
               name=""
               id=""
-              onChange={(e)=>{filterSearch(e.target.value)}}
+              onChange={(e) => {
+                filterSearch(e.target.value);
+              }}
               className={`w-[600px] py-2 px-2 focus:border-2 focus:border-blue-500  rounded-md ${styles.searchBar} outline-none`}
             />
             <AiOutlineSearch className="text-4xl cursor-pointer h-full px-2 hover:bg-blue-100 text-blue-500 " />
           </button>
           <div className="flex space-x-3">
-            <Link href="/brandStore">
-            <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
-              <FaTag className="text-white text-xl " />
-              <p className="text-white font-semibold md:block hidden  ">Brand Store</p>
-            </div>
-            </Link>
+            <a href="/brandStore">
+              <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
+                <FaTag className="text-white text-xl " />
+                <p className="text-white font-semibold md:block hidden  ">
+                  Brand Store
+                </p>
+              </div>
+            </a>
             <div className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
               <HiShoppingCart className="text-white text-2xl " />
               <p className="text-white font-semibold md:block hidden  ">Cart</p>
@@ -51,16 +55,18 @@ const Navbar = ({filterSearch}) => {
         </div>
       </div>
       <button className="flex w-full  my-2  md:hidden  border rounded-md items-center">
-            <input
-              type="search"
-              placeholder="Search Product, Category, Brand ..."
-              name=""
-              id=""
-              onChange={(e)=>{filterSearch(e.target.value)}}
-              className={`w-full py-2 px-2 focus:border-2 focus:border-blue-500  rounded-md ${styles.searchBar} outline-none`}
-            />
-            <AiOutlineSearch className="text-4xl cursor-pointer py-2 px-2 hover:bg-blue-100 text-blue-500 " />
-          </button>
+        <input
+          type="search"
+          placeholder="Search Product, Category, Brand ..."
+          name=""
+          id=""
+          onChange={(e) => {
+            filterSearch(e.target.value);
+          }}
+          className={`w-full py-2 px-2 focus:border-2 focus:border-blue-500  rounded-md ${styles.searchBar} outline-none`}
+        />
+        <AiOutlineSearch className="text-4xl cursor-pointer py-2 px-2 hover:bg-blue-100 text-blue-500 " />
+      </button>
     </div>
   );
 };
