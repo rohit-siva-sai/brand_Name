@@ -59,7 +59,7 @@ const Pagination = ({
               // className={classnames("pagination-item", {
               //   selected: pageNumber === currentPage,
               // })}
-              className={`cursor-pointer py-2  px-4 ${pageNumber==currentPage ? "bg-gray-100" : "bg-transparent"}  hover:bg-gray-100 rounded-full  `}
+              className={`cursor-pointer py-2 font-bold text-gray-700  px-4 ${pageNumber==currentPage ? "bg-gray-100" : "bg-transparent"}  hover:bg-gray-100 rounded-full  `}
               onClick={() => onPageChange(pageNumber)}
             >
               {pageNumber}

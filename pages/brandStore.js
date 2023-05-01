@@ -4,6 +4,7 @@ import FilterSidebarBrand from "@/components/filterSidebarBrand";
 import Pagination from "@/components/pagination";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import styles from "../styles/Brand.module.css"
 
 let PageSize = 10;
 
@@ -43,7 +44,7 @@ const BrandStore = ({
   
 
   return (
-    <div className="flex overflow-hidden h-fit ">
+    <div className={`flex ${styles.over} overflow-x-hidden    `}>
       <FilterSidebarBrand
         categoryBrand={categoryBrand}
         materialBrand={materialBrand}
@@ -51,8 +52,8 @@ const BrandStore = ({
         applicationBrand={applicationBrand}
         handleBrandStoreChecked={handleBrandStoreChecked}
       />
-      <div className="px-4 w-full md:px-6 py-6 mx-auto relative h-screen overflow-y-scroll">
-        <div className="grid  h-fit py-6 pb-48  grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8">
+      <div className="px-4 w-full md:px-6 py-6 mx-auto relative h-max overflow-hidden">
+        <div className="grid  h-fit py-6  grid-cols-2  md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-8">
           <BrandComp />
           <BrandComp />
           <BrandComp />
@@ -65,7 +66,7 @@ const BrandStore = ({
           
           
         </div>
-      <div className="absolute bottom-44  flex justify-center w-full mx-auto " >
+      <div className="absolute bottom-0 flex justify-center w-full mx-auto " >
       <Pagination
             className="pagination-bar"
             currentPage={currentPage}

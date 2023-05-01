@@ -1,0 +1,27 @@
+.maya{
+    /* position: fixed;
+    
+    top: 0;
+    left: 0;
+    background-color: rgb(255, 255, 255); */
+    height: 500px;
+    /* width: fit-content; */
+}
+
+.htmlScreen picture img {
+    width: 1000px;
+    height: 1580px;
+    border: none;
+    border-radius: 100px;
+    background: #ffffff;
+    overflow: hidden; 
+  }
+.htmlScreen iframe {
+    width: 660px;
+    height: 1430px;
+    border: none;
+    border-radius: 80px;
+    background: #ffffff;
+    overflow: hidden; 
+  }
+  

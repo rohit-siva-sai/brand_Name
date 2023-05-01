@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/Navbar.module.css";
 import { FaTag, FaRegUserCircle } from "react-icons/fa";
 import { HiShoppingCart } from "react-icons/hi";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Navbar = ({ filterSearch }) => {
   const [searchValue, setSearchValue] = useState("");
+  const router = useRouter();
+
+  const [searchShow, setSearchShow] = useState(true);
+
+  useEffect(() => {
+    let exempted = ["/"];
+    if (exempted.includes(router.pathname)) {
+      setSearchShow(false);
+    }
+    else{
+      setSearchShow(true)
+    }
+  }, [router]);
   return (
     <div
       className="sticky top-0 py-2 shadow-md
@@ -21,7 +35,7 @@ const Navbar = ({ filterSearch }) => {
         </div>
 
         <div className="flex space-x-16">
-          <button className="md:flex hidden border rounded-md items-center">
+          <button className={`  ${searchShow ? "md:flex hidden" : "hidden"} border rounded-md items-center`}>
             <input
               type="search"
               placeholder="Search Product, Category, Brand ..."
@@ -35,14 +49,14 @@ const Navbar = ({ filterSearch }) => {
             <AiOutlineSearch className="text-4xl cursor-pointer h-full px-2 hover:bg-blue-100 text-blue-500 " />
           </button>
           <div className="flex space-x-3">
-            <a href="/brandStore">
+            <Link href="/brandStore">
               <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
                 <FaTag className="text-white text-xl " />
                 <p className="text-white font-semibold md:block hidden  ">
                   Brand Store
                 </p>
               </div>
-            </a>
+            </Link>
             <div className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
               <HiShoppingCart className="text-white text-2xl " />
               <p className="text-white font-semibold md:block hidden  ">Cart</p>

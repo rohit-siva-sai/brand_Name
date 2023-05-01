@@ -12,7 +12,6 @@ import { useMemo } from "react";
 
 let PageSize = 10;
 
-
 const Products = ({
   products,
   addToCart,
@@ -33,12 +32,11 @@ const Products = ({
   const [sliceData, setSliceData] = useState([]);
 
   // console.log(keyItem);
-  
-const [page,setPage] = useState(1)
+
+  const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(page);
 
-  console.log(page,currentPage,"rohit siva sai");
-  
+  console.log(page, currentPage, "rohit siva sai");
 
   const sliceFun = (firstPageIndex, lastPageIndex) => {
     const currentData = products.slice(firstPageIndex, lastPageIndex);
@@ -46,14 +44,25 @@ const [page,setPage] = useState(1)
   };
 
   useEffect(() => {
+    products.map(() => {});
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     sliceFun(firstPageIndex, lastPageIndex);
-  },[keyItem,products]);
+  }, [keyItem, products]);
 
   const smallFilter = () => {
     setShowFilter(!showFilter);
   };
+  const addedFunction = (id)=>{
+    if(id in cart)
+    {
+      return true
+    }
+    else
+    {
+      return false
+    }
+  }
   // console.log(sliceData, "rohit siva sai");
 
   return (
@@ -68,7 +77,7 @@ const [page,setPage] = useState(1)
         category={category}
         changeChecked={changeChecked}
       />
-      <div className="px-4 md:px-6 py-6 pb-56 relative min-w-min mx-auto h-screen overflow-y-hidden">
+      <div className="px-4 md:px-6 py-6  relative min-w-min mx-auto h-max overflow-y-hidden overflow-x-hidden">
         <div className="flex justify-between items-center md:block">
           <div>
             <p className="text-gray-700 font-semibold">Search all Products</p>
@@ -95,11 +104,12 @@ const [page,setPage] = useState(1)
                 cart={cart}
                 key={key}
                 removeFromCart={removeFromCart}
+                adding={item.id in cart ? true : false}
               />
             );
           })}
         </div>
-        <div className="absolute bottom-40 flex justify-center w-full mx-auto" >
+        <div className="absolute bottom-0 flex justify-center w-full mx-auto">
           <Pagination
             className="pagination-bar"
             currentPage={currentPage}
@@ -107,7 +117,7 @@ const [page,setPage] = useState(1)
             pageSize={PageSize}
             onPageChange={(page) => {
               setCurrentPage(page);
-              setPage(page)
+              setPage(page);
               setKeyItem(Math.random());
             }}
           />
