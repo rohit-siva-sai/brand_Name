@@ -3,19 +3,19 @@ import React from "react";
 import { FcLikePlaceholder } from "react-icons/fc";
 
 const BrandComp = ({
-  companyUrl = "https://fictiv-clone.vercel.app/",
-  bannerImg,
-  logo,
-  compantName,
+  companyUrl,
+  bannerImage,
+  Logo,
+  companyName,
   description,
 }) => {
   return (
-    <div className="border relative shadow-md rounded-md ">
+    <div className="border relative shadow-md rounded-md hover:shadow-blue-300 ">
       <Link href={companyUrl} target="_blank">
         <div>
           <picture>
             <img
-              src="https://dupont.scene7.com/is/image/Dupont/gettyImages-1004817328-oil_gas_KH "
+              src={bannerImage}
               alt=""
               className="h-20 w-full rounded-t-md "
             />
@@ -25,17 +25,17 @@ const BrandComp = ({
             <div className="flex justify-between items-end">
               <picture>
                 <img
-                  src="https://img.freepik.com/free-psd/engraved-black-logo-mockup_125540-223.jpg"
+                  src={Logo}
                   alt=""
-                  className="w-12 h-12 border rounded-xl"
+                  className="w-12 h-12 border rounded-xl bg-white "
                 />
               </picture>
-              <FcLikePlaceholder className="text-lg  " />
+              <FcLikePlaceholder className="text-lg " />
             </div>
 
-            <p className="text-gray-700 font-bold">Company Name</p>
-            <p className="text-xs text-gray-400 font-semibold">
-              This is the description of the company
+            <p className="text-gray-700 font-bold">{companyName}</p>
+            <p className="text-xs text-gray-400 h-16 hover:h-full overflow-hidden hover:overflow-visible font-semibold">
+              {description}
             </p>
           </div>
         </div>

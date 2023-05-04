@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import Checkbox from "./checkbox";
+import Checkbox from "../checkbox";
 import CheckboxProton from "./checkboxProton";
 
 const FilterSidebar = ({
@@ -11,6 +11,7 @@ const FilterSidebar = ({
   typePlastic,
   category,
   changeChecked,
+  showFilter
 }) => {
   
   const [dropDown1, setDropDown1] = useState(true);
@@ -31,7 +32,10 @@ const FilterSidebar = ({
   const [type3, setType3] = useState(false);
   const [type, setType] = useState("type");
 
+  const [width,setWidth] = useState()
+
   const handleCategory = (value) => {
+
     setCategoryMain(value);
 
     // setMaterial(categoryMain=="metal" ? materialMetal : materialPlastic)
@@ -64,11 +68,15 @@ const FilterSidebar = ({
   };
   const [material, setMaterial] = useState(materialMetal);
   useEffect(() => {
+
+    setWidth(window.innerWidth)
+    // console.log(val);
+    
     let set = [];
-  }, [category]);
+  });
 
   return (
-    <div className="w-1/5  h-full pl-4 md:block hidden border-r sticky my-0 top-8 z-50 ">
+    <div className={`transition-all duration-500   ${!(width < 500) ? "w-1/5 h-full pl-4 md:block  border-r sticky my-0 top-8 z-50"  :  showFilter ? "fixed left-0 top-36 z-50 pt-4 bg-white border pr-6 ": "pt-4 fixed -left-72 border pr-6 top-36 bg-white" } }`}>
       <div>
         <div
           className={`flex flex-col ${

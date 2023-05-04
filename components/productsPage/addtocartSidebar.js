@@ -8,19 +8,23 @@ const AddtocartSidebar = ({
   clearCart,
   addToCart,
   key,
+  showCart
 }) => {
   const [brandCart, setBrandCart] = useState({});
   const [show, setShow] = useState(false);
+  const [width,setWidth] = useState()
   // console.log(cart, "rohit siva sai");
 
   useEffect(() => {
     // if (localStorage.getItem("cart")) {
     //   setBrandCart(JSON.parse(localStorage.getItem("cart")));
     // }
-  }, [key]);
+    setWidth(window.innerWidth)
+
+  },[width]);
 
   return (
-    <div className="w-1/6 md:block hidden  mr-4   h-[500px] shadow-md sticky top-6 right-0   border rounded-xl ">
+    <div className={`transition-all duration-500  ${!(width<500) ? "w-1/6 md:block hidden  mr-4   h-[500px] shadow-md sticky top-6 right-0   border rounded-xl":  showCart ? "fixed bg-white z-40 border-2 top-36 rounded-xl right-0": "fixed z-40 -right-72  bg-white"} `}>
       <div className="relative">
         <div>
           <div className="flex py-2 px-4 items-center border-b space-x-3">
@@ -73,7 +77,7 @@ const AddtocartSidebar = ({
               );
             })}
           </div>
-          <div className="border-t bg-white absolute top-[440px]  w-full py-2">
+          <div className="border-t bg-white absolute top-[440px] rounded-xl  w-full py-2">
             <div className="text-white rounded-lg cursor-pointer bg-blue-600 px-4 w-fit font-bold mx-auto py-2">
               Ask Quotation
             </div>

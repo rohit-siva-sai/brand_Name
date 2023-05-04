@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/Navbar.module.css";
+import styles from "../../styles/Navbar.module.css";
 import { FaTag, FaRegUserCircle } from "react-icons/fa";
 import { HiShoppingCart } from "react-icons/hi";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const Navbar = ({ filterSearch }) => {
+const Navbar = ({ filterSearch,handleShowCart }) => {
   const [searchValue, setSearchValue] = useState("");
+  const [showSideCart,setShowSidecart] = useState(false)
   const router = useRouter();
 
   const [searchShow, setSearchShow] = useState(true);
@@ -16,9 +17,8 @@ const Navbar = ({ filterSearch }) => {
     let exempted = ["/"];
     if (exempted.includes(router.pathname)) {
       setSearchShow(false);
-    }
-    else{
-      setSearchShow(true)
+    } else {
+      setSearchShow(true);
     }
   }, [router]);
   return (
@@ -27,15 +27,21 @@ const Navbar = ({ filterSearch }) => {
      z-40 bg-white "
     >
       <div className="flex items-center px-2  justify-between">
-        <div className="flex items-center space-x-4 ">
-          <picture>
-            <img src="/404Image.jpg" alt="" className="w-12 h-12" />
-          </picture>
-          <p className="font-bold text-lg text-blue-500">brand_name</p>
-        </div>
+        <Link href={"/"}>
+          <div className="flex items-center space-x-4 ">
+            <picture>
+              <img src="/404Image.jpg" alt="" className="w-12 h-12" />
+            </picture>
+            <p className="font-bold text-lg text-blue-500">brand_name</p>
+          </div>
+        </Link>
 
         <div className="flex space-x-16">
-          <button className={`  ${searchShow ? "md:flex hidden" : "hidden"} border rounded-md items-center`}>
+          <button
+            className={`  ${
+              searchShow ? "md:flex hidden" : "hidden"
+            } border rounded-md items-center`}
+          >
             <input
               type="search"
               placeholder="Search Product, Category, Brand ..."
@@ -57,7 +63,7 @@ const Navbar = ({ filterSearch }) => {
                 </p>
               </div>
             </Link>
-            <div className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
+            <div onClick={handleShowCart} className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
               <HiShoppingCart className="text-white text-2xl " />
               <p className="text-white font-semibold md:block hidden  ">Cart</p>
             </div>
@@ -68,7 +74,11 @@ const Navbar = ({ filterSearch }) => {
           </div>
         </div>
       </div>
-      <button className="flex w-full  my-2  md:hidden  border rounded-md items-center">
+      <button
+        className={` ${
+          searchShow ? "flex md:hidden" : "hidden"
+        } w-11/12 mx-auto  my-2  md:hidden  border rounded-md items-center`}
+      >
         <input
           type="search"
           placeholder="Search Product, Category, Brand ..."

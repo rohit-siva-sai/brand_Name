@@ -12,42 +12,42 @@ import { GrInstagram, GrLinkedinOption } from "react-icons/gr";
 
 const FooterHome = () => {
   return (
-    <div className="py-6">
+    <div className="py-6 ">
       <div>
-        <div className="flex justify-evenly px-24">
-          <div className="flex space-x-4 items-center ">
+        <div className="flex md:justify-evenly overflow-hidden justify-center space-x-4 md:space-x-0 md:px-24">
+          <div className="flex space-x-2 md:space-x-4 items-center ">
             <BsFillChatLeftTextFill className="text-2xl text-orange-500" />
             <p className="font-bold text-lg">Chat With Us</p>
           </div>
-          <div className="flex space-x-4 items-center ">
+          <div className="flex space-x-2 md:space-x-4 items-center ">
             <BsFillTelephoneFill className="text-2xl text-orange-500" />
             <p className="font-bold text-lg">Call Us</p>
           </div>
-          <div className="flex space-x-4 items-center ">
+          <div className="flex space-x-2 md:space-x-4 items-center ">
             <MdQuestionAnswer className="text-3xl text-orange-500" />
             <p className="font-bold text-lg">FAQ</p>
           </div>
         </div>
-        <div className="flex justify-evenly pt-16">
+        <div className="flex md:flex-row md:space-y-0 space-y-4 flex-col md:items-start items-center md:justify-evenly pt-16">
           <div className=" w-56" >
             <picture>
               <img src="/renorun.png" alt="" className=" " />
             </picture>
           </div>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col items-center md:items-start space-y-2">
             <p className="font-bold text-lg ">Customer Services</p>
             <p className="font-semibold text-gray-500">Contact</p>
             <p className="font-semibold text-gray-500">Locations</p>
             <p className="font-semibold text-gray-500">Pricing</p>
             <p className="font-semibold text-gray-500">FAQ</p>
           </div>
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col md:items-start items-center space-y-2">
             <p className="font-bold text-lg ">Company</p>
             <p className="font-semibold text-gray-500">About</p>
             <p className="font-semibold text-gray-500">Management</p>
             <p className="font-semibold text-gray-500">Carrers</p>
           </div>
-          <div className="flex-col space-y-6">
+          <div className="flex-col space-y-6 ">
             <div className="flex space-x-4">
               <Link href={""} className=" ">
                 <picture>

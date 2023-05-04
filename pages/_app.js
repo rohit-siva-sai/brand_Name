@@ -1,10 +1,10 @@
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/navFoot/navbar";
 import "@/styles/globals.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { getDocs, addDoc, doc, collection } from "firebase/firestore";
-import Footer from "@/components/footer";
+import Footer from "@/components/navFoot/footer";
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({});
@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }) {
   const [brandItems, setBrandItems] = useState([]);
   const [categoryProducts, setCategoryProducts] = useState([]);
   const router = useRouter();
+  const [showCart,setShowCart] = useState(false)
 
   const [category, setCategory] = useState([
     { id: -1, checked: false, label: "metal" },
@@ -45,7 +46,7 @@ export default function App({ Component, pageProps }) {
     { id: 102, checked: false, label: "plastic" },
   ]);
   const [materialBrand, setMaterialBrand] = useState([
-    { id: 111, checked: false, label: "mild_steal" },
+    { id: 111, checked: false, label: "mild_steel" },
     { id: 112, checked: false, label: "nylon" },
     { id: 113, checked: false, label: "abs" },
   ]);
@@ -56,11 +57,12 @@ export default function App({ Component, pageProps }) {
   const [applicationBrand, setApplicationBrand] = useState([
     { id: 131, checked: false, label: "automotive" },
     { id: 132, checked: false, label: "agriculture" },
-    { id: 133, checked: false, label: "areospace" },
+    { id: 133, checked: false, label: "aerospace" },
     { id: 134, checked: false, label: "apparel" },
   ]);
 
   const productCollection = collection(db, "materials");
+  const brandCollection = collection(db, "brands");
 
   const getProducts = async () => {
     try {
@@ -69,10 +71,18 @@ export default function App({ Component, pageProps }) {
         ...doc.data(),
         id: doc.id,
       }));
+
+      const brandData = await getDocs(brandCollection);
+      const filteredBrandData = brandData.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
       // console.log(filteredData,"rohit siva sai");
 
       setItems(filteredData);
       setProducts(filteredData);
+      setBrandItems(filteredBrandData);
+      setBrandList(filteredBrandData);
     } catch (err) {
       console.log(err);
     }
@@ -134,20 +144,46 @@ export default function App({ Component, pageProps }) {
   // filter Search
 
   const filterSearch = (value) => {
-    let tempProducts = items;
-    if (value.length > 2) {
-      tempProducts = tempProducts.filter((curElement) => {
-        return (
-          curElement.title.toLowerCase().search(value.toLowerCase().trim()) !==
-          -1
-          // curElement.title.toLowerCase().includes(value) ||
-          // curElement.category.toLowerCase().includes(value)
-        );
-      });
+    if (router.pathname.includes("/products")) {
+      let tempProducts = items;
+      if (value.length > 2) {
+        tempProducts = tempProducts.filter((curElement) => {
+          return (
+            curElement.title
+              .toLowerCase()
+              .search(value.toLowerCase().trim()) !== -1 || curElement.category
+              .toLowerCase()
+              .search(value.toLowerCase().trim()) !== -1
+            // curElement.title.toLowerCase().includes(value) ||
+            // curElement.category.toLowerCase().includes(value)
+          );
+        });
 
-      setProducts(tempProducts);
-    } else {
-      setProducts(items);
+        setProducts(tempProducts);
+      } else {
+        setProducts(items);
+      }
+    }
+    else if(router.pathname.includes("/brandStore"))
+    {
+      let tempBrands = brandItems;
+      if (value.length > 2) {
+        tempBrands = tempBrands.filter((curElement) => {
+          return (
+            curElement.companyName
+              .toLowerCase()
+              .search(value.toLowerCase().trim()) !== -1 ||  curElement.category
+              .toLowerCase()
+              .search(value.toLowerCase().trim()) !== -1
+            // curElement.title.toLowerCase().includes(value) ||
+            // curElement.category.toLowerCase().includes(value)
+          );
+        });
+
+        setBrandList(tempBrands);
+      } else {
+        setBrandList(brandItems);
+      }
     }
   };
 
@@ -194,6 +230,11 @@ export default function App({ Component, pageProps }) {
   //     setProducts(items);
   //   }
   // };
+
+  const handleShowCart = ()=>{
+    setShowCart(!showCart)
+    
+  }
 
   const handleChangeChecked = (id) => {
     if (id <= 0) {
@@ -316,7 +357,7 @@ export default function App({ Component, pageProps }) {
 
     if (materialBrandChecked.length) {
       updatedList = updatedList.filter((item) =>
-        materialBrandChecked.includes(item.material)
+        materialBrandChecked.includes(item.material.toLowerCase())
       );
     }
 
@@ -326,7 +367,7 @@ export default function App({ Component, pageProps }) {
 
     if (certificateBrandChecked.length) {
       updatedList = updatedList.filter((item) =>
-        certificateBrandChecked.includes(item.certification)
+        certificateBrandChecked.includes(item.certifications.toLowerCase())
       );
     }
     const applicationBrandChecked = applicationBrand
@@ -335,7 +376,7 @@ export default function App({ Component, pageProps }) {
 
     if (applicationBrandChecked.length) {
       updatedList = updatedList.filter((item) =>
-        applicationBrandChecked.includes(item.application)
+        applicationBrandChecked.includes(item.application.toLowerCase())
       );
     }
 
@@ -359,7 +400,7 @@ export default function App({ Component, pageProps }) {
 
   return (
     <>
-      <Navbar filterSearch={filterSearch} />
+      <Navbar filterSearch={filterSearch} handleShowCart={handleShowCart} />
       <Component
         {...pageProps}
         products={products}
@@ -381,6 +422,7 @@ export default function App({ Component, pageProps }) {
         applicationBrand={applicationBrand}
         handleBrandStoreChecked={handleBrandStoreChecked}
         brandList={brandList}
+        showCart={showCart}
       />
       <Footer />
     </>

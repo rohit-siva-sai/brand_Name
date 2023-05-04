@@ -18,13 +18,15 @@ export default function Home() {
   //  router.push("/products")
   // })
   return (
-    <div className="" >
+    <div className="overflow-hidden md:overflow-auto" >
       {/* <Link href="/products">products</Link>
         <MobileApp/> */}
         <Suppliers/>
         <BestQuotes/>
         <Buying/>
         <MobileApp/>
+        {/* <input type="email" name="" id="" />
+        <a href={`mailto: ${mail}?subject=${sub}&body=${bod}`}>send mail</a> */}
     </div>
   );
 }

@@ -36,7 +36,7 @@ const Display = ({
   }, [key,cart]);
 
   return (
-    <div className="border relative shadow-md rounded-2xl z-40 bg-white ">
+    <div className="border relative shadow-md rounded-2xl z-20 md:z-40 bg-white ">
       <div className="flex flex-col items-center p-4 space-y-3 ">
         <picture className=" cursor-pointer transition-all   duration-500 hover:translate-y-2 ease-in-out hover:scale-y-125 scroll-smooth ">
           <img

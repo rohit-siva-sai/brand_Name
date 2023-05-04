@@ -3,11 +3,11 @@ import { db } from "../config/firebase";
 import { getDocs, addDoc, doc, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Display from "@/components/display";
-import FilterSidebar from "@/components/filterSidebar";
-import AddtocartSidebar from "@/components/addtocartSidebar";
+import Display from "@/components/productsPage/display";
+import FilterSidebar from "@/components/productsPage/filterSidebar";
+import AddtocartSidebar from "@/components/productsPage/addtocartSidebar";
 import { BiSliderAlt } from "react-icons/bi";
-import Pagination from "@/components/pagination";
+import Pagination from "@/components/pagination/pagination";
 import { useMemo } from "react";
 
 let PageSize = 10;
@@ -26,12 +26,15 @@ const Products = ({
   typePlastic,
   category,
   changeChecked,
+  showCart
 }) => {
   const [keyItem, setKeyItem] = useState(0);
   const [showFilter, setShowFilter] = useState(false);
   const [sliceData, setSliceData] = useState([]);
 
   // console.log(keyItem);
+  console.log('shoecart',showCart);
+  
 
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(page);
@@ -93,7 +96,7 @@ const Products = ({
             <p className="text-base font-bold ">Filters</p>
           </div>
         </div>
-        <div className="grid  h-fit py-6  grid-cols-2   md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-6    ">
+        <div className="grid  h-fit py-6  grid-cols-2    md:grid-cols-5 gap-x-2 md:gap-x-8 gap-y-6    ">
           {sliceData.map((item) => {
             return (
               <Display
@@ -129,6 +132,7 @@ const Products = ({
         clearCart={clearCart}
         addToCart={addToCart}
         key={key}
+        showCart={showCart}
       />
     </div>
   );

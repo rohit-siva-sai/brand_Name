@@ -47,9 +47,9 @@ const array = [
 const Suppliers = () => {
   return (
     <div className="" >
-      <div className="px-36 flex flex-col py-8  ">
+      <div className="md:px-36 px-4 flex flex-col md:py-8 py-2 ">
         <div className="py-8" >
-          <p className="text-lg font-bold text-purple-500">
+          <p className="md:text-lg text-base font-bold text-purple-500">
             The easiest way to source metals and polymers
           </p>
           <p className="text-black text-xl font-bold">
@@ -60,7 +60,7 @@ const Suppliers = () => {
             Raw Materials at Lowest Prices - Guaranteed
           </p>
         </div>
-        <div className="grid grid-cols-4  gap-x-4   gap-y-3">
+        <div className="grid md:grid-cols-4 grid-cols-2  md:gap-x-4 gap-x-2 gap-y-2  md:gap-y-3">
           {array.map((item) => {
             return <Product bgImage={item.bgImage} title={item.title} />;
           })}
