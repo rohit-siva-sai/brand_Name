@@ -14,7 +14,7 @@ const FilterSidebarBrand = ({
   const [dropDown3, setDropDown3] = useState(true);
   const [dropDown4, setDropDown4] = useState(true);
   return (
-    <div className="w-1/5  h-full pl-4 md:block hidden border-r sticky my-0 top-8 z-50 ">
+    <div className="w-1/6  h-fit pl-4 md:block hidden border-r fixed my-0 top-20 z-50 ">
       <div>
         <div
           className={`flex flex-col ${

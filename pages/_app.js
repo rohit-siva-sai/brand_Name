@@ -233,8 +233,8 @@ export default function App({ Component, pageProps }) {
 
   const handleShowCart = ()=>{
     setShowCart(!showCart)
-    
   }
+ 
 
   const handleChangeChecked = (id) => {
     if (id <= 0) {
