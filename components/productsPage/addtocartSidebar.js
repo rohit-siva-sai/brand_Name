@@ -8,7 +8,9 @@ const AddtocartSidebar = ({
   clearCart,
   addToCart,
   key,
-  showCart
+  showCart,
+  user,
+  changeShowLogin
 }) => {
   const [brandCart, setBrandCart] = useState({});
   const [show, setShow] = useState(false);
@@ -78,7 +80,7 @@ const AddtocartSidebar = ({
             })}
           </div>
           <div className="border-t bg-white absolute top-[440px] rounded-xl  w-full py-2">
-            <div className="text-white rounded-lg cursor-pointer bg-blue-600 px-4 w-fit font-bold mx-auto py-2">
+            <div onClick={()=>{!user && changeShowLogin(true)}} className="text-white rounded-lg cursor-pointer bg-blue-600 px-4 w-fit font-bold mx-auto py-2">
               Ask Quotation
             </div>
           </div>

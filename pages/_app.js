@@ -3,8 +3,17 @@ import "@/styles/globals.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { getDocs, addDoc, doc, collection } from "firebase/firestore";
+import {
+  getDocs,
+  addDoc,
+  doc,
+  collection,
+  setDoc,
+  getDoc,
+  updateDoc,
+} from "firebase/firestore";
 import Footer from "@/components/navFoot/footer";
+import { getAuth, signOut } from "firebase/auth";
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({});
@@ -15,7 +24,11 @@ export default function App({ Component, pageProps }) {
   const [brandItems, setBrandItems] = useState([]);
   const [categoryProducts, setCategoryProducts] = useState([]);
   const router = useRouter();
-  const [showCart,setShowCart] = useState(false)
+  const [user, setUser] = useState(null);
+  const [userId, setUserId] = useState("");
+  const [currentUser, setCurrentUser] = useState({username: "rohit siva sai",email: "example@gmail.com",phone_number: "8276545555",cart: []})
+  const [showCart, setShowCart] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const [category, setCategory] = useState([
     { id: -1, checked: false, label: "metal" },
@@ -63,6 +76,7 @@ export default function App({ Component, pageProps }) {
 
   const productCollection = collection(db, "materials");
   const brandCollection = collection(db, "brands");
+  const userCollection = collection(db, "users");
 
   const getProducts = async () => {
     try {
@@ -83,13 +97,147 @@ export default function App({ Component, pageProps }) {
       setProducts(filteredData);
       setBrandItems(filteredBrandData);
       setBrandList(filteredBrandData);
+      // submitNewUser();
     } catch (err) {
       console.log(err);
     }
   };
 
+  const getCurrentUser = (cuser)=>{
+    console.log(cuser,"currentuser");
+    
+    setCurrentUser(cuser)
+  }
+
+  const getUser = async (id) => {
+    //read the data
+    //set the movie list
+
+    // getAuth()
+    //   .getUser("GCiTcEWLwbOBNj2n5JEmivzN8A62")
+    //   .then((userRecord) => {
+    //     // See the UserRecord reference doc for the contents of userRecord.
+    //     console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Error fetching user data:", error);
+    //   });
+    try {
+      // const snapshot = await getDoc(doc(db, "users", id));
+      // if (snapshot.exists()) {
+      //   const userData = snapshot.data()
+      //   setCurrentUser(userData);
+      //   console.log(snapshot.data(),"rohit siva sai");
+
+      //   console.log(currentUser, "rohit siba saiasazassasas");
+      // } else {
+      //   console.log("User doc missing");
+      // }
+
+      const data = await getDocs(userCollection);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      const userData = filteredData.filter((item) => item.id === id);
+      console.log("usedatadf", userData[0]);
+      const sliceData = userData[0]
+      console.log(sliceData,"slicedata");
+      
+
+      setCurrentUser(sliceData);
+      console.log("rohit siva sai", currentUser);
+      if(sliceData && sliceData.id === id)
+       return true
+      else
+       return false
+    
+
+      // console.log(filteredData, "users");
+      // const ref = doc(db, "users", "GCiTcEWLwbOBNj2n5JEmivzN8A62").withConverter(cityConverter);
+      // const docSnap = await getDoc(ref)
+      // if (docSnap.exists()) {
+      //   // Convert to City object
+      //   const city = docSnap.data();
+      //   // Use a City instance method
+      //   console.log(city.toString());
+      // }
+      // //  const filteredData = data.docs.map((doc) => ({
+      // //   ...doc.data(),
+      // //   id: doc.id,
+      // // }));
+      // console.log(data);
+
+      // setMovielist(filteredData);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const logOut = async () => {
+    signOut(getAuth())
+      .then(() => {
+        console.log("Sign-out successful.");
+        localStorage.removeItem("userDetails");
+        handleUser(null);
+        setCurrentUser(null)
+        router.push("/");
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log(error);
+      })
+  };
+
+  const getPhoneNumber = (number) => {
+    setPhoneNumber(number);
+    console.log("phone", phoneNumber);
+  };
+
+  const submitNewUser = async (id) => {
+    const value = getUser(id)
+    try {
+      if (!value) {
+        await setDoc(doc(db, "users", id), {
+          username: "user",
+          email: "example@gmail.com",
+          phone_number: phoneNumber,
+          // id: auth?.currentUser?.uid,
+          // id: "GCiTcEWLwbOBNj2n5JEmivzN8A62",
+        });
+      } else {
+        // getUser(currentUser.id);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const updateCurrentUser = async (id, updateName, updateEmail) => {
+    const userDoc = doc(db, "users", id)
+
+    await updateDoc(userDoc, { username: updateName, email: updateEmail });
+    console.log("updated successfully")
+   
+  };
+
   useEffect(() => {
     getProducts();
+
+    try {
+      if (localStorage.getItem("userDetails")) {
+        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        // const id = userDetails.uid;
+        // setUserId(userDetails.uid);
+        // getUser(id)
+        setUser(userDetails)
+
+        console.log(userDetails.uid);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
     try {
       if (localStorage.getItem("cart")) {
         setCart(JSON.parse(localStorage.getItem("cart")));
@@ -101,6 +249,13 @@ export default function App({ Component, pageProps }) {
       localStorage.clear();
     }
   }, [router]);
+
+  //user details
+
+  const handleUser = (userDetails) => {
+    setUser(userDetails)
+    console.log("userinapp", user);
+  };
 
   //save Cart
   const saveCart = (newCart) => {
@@ -151,7 +306,8 @@ export default function App({ Component, pageProps }) {
           return (
             curElement.title
               .toLowerCase()
-              .search(value.toLowerCase().trim()) !== -1 || curElement.category
+              .search(value.toLowerCase().trim()) !== -1 ||
+            curElement.category
               .toLowerCase()
               .search(value.toLowerCase().trim()) !== -1
             // curElement.title.toLowerCase().includes(value) ||
@@ -163,16 +319,15 @@ export default function App({ Component, pageProps }) {
       } else {
         setProducts(items);
       }
-    }
-    else if(router.pathname.includes("/brandStore"))
-    {
+    } else if (router.pathname.includes("/brandStore")) {
       let tempBrands = brandItems;
       if (value.length > 2) {
         tempBrands = tempBrands.filter((curElement) => {
           return (
             curElement.companyName
               .toLowerCase()
-              .search(value.toLowerCase().trim()) !== -1 ||  curElement.category
+              .search(value.toLowerCase().trim()) !== -1 ||
+            curElement.category
               .toLowerCase()
               .search(value.toLowerCase().trim()) !== -1
             // curElement.title.toLowerCase().includes(value) ||
@@ -231,10 +386,9 @@ export default function App({ Component, pageProps }) {
   //   }
   // };
 
-  const handleShowCart = ()=>{
-    setShowCart(!showCart)
-  }
- 
+  const handleShowCart = () => {
+    setShowCart(!showCart);
+  };
 
   const handleChangeChecked = (id) => {
     if (id <= 0) {
@@ -278,7 +432,7 @@ export default function App({ Component, pageProps }) {
       .filter((item) => item.checked)
       .map((item) => item.label.toLowerCase());
 
-    console.log(categoryChecked, "rohit");
+    // console.log(categoryChecked, "rohit");
 
     if (categoryChecked.length) {
       updatedList = updatedList.filter((item) =>
@@ -397,10 +551,27 @@ export default function App({ Component, pageProps }) {
     certificateBrand,
     applicationBrand,
   ]);
+  const [showLogin, setShowLogin] = useState(false);
+  // console.log('user',user);
+
+
+  const changeShowLogin = (value) => {
+    setShowLogin(value);
+  }
 
   return (
     <>
-      <Navbar filterSearch={filterSearch} handleShowCart={handleShowCart} />
+      <Navbar
+        filterSearch={filterSearch}
+        handleShowCart={handleShowCart}
+        currentUser={currentUser}
+        handleUser={handleUser}
+        submitNewUser={submitNewUser}
+        user={user}
+        getPhoneNumber={getPhoneNumber}
+        changeShowLogin={changeShowLogin}
+        showLogin={showLogin}
+      />
       <Component
         {...pageProps}
         products={products}
@@ -423,6 +594,15 @@ export default function App({ Component, pageProps }) {
         handleBrandStoreChecked={handleBrandStoreChecked}
         brandList={brandList}
         showCart={showCart}
+        currentUser={currentUser}
+        logOut={logOut}
+        user={user}
+        handleUser={handleUser}
+        phoneNumber={phoneNumber}
+        getCurrentUser={getCurrentUser}
+        updateCurrentUser={updateCurrentUser}
+        showLogin={showLogin}
+        changeShowLogin={changeShowLogin}
       />
       <Footer />
     </>

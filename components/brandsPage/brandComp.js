@@ -18,7 +18,8 @@ const BrandComp = ({
   // console.log(companyEmail);
 
   const handleSet = () => {
-    handleEnquiry(companyName, companyEmail);
+    setShowEnquiry(!showEnquiry)
+    handleEnquiry(companyName,showEnquiry, companyEmail);
   };
 
   return (

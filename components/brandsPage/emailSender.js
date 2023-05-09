@@ -14,10 +14,12 @@ const initstate = {
   values: initValues,
 };
 
-const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
+const EmailSender = ({ companyName, showEnquiry, companyEmail, brandUser }) => {
   const [state, setState] = useState(initstate);
   const [mainEmail, setMainEmail] = useState(companyEmail);
   const [showContact, setShowContact] = useState(false);
+  // console.log("branduser", brandUser);
+
   // const [companyName, setCompanyName] = useState("");
   // const [showEnquiry, setShowEnquiry] = useState();
   // const [companyEmail, setCompanyEmail] = useState("");
@@ -41,6 +43,11 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
     }));
   useEffect(() => {
     setShowContact(showEnquiry);
+    const { values } = initstate;
+    values.name = brandUser?.username;
+    values.email = brandUser?.email;
+    values.phone = brandUser?.phone_number;
+    // console.log("gsvahgdvshgd", values);
   }, [showEnquiry]);
 
   const onSubmit = async () => {
@@ -83,7 +90,7 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
     }
   };
 
-  console.log("enquiry",showEnquiry,"contact",showContact,"rohit");
+  // console.log("enquiry",showEnquiry,"contact",showContact,"rohit");
 
   // console.log(state,"rohit siva sai");
 
@@ -102,13 +109,12 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
         theme="dark"
       />
       <div
-        className={`fixed top-0 z-50 w-1/4 transition-all duration-300 h-full right-0   border bg-white ${
+        className={`fixed top-0 z-50 w-1/4 transition-all duration-300 h-full    border bg-white ${
           showContact ? " right-0 " : "-right-96"
         } `}
       >
         <div className="py-2 tracking-wide flex justify-between space-x-6 bg-blue-500 text-white font-bold items-center  px-6 text-lg ">
-         
-          <p className="truncate" > Contact Supplier {companyName}</p>
+          <p className="truncate"> Contact Supplier {companyName}</p>
           <div
             onClick={() => {
               setShowContact(false);
@@ -137,7 +143,7 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
         <div className="px-4 py-4 bg-gray-100 flex flex-col space-y-3">
           {/* <form action=""> */}
           <div className="flex flex-col space-y-1 ">
-            <label htmlFor="" className="text-sm text-gray-600 font-semibold" >
+            <label htmlFor="" className="text-sm text-gray-600 font-semibold">
               Email <span className="text-red-600">*</span>
             </label>
             <input
@@ -150,7 +156,7 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
             />
           </div>
           <div className="flex flex-col space-y-1">
-            <label htmlFor="" className="text-sm text-gray-600 font-semibold" >
+            <label htmlFor="" className="text-sm text-gray-600 font-semibold">
               Name <span className="text-red-600">*</span>
             </label>
 
@@ -164,7 +170,7 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
             />
           </div>
           <div className="flex flex-col space-y-1">
-            <label htmlFor="" className="text-sm text-gray-600 font-semibold" >
+            <label htmlFor="" className="text-sm text-gray-600 font-semibold">
               Reason for Enquiry <span className="text-red-600">*</span>
             </label>
             {/* <input
@@ -194,11 +200,11 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
             </select>
           </div>
           <div className="flex flex-col space-y-1">
-            <label htmlFor="" className="text-sm text-gray-600 font-semibold" >
+            <label htmlFor="" className="text-sm text-gray-600 font-semibold">
               Phone <span className="text-red-600">*</span>
             </label>
             <input
-              type="number"
+              type="text"
               name="phone"
               id=""
               value={values.phone}
@@ -207,7 +213,9 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
             />
           </div>
           <div className="flex flex-col space-y-1 ">
-            <label htmlFor="" className="text-sm text-gray-600 font-semibold" >Message</label>
+            <label htmlFor="" className="text-sm text-gray-600 font-semibold">
+              Message
+            </label>
             <textarea
               name="message"
               id=""
@@ -228,9 +236,11 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail }) => {
             isLoading={isLoading}
             onClick={onSubmit}
           >
-            {isLoading && <div className="animate-spin" >
-              <BiLoaderCircle className="text-3xl text-blue-500" />
-            </div>}
+            {isLoading && (
+              <div className="animate-spin">
+                <BiLoaderCircle className="text-3xl text-blue-500" />
+              </div>
+            )}
             <p>Submit</p>
           </button>
           <p className="text-[10px] px-2 mr-16">

@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import styles from "../styles/Brand.module.css";
 import EmailSender from "@/components/brandsPage/emailSender";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/config/firebase";
 
 let PageSize = 5;
 
@@ -16,15 +18,47 @@ const BrandStore = ({
   applicationBrand,
   handleBrandStoreChecked,
   brandList,
+  currentUser,
 }) => {
   const [keyItem, setKeyItem] = useState(0);
   const [companyName, setCompanyName] = useState("");
   const [showEnquiry, setShowEnquiry] = useState();
   const [companyEmail, setCompanyEmail] = useState("");
 
-  const handleEnquiry = (companyName, companyEmail) => {
+  const [brandUser, setBrandUser] = useState({
+    username: "",
+    email: "",
+    phone_number: "",
+    cart: [],
+  });
+
+  const userCollection = collection(db, "users");
+
+  const getUser = async (id) => {
+    try {
+      const data = await getDocs(userCollection);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      const userData = filteredData.filter((item) => item.id === id);
+      // console.log("usedatadfinprofile", userData[0]);
+      const sliceData = userData[0];
+      // console.log(sliceData, "slicedatabrandstore");
+
+      setBrandUser(sliceData);
+      // console.log("brandstore", brandUser);
+      // getCurrentUser(profileUser)
+      if (sliceData && sliceData.id === id) return true;
+      else return false;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleEnquiry = (companyName, showEnquiry, companyEmail) => {
     setCompanyName(companyName);
-    setShowEnquiry(!showEnquiry);
+    setShowEnquiry(showEnquiry);
     setCompanyEmail(companyEmail);
   };
 
@@ -41,13 +75,27 @@ const BrandStore = ({
     setSliceData(currentData);
   };
 
+  useEffect( () => {
+    try {
+      if (localStorage.getItem("userDetails")) {
+        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        const id = userDetails.uid;
+      
+       getUser(id);
+        // console.log(userDetails.uid,"rohti siva sai");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [router]);
+
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
     sliceFun(firstPageIndex, lastPageIndex);
   }, [keyItem]);
 
-  console.log("rohit sivas as");
+  // console.log("rohit sivas as");
 
   return (
     <div className={`flex ${styles.over} overflow-x-hidden pb-28 `}>
@@ -91,6 +139,7 @@ const BrandStore = ({
           companyName={companyName}
           showEnquiry={showEnquiry}
           companyEmail={companyEmail}
+          brandUser={brandUser}
         />
       </div>
     </div>

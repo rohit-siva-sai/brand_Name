@@ -76,7 +76,7 @@ const FilterSidebar = ({
   });
 
   return (
-    <div className={`transition-all duration-500   ${!(width < 500) ? "w-1/5 h-full pl-4 md:block  border-r sticky my-0 top-8 z-50"  :  showFilter ? "fixed left-0 top-36 z-50 pt-4 bg-white border pr-6 ": "pt-4 fixed -left-72 border pr-6 top-36 bg-white" } }`}>
+    <div className={`transition-all duration-500   ${!(width < 500) ? "w-1/5 h-full pl-4 md:block  border-r sticky my-0 top-8 z-40"  :  showFilter ? "fixed left-0 top-36 z-40 pt-4 bg-white border pr-6 ": "pt-4 fixed -left-72 border pr-6 top-36 bg-white" } }`}>
       <div>
         <div
           className={`flex flex-col ${

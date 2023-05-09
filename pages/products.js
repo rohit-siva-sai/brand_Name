@@ -26,20 +26,22 @@ const Products = ({
   typePlastic,
   category,
   changeChecked,
-  showCart
+  showCart,
+  user,
+  changeShowLogin
 }) => {
   const [keyItem, setKeyItem] = useState(0);
   const [showFilter, setShowFilter] = useState(false);
   const [sliceData, setSliceData] = useState([]);
 
   // console.log(keyItem);
-  console.log('shoecart',showCart);
+  // console.log('shoecart',showCart);
   
 
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(page);
 
-  console.log(page, currentPage, "rohit siva sai");
+  // console.log(page, currentPage, "rohit siva sai");
 
   const sliceFun = (firstPageIndex, lastPageIndex) => {
     const currentData = products.slice(firstPageIndex, lastPageIndex);
@@ -133,6 +135,8 @@ const Products = ({
         addToCart={addToCart}
         key={key}
         showCart={showCart}
+        user={user}
+        changeShowLogin={changeShowLogin}
       />
     </div>
   );
