@@ -69,13 +69,15 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail, brandUser }) => {
         theme: "dark",
       });
     } catch (error) {
+      console.log(error);
+      
       setState((prev) => ({
         ...prev,
         mainEmail: companyEmail,
         isLoading: true,
         error: error.message,
       }));
-      if (state.error) {
+      if (!state.error) {
         toast.error(`Failed to sent Email`, {
           position: "top-right",
           autoClose: 1500,
