@@ -13,7 +13,8 @@ import { SendMailClient } from "zeptomail";
 // var { SendMailClient } = require("zeptomail");
 
 const url = "api.zeptomail.in/";
-const token ="Zoho-enczapikey PHtE6r1YSru6iDUno0ABs6C6RM73Ntkpq+1hfwBO495DCP4DH00B/o8tkWK2rRwoUqETRqXPyIhs5+6ctr+BITm+MT5ECGqyqK3sx/VYSPOZsbq6x00ZuFsfc0PZVofqc9Bv1yPRvdvdNA==";
+const token = 
+"Zoho-enczapikey PHtE6r1YSru6iDUno0ABs6C6RM73Ntkpq+1hfwBO495DCP4DH00B/o8tkWK2rRwoUqETRqXPyIhs5+6ctr+BITm+MT5ECGqyqK3sx/VYSPOZsbq6x00ZuFsfc0PZVofqc9Bv1yPRvdvdNA==";
 
 let client = new SendMailClient({ url, token });
 
