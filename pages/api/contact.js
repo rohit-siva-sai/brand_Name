@@ -13,8 +13,8 @@ import { SendMailClient } from "zeptomail";
 // var { SendMailClient } = require("zeptomail");
 
 const url = "api.zeptomail.in/";
-const token = 
-"Zoho-enczapikey PHtE6r1YSru6iDUno0ABs6C6RM73Ntkpq+1hfwBO495DCP4DH00B/o8tkWK2rRwoUqETRqXPyIhs5+6ctr+BITm+MT5ECGqyqK3sx/VYSPOZsbq6x00ZuFsfc0PZVofqc9Bv1yPRvdvdNA==";
+const token =
+  "Zoho-enczapikey PHtE6r1YSru6iDUno0ABs6C6RM73Ntkpq+1hfwBO495DCP4DH00B/o8tkWK2rRwoUqETRqXPyIhs5+6ctr+BITm+MT5ECGqyqK3sx/VYSPOZsbq6x00ZuFsfc0PZVofqc9Bv1yPRvdvdNA==";
 
 let client = new SendMailClient({ url, token });
 
@@ -43,10 +43,11 @@ const generateEmailContent = (data) => {
 };
 
 const handler = async (req, res) => {
-  console.log(req.body,"rohit siva sai");
+  console.log(req.body, "rohit siva sai");
+  let error = "";
   if (req.method === "POST") {
     const mainEmail = req.body.mainEmail;
-    const data = req.body.values
+    const data = req.body.values;
     if (!data.name || !data.subject || !data.email || !data.message) {
       return res.status(400).json({ message: "bad request" });
     }
@@ -72,14 +73,29 @@ const handler = async (req, res) => {
               },
             },
           ],
-          "subject": "Test Email",
+          subject: "Test Email",
           // "htmlbody": "<div><b> Test email sent successfully.</b></div>",
-          ...generateEmailContent(data)
-      
-        }).then((resp) => console.log("success"))
-        .catch((error) => console.log("error problemm in client"));
-
-      return res.status(200).json({ success: true });
+          ...generateEmailContent(data),
+        })
+        .then((resp) => {
+          // error = resp
+          // return res.status(200).json({ success: true });
+          console.log("success");
+        })
+        .catch((error) => {
+          // if (error) {
+            // return res.status(400).json({ message: error.message });
+          // }
+          
+          console.log("error problemm in client");
+        });
+      // if (!error) {
+      //   console.log('resp',error);
+        
+      //   return res.status(400).json({ message: error.message });
+      // } else {
+        return res.status(200).json({ success: true });
+      // }
     } catch (error) {
       console.log(error);
       return res.status(400).json({ message: error.message });

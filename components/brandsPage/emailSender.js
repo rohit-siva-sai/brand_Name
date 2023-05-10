@@ -69,26 +69,25 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail, brandUser }) => {
         theme: "dark",
       });
     } catch (error) {
-      console.log(error);
-      
+      console.log(error, "rohit");
+
       setState((prev) => ({
         ...prev,
         mainEmail: companyEmail,
-        isLoading: true,
+        isLoading: false,
         error: error.message,
       }));
-      if (!state.error) {
-        toast.error(`Failed to sent Email`, {
-          position: "top-right",
-          autoClose: 1500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
+
+      toast.error(`Failed to sent Email`, {
+        position: "top-right",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
