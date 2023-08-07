@@ -100,7 +100,7 @@ const Login = ({
         window.confirmationResult = confirmationResult;
         setLoading(false);
         setShowOtp(true);
-        getPhoneNumber(phoneNumber)
+        getPhoneNumber(phoneNumber);
         toast.success("otp sent successfully");
 
         // ...
@@ -120,9 +120,9 @@ const Login = ({
       .confirm(otp)
       .then(async (res) => {
         console.log("sdcd", res);
-        handleUser(res.user)
-        console.log("uxeuyvwedwveug",user);
-        
+        handleUser(res.user);
+        console.log("uxeuyvwedwveug", user);
+
         localStorage.setItem("userDetails", JSON.stringify(res.user));
         // const id = res.user.uid;
         changeShowLogin(false);
@@ -148,7 +148,9 @@ const Login = ({
           </div>
           <div>
             <div
-              onClick={()=>{changeShowLogin(false)}}
+              onClick={() => {
+                changeShowLogin(false);
+              }}
               className="p-2 w-fit ml-auto mb-2 mr-4 cursor-pointer rounded hover:bg-blue-100"
             >
               <RxCross2 className="text-xl text-blue-500 font-bold" />
@@ -175,7 +177,13 @@ const Login = ({
                     renderInput={(props) => <input {...props} />}
                     // renderSeparator={<span>-</span>}
                     // containerStyle={{padding: "10px"}}
-                    inputStyle={{ fontSize: "25px", border: "2px solid black" }}
+                    inputStyle={{
+                      fontSize: "30px",
+                      border: "1px solid gray ",
+                      marginInline: "5px",
+                      width: "40px",
+                      height: "40px",
+                    }}
                     // className="p-4 border"
                     // otpType="number"
                     // disabled={false}

@@ -86,15 +86,17 @@ const Navbar = ({
                 </div>
               </Link>
              
+              <Link href={"/products"}>
               <div
                 onClick={handleShowCart}
                 className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2"
               >
                 <HiShoppingCart className="text-white text-2xl " />
                 <p className="text-white font-semibold md:block hidden  ">
-                  Cart
+                  Products
                 </p>
               </div>
+              </Link>
               <div
                 onClick={() => {
                   !user && changeShowLogin(true);

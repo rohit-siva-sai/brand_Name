@@ -77,25 +77,14 @@ const handler = async (req, res) => {
           // "htmlbody": "<div><b> Test email sent successfully.</b></div>",
           ...generateEmailContent(data),
         })
-        .then((resp) => {
-          // error = resp
-          // return res.status(200).json({ success: true });
-          console.log("success");
-        })
-        .catch((error) => {
-          // if (error) {
-            // return res.status(400).json({ message: error.message });
-          // }
-          
-          console.log("error problemm in client");
-        });
-      // if (!error) {
-      //   console.log('resp',error);
-        
-      //   return res.status(400).json({ message: error.message });
-      // } else {
-        return res.status(200).json({ success: true });
-      // }
+        // .then((resp) => {
+        //   console.log("success");
+        // })
+        // .catch((error) => {
+        //   console.log("error problemm in client");
+        // });
+
+      return res.status(200).json({ success: true });
     } catch (error) {
       console.log(error);
       return res.status(400).json({ message: error.message });

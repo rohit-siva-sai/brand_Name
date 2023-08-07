@@ -11,22 +11,31 @@ const Footer = () => {
   const router = useRouter();
 
   const [extrafoot, setExtrafoot] = useState(false);
+  const [mainFoot, setMainFoot] = useState(false);
 
   useEffect(() => {
-    let exempted = ["/"];
-    if (exempted.includes(router.pathname)) {
+    let exemptedmainFoot = ["/rfq"];
+    let exemptedextraFoot = ["/"];
+    if (exemptedextraFoot.includes(router.pathname)) {
       setExtrafoot(true);
     } else {
       setExtrafoot(false);
+    }
+    if (exemptedmainFoot.includes(router.pathname)) {
+      setMainFoot(true);
+    } else {
+      setMainFoot(false);
     }
   }, [router]);
   return (
     <div
       className={` ${
-        extrafoot ? "relative pt-8 md:pt-16" : "md:fixed md:block hidden pt-0 bottom-0 left-0"
+        extrafoot
+          ? "relative pt-8 md:pt-16"
+          : "md:fixed md:block hidden pt-0  border  bottom-0 left-0"
       }   w-full z-40 bg-white`}
     >
-      <div className="flex md:flex-row flex-col md:ml-20 justify-center md:divide-x md:space-x-4 space-y-4 md:space-y-0 px-4 py-4   items-center">
+    {!mainFoot &&   <div className="flex md:flex-row flex-col md:ml-20 justify-center md:divide-x md:space-x-4 space-y-4 md:space-y-0 px-4 py-4   items-center">
         <div className="flex pl-3 md:flex-col flex-row space-x-4 md:space-x-0 items-center md:items-start md:w-1/2 w-3/4 space-y-1 ">
           {/* <GiOpenFolder className="text-xl " /> */}
           <picture>
@@ -120,7 +129,7 @@ const Footer = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div>}
       {extrafoot && <FooterHome />}
     </div>
   );

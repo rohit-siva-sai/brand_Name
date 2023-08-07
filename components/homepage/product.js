@@ -7,9 +7,9 @@ const Product = ({bgImage,title}) => {
         style={{
           backgroundImage: `url(${bgImage})`,
         }}
-        className="group relative bg-gray-100 rounded-lg md:bg-contain border bg-none md:h-44 h-36  flex items-center justify-center  w-fusll bg-center bg-no-repeat "
+        className="group relative rounded-lg md:bg-contain border bg-none md:h-44 h-36  flex items-center justify-center  w-fusll bg-center bg-no-repeat "
       >
-      <p className="text-lg text-black font-bold" >{title}</p>
+      <p className="text-lg bg-gray-800/40 w-full h-full flex justify-center items-center text-white font-bold" >{title}</p>
       </div>
     </div>
   );

@@ -62,8 +62,7 @@ const Profile = ({
           username: "user",
           email: "example@gmail.com",
           phone_number: phoneNumber,
-          // id: auth?.currentUser?.uid,
-          // id: "GCiTcEWLwbOBNj2n5JEmivzN8A62",
+        
         });
         await getUser(id);
       } else {
@@ -104,7 +103,7 @@ const Profile = ({
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         const id = userDetails.uid;
-        // setUserId(userDetails.uid);
+       
         submitNewUser(id);
         getCurrentUser(profileUser)
 

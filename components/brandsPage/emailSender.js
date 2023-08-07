@@ -56,7 +56,9 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail, brandUser }) => {
       isLoading: true,
     }));
     try {
-      await sendContactForm(state);
+      const arr = await sendContactForm(state);
+      console.log('assassa',arr);
+      
       setState(initstate);
       toast.success(`Email Has been sent successfully`, {
         position: "top-right",
@@ -90,11 +92,6 @@ const EmailSender = ({ companyName, showEnquiry, companyEmail, brandUser }) => {
       });
     }
   };
-
-  // console.log("enquiry",showEnquiry,"contact",showContact,"rohit");
-
-  // console.log(state,"rohit siva sai");
-
   return (
     <div>
       <ToastContainer
