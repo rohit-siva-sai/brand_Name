@@ -38,11 +38,11 @@ const ProductName = () => {
           updateProductName(proName);
           proName.length > 1 ? (scoreProduct[0].score = true) : (scoreProduct[0].score = false);
           if (scoreProduct[0].score && i == 1) {
-            updateIncreaseProgress(4);
+            updateIncreaseProgress(5);
             setI(2);
           }
           if (!scoreProduct[0].score) {
-            updateDecreaseProgress(4);
+            updateDecreaseProgress(5);
             setI(1);
           }
 

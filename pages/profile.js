@@ -28,7 +28,7 @@ const Profile = ({
     cart: [],
   });
   const userCollection = collection(db, "users");
-  console.log(phoneNumber);
+  // console.log(phoneNumber);
  
 
   const getUser = async (id) => {
@@ -103,8 +103,7 @@ const Profile = ({
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         const id = userDetails.uid;
-       
-        submitNewUser(id);
+        submitNewUser(id)
         getCurrentUser(profileUser)
 
         // console.log(userDetails.uid);

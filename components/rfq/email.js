@@ -1,4 +1,3 @@
-
 import { useStore } from "@/useStore/details";
 import React from "react";
 import { useState } from "react";
@@ -9,19 +8,19 @@ const Email = () => {
     updateIncreaseProgress,
     updateDecreaseProgress,
 
-    score,
+    scoreProduct,
 
     email,
   ] = useStore((store) => [
     store.updateEmail,
     store.updateIncreaseProgress,
     store.updateDecreaseProgress,
-    store.score,
+    store.scoreProduct,
     store.email,
   ]);
   const [userMail, setUserMail] = useState(email);
   const [i, setI] = useState(1);
-//   console.log("sds", unitPrice);
+  //   console.log("sds", unitPrice);
   return (
     <div className="flex flex-col space-y-1 ">
       <label className="leading-7 text-base font-semibold text-gray-800">
@@ -36,12 +35,14 @@ const Email = () => {
         }}
         onBlur={() => {
           updateEmail(userMail);
-          userMail?.length > 1 && userMail.includes("@.com") ? (score[6] = true) : (score[6] = false);
-          if (score[6] && i == 1) {
+          userMail?.length > 1 && userMail.includes("@.com")
+            ? (scoreProduct[8].score = true)
+            : (scoreProduct[8].score = false);
+          if (scoreProduct[8].score && i == 1) {
             updateIncreaseProgress(10);
             setI(2);
           }
-          if (!score[6]) {
+          if (!scoreProduct[8].score && i == 2) {
             updateDecreaseProgress(10);
             setI(1);
           }

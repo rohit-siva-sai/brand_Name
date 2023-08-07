@@ -64,11 +64,11 @@ const ValidTo = () => {
             ? (scoreProduct[7].score = true)
             : (scoreProduct[7].score = false);
           if (scoreProduct[7].score && i == 1) {
-            updateIncreaseProgress(1);
+            updateIncreaseProgress(2);
             setI(2);
           }
           if (!scoreProduct[7].score) {
-            updateDecreaseProgress(1);
+            updateDecreaseProgress(2);
             setI(1);
           }
         }}

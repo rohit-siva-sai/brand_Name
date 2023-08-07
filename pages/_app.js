@@ -233,7 +233,7 @@ export default function App({ Component, pageProps }) {
         // getUser(id)
         setUser(userDetails)
 
-        console.log(userDetails.uid);
+        // console.log(userDetails.uid);
       }
     } catch (error) {
       console.log(error.message);

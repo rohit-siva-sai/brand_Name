@@ -22,7 +22,7 @@ const details = (set) => ({
   scoreProduct: [
     { 
       label: "Product Name",
-      marks: "3",
+      marks: "5",
       score: false
     },
     { 
@@ -42,24 +42,29 @@ const details = (set) => ({
     },
     { 
       label: "Sourcing Type",
-      marks: "3",
+      marks: "4",
       score: false
     },
     { 
       label: "Estmated Order Quantity",
-      marks: "3",
+      marks: "4",
       score: false
     },
     { 
       label: "Preferred Unit Price",
-      marks: "3",
+      marks: "4",
       score: false
     },
     { 
       label: "Valid To",
-      marks: "1",
+      marks: "2",
       score: false
-    }
+    },
+    { 
+      label: "Email",
+      marks: "5",
+      score: false
+    },
   ],
   scoreRequire: [
     { 

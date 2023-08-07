@@ -106,11 +106,11 @@ const UnitPrice = () => {
             updateUnitPrice(unitChange);
             unitChange.units != 0 ? (scoreProduct[6].score = true) : (scoreProduct[6].score = false);
             if (scoreProduct[6].score && i == 1) {
-              updateIncreaseProgress(5);
+              updateIncreaseProgress(4);
               setI(2);
             }
             if (!scoreProduct[6].score) {
-              updateDecreaseProgress(5);
+              updateDecreaseProgress(4);
               setI(1);
             }
 

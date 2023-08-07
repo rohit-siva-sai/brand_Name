@@ -40,11 +40,11 @@ const Sourcing = () => {
             ? (scoreProduct[4].score = true)
             : (scoreProduct[4].score = false);
           if (scoreProduct[4].score && i == 1) {
-            updateIncreaseProgress(3);
+            updateIncreaseProgress(4);
             setI(2);
           }
           if (!scoreProduct[4].score) {
-            updateDecreaseProgress(3);
+            updateDecreaseProgress(4);
             setI(1);
           }
         }}

@@ -40,11 +40,11 @@ const Order = () => {
               ? (scoreProduct[5].score = true)
               : (scoreProduct[5].score = false);
             if (scoreProduct[5].score && i == 1) {
-              updateIncreaseProgress(3);
+              updateIncreaseProgress(4);
               setI(2);
             }
             if (!scoreProduct[5].score) {
-              updateDecreaseProgress(3);
+              updateDecreaseProgress(4);
               setI(1);
             }
           }}

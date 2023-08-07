@@ -4,18 +4,18 @@ import RfqSteps from "./rfqSteps";
 import { useState } from "react";
 import { useStore } from "@/useStore/details";
 import { useEffect } from "react";
-import Category from "./category";
-import Attribute from "./attribute";
-import About from "./about";
-import Source from "./sourcing";
-import Order from "./order";
-import UnitPrice from "./unitPrice";
-import ValidTo from "./validTo";
+import Category from "./productInfo/category";
+import Attribute from "./productInfo/attribute";
+import About from "./productInfo/about";
+import Order from "./productInfo/order";
+import UnitPrice from "./productInfo/unitPrice";
+import ValidTo from "./productInfo/validTo";
 import Email from "./email";
-import Require from "./requirements/require";
-import ProductName from "./productName";
-import Sourcing from "./sourcing";
+import Require from "./productInfo/requirements/require";
+import ProductName from "./productInfo/productName";
+import Sourcing from "./productInfo/sourcing";
 import { Checkbox } from "antd";
+import Attachment from "./productInfo/attachment";
 
 const Product = () => {
   const [updateIncreaseProgress, updateDecreaseProgress, productName, score] =
@@ -38,7 +38,7 @@ const Product = () => {
 
   return (
     <div className="">
-      <div className="border">
+      <div className="">
         <p className="text-3xl font-semibold text-gray-800">
           Request for Quotations- RFQ
         </p>
@@ -48,6 +48,7 @@ const Product = () => {
           <Category />
           <Attribute />
           <About />
+          {/* <Attachment/> */}
           <Sourcing />
           <div className="flex space-x-8">
             <Order />

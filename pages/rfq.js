@@ -1,3 +1,4 @@
+import Message from "@/components/rfq/message";
 import Product from "@/components/rfq/product";
 import Score from "@/components/rfq/score";
 import { db } from "@/config/firebase";
@@ -6,7 +7,7 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import React from "react";
 import { useEffect } from "react";
 
-const Rfq = () => {
+const Rfq = ({ user, changeShowLogin }) => {
   const [
     productName,
     productCategory,
@@ -32,12 +33,9 @@ const Rfq = () => {
   ]);
 
   const rfqCollection = collection(db, "rfqs");
-//  console.log('product category',attributes);
- 
- 
+  //  console.log('product category',attributes);
+
   const submitNewUser = async () => {
-  
-  
     try {
       await setDoc(doc(rfqCollection), {
         productName: productName,
@@ -49,22 +47,32 @@ const Rfq = () => {
         unitPrice: unitPrice,
         validTo: validTo,
         requirements: requirements,
-        email: email
+        email: email,
+        user: user.uid
       });
+      // <Message/>
     } catch (err) {
       console.log(err);
     }
   };
-  // console.log('ass',productCategory);
+  // console.log('ass',user);
 
   return (
     <div className="bg-gray-50 py-12 ">
       <div className="grid grid-cols-12 gap-x-7 border px-36">
         <div className="col-span-9 bg-white px-8 py-6 rounded-lg border">
           <Product />
-          <div onClick={submitNewUser} className="mx-4 cursor-pointer mt-5 text-base w-fit font-semibold px-7 rounded-md text-white bg-gradient-to-l from-blue-400  to-blue-600 py-2">
+          <div
+            onClick={() => {
+              !user && changeShowLogin(true)
+              user && email!=0 && submitNewUser()
+            }}
+            // onClick={submitNewUser}
+            className="mx-4 cursor-pointer mt-5 text-base w-fit font-semibold px-7 rounded-md text-white bg-gradient-to-l from-blue-400  to-blue-600 py-2"
+          >
             Submit
           </div>
+          
         </div>
         <div className="border bg-white col-span-3">
           <Score />
