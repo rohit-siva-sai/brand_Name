@@ -170,7 +170,7 @@ const Category = () => {
   return (
     <div className="flex flex-col space-y-1">
       <label className="leading-7 text-base font-semibold text-gray-800">
-        Product Name<span className="text-red-600 text-lg">*</span>
+        Product Category<span className="text-red-600 text-lg">*</span>
       </label>
       <Cascader
         value={category}

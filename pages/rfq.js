@@ -59,7 +59,7 @@ const Rfq = ({ user, changeShowLogin }) => {
 
   return (
     <div className="bg-gray-50 py-12 ">
-      <div className="grid grid-cols-12 gap-x-7 border px-36">
+      <div className="grid grid-cols-12 gap-x-7  px-36">
         <div className="col-span-9 bg-white px-8 py-6 rounded-lg border">
           <Product />
           <div
