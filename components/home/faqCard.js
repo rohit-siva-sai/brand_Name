@@ -6,8 +6,8 @@ const FaqCard = ({ main, text }) => {
   return (
     <div className={`${show ? "border border-gray-300 rounded" : "border-0"}`}>
       <div
-        className={`flex justify-between items-center py-3 group cursor-pointer px-6 bg-gray-100  ${
-          show ? "bg-[#232f3e] rounded-t" : "hover:bg-violet-500/90 rounded"
+        className={`flex justify-between items-center py-3 group cursor-pointer px-6   ${
+          show ? "bg-[#232f3e] rounded-t" : "hover:bg-violet-500/90 bg-gray-100 rounded"
         } `}
         onClick={() => {
           setShow(!show);
