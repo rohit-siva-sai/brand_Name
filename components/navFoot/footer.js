@@ -14,7 +14,7 @@ const Footer = () => {
   const [mainFoot, setMainFoot] = useState(false);
 
   useEffect(() => {
-    let exemptedmainFoot = ["/rfq"];
+    let exemptedmainFoot = ["/rfq","/myRfq","/myRfq/[slug]"];
     let exemptedextraFoot = ["/"];
     if (exemptedextraFoot.includes(router.pathname)) {
       setExtrafoot(true);

@@ -77,23 +77,23 @@ const Navbar = ({
               <AiOutlineSearch className="text-4xl cursor-pointer h-full px-2 hover:bg-blue-100 text-blue-500 " />
             </button>
             <div className="flex space-x-3">
-              <Link href="/brandStore">
+              {/* <Link href="/brandStore">
                 <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
                   <FaTag className="text-white text-xl " />
                   <p className="text-white font-semibold md:block hidden  ">
                     Brand Store
                   </p>
                 </div>
-              </Link>
+              </Link> */}
              
-              <Link href={"/products"}>
+              <Link href={"/rfq"}>
               <div
                 onClick={handleShowCart}
                 className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2"
               >
                 <HiShoppingCart className="text-white text-2xl " />
                 <p className="text-white font-semibold md:block hidden  ">
-                  Products
+                  Get RFQ
                 </p>
               </div>
               </Link>

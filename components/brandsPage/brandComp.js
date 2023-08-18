@@ -28,7 +28,7 @@ const BrandComp = ({
         showFull ? "h-full   overflow-visible " : "h-56 overflow-hidden "
       }  rounded-md hover:shadow-blue-300 `}
     >
-      <Link href={companyUrl} target="_blank">
+      <Link href={""} target="_blank">
         <div>
           <picture>
             <img

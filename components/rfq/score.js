@@ -6,12 +6,14 @@ import { BiChevronDown } from "react-icons/bi";
 import ReactStoreIndicator from "react-score-indicator";
 
 const Score = () => {
-  const [progress, productName, scoreProduct, scoreRequire] = useStore(
+  const [progress, productName, scoreProduct, scoreRequire,rfqScore,updateRfqScore] = useStore(
     (store) => [
       store.progress,
       store.productName,
       store.scoreProduct,
       store.scoreRequire,
+      store.rfqScore,
+      store.updateRfqScore,
     ]
   );
   const [showRequire, setShowRequire] = useState(false);

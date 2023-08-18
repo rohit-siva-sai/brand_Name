@@ -3,7 +3,7 @@ import Product from "@/components/rfq/product";
 import Score from "@/components/rfq/score";
 import { db } from "@/config/firebase";
 import { useStore } from "@/useStore/details";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import React from "react";
 import { useEffect } from "react";
 
@@ -19,6 +19,7 @@ const Rfq = ({ user, changeShowLogin }) => {
     validTo,
     requirements,
     email,
+    progress
   ] = useStore((store) => [
     store.productName,
     store.productCategory,
@@ -30,10 +31,18 @@ const Rfq = ({ user, changeShowLogin }) => {
     store.validTo,
     store.requirements,
     store.email,
+    store.progress
   ]);
 
   const rfqCollection = collection(db, "rfqs");
   //  console.log('product category',attributes);
+  // const updateUserRfq = async (id) => {
+  //   const userDoc = doc(db, "users", id)
+
+  //   await updateDoc(userDoc, { rfq: "sdhjvsdjhvsjh" });
+  //   console.log("updated successfully");
+  //   // getUser(id)
+  // };
 
   const submitNewUser = async () => {
     try {
@@ -48,9 +57,10 @@ const Rfq = ({ user, changeShowLogin }) => {
         validTo: validTo,
         requirements: requirements,
         email: email,
+        rfqScore: progress,
         user: user.uid
-      });
-      // <Message/>
+      })
+      
     } catch (err) {
       console.log(err);
     }

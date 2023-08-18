@@ -6,10 +6,13 @@ import { MdArrowBackIosNew } from "react-icons/md";
 import { FiLoader } from "react-icons/fi";
 // import OTPInput, { ResendOTP } from "otp-input-react";
 import OtpInput from "react-otp-input";
-import { auth } from "../../config/firebase";
+// import { auth } from "../../config/firebase";
+import { firebase } from "firebase/compat/app";
 import {
   RecaptchaVerifier,
+  browserLocalPersistence,
   getAuth,
+  setPersistence,
   signInWithPhoneNumber,
   signOut,
 } from "firebase/auth";
@@ -17,7 +20,7 @@ import { Toaster, toast } from "react-hot-toast";
 
 import { useEffect } from "react";
 import { onCaptchaVerify } from "./captcha";
-import * as firebase from "firebase/app";
+// import * as firebase from "firebase/app";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 
@@ -49,12 +52,15 @@ const Login = ({
   //       console.log(error);
   //     });
   // };
+  const auth = getAuth();
 
   const onCaptchaVerify = async () => {
     // let appVerify = new auth.RecaptchaVerifier('recaptcha-container');
-
+    // auth.settings.appVerificationDisabledForTesting = true;
+    // setPersistence(getAuth(), browserLocalPersistence);
     if (!window.recaptchaVerifier) {
       window.recaptchaVerifier = new RecaptchaVerifier(
+       
         "recaptcha-container",
         {
           size: "invisible",
@@ -88,15 +94,22 @@ const Login = ({
       return setError("Enter valid Phone Number");
     }
     setLoading(true);
-
+    console.log("shvsh");
     console.log(phoneNumber.length);
     onCaptchaVerify();
+    // const appVerifier = window.recaptchaVerifier;
+    console.log("hgscdhgc");
 
     const appVerify = window.recaptchaVerifier;
+    console.log("sgcshgcsahg");
+    // const appVerifier = window.recaptchaVerifier;
+    
     signInWithPhoneNumber(getAuth(), phoneNumber, appVerify)
       .then((confirmationResult) => {
         // SMS sent. Prompt user to type the code from the message, then sign the
         // user in with confirmationResult.confirm(code).
+        console.log("rohit");
+
         window.confirmationResult = confirmationResult;
         setLoading(false);
         setShowOtp(true);
@@ -108,7 +121,7 @@ const Login = ({
       .catch((error) => {
         // Error; SMS not sent
         // ...
-        console.log(error, "tjis sabdu");
+        console.log(error.message, "tjis sabdu");
         setError(error.message);
         setLoading(false);
       });

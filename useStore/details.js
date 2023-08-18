@@ -18,6 +18,7 @@ const details = (set) => ({
     company: "",
   },
   email: null,
+  rfqScore: 0,
   score: [false, false, false, false, false, false,false,false,false],
   scoreProduct: [
     { 
@@ -112,6 +113,7 @@ const details = (set) => ({
       progress: store.progress - 10 < 0 ? 0 : store.progress - number,
     })),
   updateProductName: async (name) => set((store) => ({ productName: name })),
+  updateRfqScore: async (score) => set((store) => ({ rfqScore: score })),
   updateProductCategory: async (category) =>
     set((store) => ({ productCategory: category })),
   updateAttributes: async (attr) => set((store) => ({ attributes: attr })),

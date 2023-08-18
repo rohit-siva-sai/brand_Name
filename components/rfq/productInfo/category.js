@@ -135,7 +135,7 @@ const options = [
   },
 ];
 
-const Category = () => {
+const Category = ({categoryData}) => {
   const [
     updateProductCategory,
 
@@ -174,8 +174,10 @@ const Category = () => {
       </label>
       <Cascader
         value={category}
-        options={options}
+        options={categoryData}
         onChange={(value) => {
+          console.log('sss',value);
+          
           setCategory(value);
         }}
         removeIcon={() => {

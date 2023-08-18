@@ -32,10 +32,7 @@ export default function Home() {
     <div className="overflow-hidden md:overflow-auto" >
       {/* <Link href="/products">products</Link>
         <MobileApp/> */}
-        {/* <Suppliers/>
-        <BestQuotes/>
-        <Buying/>
-        <MobileApp/> */}
+        
         <Main/>
         <Taxcredit/>
         <Supplies/>
