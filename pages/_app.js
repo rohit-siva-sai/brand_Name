@@ -14,6 +14,7 @@ import {
 } from "firebase/firestore";
 import Footer from "@/components/navFoot/footer";
 import { getAuth, signOut } from "firebase/auth";
+import ProgressBar from "@/components/laons/progressBar";
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({});
@@ -572,6 +573,7 @@ export default function App({ Component, pageProps }) {
         changeShowLogin={changeShowLogin}
         showLogin={showLogin}
       />
+      <ProgressBar />
       <Component
         {...pageProps}
         products={products}
@@ -604,7 +606,7 @@ export default function App({ Component, pageProps }) {
         showLogin={showLogin}
         changeShowLogin={changeShowLogin}
       />
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

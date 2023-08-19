@@ -49,7 +49,7 @@ const About = () => {
         }}
         name="aboutProduct"
         placeholder="Please indicate your deatils requirements to ensure fast and efficient responses from suppliers . You may include Material Size/Dimension, Grade/Quality Standard, Packaging requirements and/or others"
-        className="w-3/5 bg-white placeholder:leading-6  rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-800 py-2 px-5 leading-8 transition-colors duration-200 ease-in-out"
+        className="w-full md:w-3/5 bg-white placeholder:leading-6  rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-800 py-2 px-5 leading-8 transition-colors duration-200 ease-in-out"
       />
     </div>
   );

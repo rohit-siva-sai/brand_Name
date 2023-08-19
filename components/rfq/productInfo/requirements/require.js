@@ -8,8 +8,8 @@ const Require = () => {
   return (
     <div>
       <div
-        className={`w-10/12 bg-gray-100 border border-gray-300 rounded px-4 transition-all duration-500 ${
-          show ? "  h-[520px] " : "h-[65px] overflow-hidden"
+        className={`w-full md:w-10/12 bg-gray-100 border border-gray-300 rounded px-4 transition-all duration-500 ${
+          show ? "  md:h-[520px] h-[550px] " : "md:h-[65px] h-[60px] overflow-hidden"
         } `}
       >
         <div
@@ -22,7 +22,7 @@ const Require = () => {
             <p className="font-semibold text-gray-700">
               More Customized Requirements
             </p>
-            <p className="font-normal text-gray-400">
+            <p className="font-normal md:text-base text-xs text-gray-400">
               Include destination port, shipment terms, etc.
             </p>
           </div>

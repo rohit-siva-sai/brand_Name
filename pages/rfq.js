@@ -68,9 +68,9 @@ const Rfq = ({ user, changeShowLogin }) => {
   // console.log('ass',user);
 
   return (
-    <div className="bg-gray-50 py-12 ">
-      <div className="grid grid-cols-12 gap-x-7  px-36">
-        <div className="col-span-9 bg-white px-8 py-6 rounded-lg border">
+    <div className="bg-gray-50 py-6 md:py-12">
+      <div className="grid grid-cols-1 gap-y-4 md:gap-y-0 md:grid-cols-12 md:gap-x-7 px-2  md:px-36">
+        <div className="md:col-span-9 bg-white md:px-8 px-2  py-6 rounded-lg border">
           <Product />
           <div
             onClick={() => {

@@ -51,7 +51,7 @@ const Email = () => {
         }}
         name="productName"
         placeholder="Enter a specific product name"
-        className="w-3/5 bg-white rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-800 py-[1px] px-3 leading-8 transition-colors duration-200 ease-in-out"
+        className="md:w-3/5 w-full bg-white rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-base outline-none text-gray-800 py-[1px] px-3 leading-8 transition-colors duration-200 ease-in-out"
       />
     </div>
   );

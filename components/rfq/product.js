@@ -74,7 +74,7 @@ const Product = () => {
   return (
     <div className="">
       <div className="">
-        <p className="text-3xl font-semibold text-gray-800">
+        <p className="text-2xl md:text-3xl font-semibold text-gray-800">
           Request for Quotations- RFQ
         </p>
         <RfqSteps />
@@ -85,7 +85,7 @@ const Product = () => {
           <About />
           {/* <Attachment/> */}
           <Sourcing />
-          <div className="flex space-x-8">
+          <div className="flex flex-col md:flex-row md:space-y-0 space-y-6 md:space-x-8">
             <Order />
             <UnitPrice />
           </div>
@@ -94,7 +94,7 @@ const Product = () => {
           <Email />
           <div>
             <Checkbox
-              className="text-gray-600 "
+              className="text-gray-600 text-xs "
               onChange={(e) => {
                 setChecked(e.target.checked);
                 console.log("ssds", checked);

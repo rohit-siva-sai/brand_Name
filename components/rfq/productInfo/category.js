@@ -201,7 +201,7 @@ const Category = ({categoryData}) => {
           filter,
         }}
         // onSearch={(value) => console.log(value)}
-        className="w-3/5 font-semibold"
+        className="md:w-3/5  w-full overflow-hidden font-semibold"
         // size="large"
         style={{ fontSize: "20px" }}
       />

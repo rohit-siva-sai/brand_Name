@@ -30,7 +30,7 @@ const Sourcing = () => {
       <Select
         // defaultValue="Bussiness Service"
         placeholder="Select One"
-        className="w-2/6 font-semibold"
+        className="w-3/5 md:w-2/6 font-semibold"
         onChange={(value) => {
           setSource(value);
         }}

@@ -1,5 +1,6 @@
 import React from "react";
 import Product from "./product";
+import Link from "next/link";
 
 const array = [
   {
@@ -46,9 +47,9 @@ const array = [
 
 const Suppliers = () => {
   return (
-    <div className="" >
+    <div className="">
       <div className="md:px-36 px-4 flex flex-col md:py-8 py-2 ">
-        <div className="py-8" >
+        <div className="py-8">
           <p className="md:text-lg text-base font-bold text-purple-500">
             The easiest way to source metals and polymers
           </p>
@@ -66,16 +67,16 @@ const Suppliers = () => {
           })}
         </div>
         <div className="flex justify-center space-x-3 pt-6">
-          <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
-            <p className="text-white font-semibold   ">
-              Brand Store
-            </p>
-          </div>
-          <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-green-500 bg-green-600  space-x-2">
-            <p className="text-white font-semibold  ">
-              Apply for credit
-            </p>
-          </div>
+          <Link href={"/rfq"}>
+            <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2">
+              <p className="text-white font-semibold   ">Get RFQ</p>
+            </div>
+          </Link>
+          <Link href={"/loanType"}>
+            <div className="flex items-center md:px-8 rounded-md py-2  px-2 cursor-pointer hover:bg-green-500 bg-green-600  space-x-2">
+              <p className="text-white font-semibold  ">Get Loan</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>

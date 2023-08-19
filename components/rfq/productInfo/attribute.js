@@ -128,7 +128,7 @@ const Attribute = ({ category }) => {
           <label className="leading-7 text-base font-semibold text-gray-800">
             Further Specified Attribute (s)
           </label>
-          <div className="grid grid-cols-3 gap-x-4 gap-y-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-4 gap-y-4">
             {attribute &&
               Object.keys(attribute).map((item) => {
                 return (
