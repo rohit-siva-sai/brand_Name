@@ -100,7 +100,7 @@ const Navbar = ({
               <div
                 onClick={() => {
                   !user && changeShowLogin(true);
-                  user && router.push("/profile");
+                  user && router.push("/myRfq");
                 }}
                 className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2"
               >

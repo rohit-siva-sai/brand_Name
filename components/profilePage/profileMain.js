@@ -41,7 +41,7 @@ const ProfileMain = ({ profileUser, logOut, updateProfileUser }) => {
     //   setShowTick(true);
   };
   useEffect(()=>{
-    setProfileName(profileUser?.username)
+    setProfileName("")
     setProfileEmail(profileUser?.email)
     text.current = profileName;
     email.current = profileEmail;

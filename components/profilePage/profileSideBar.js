@@ -14,7 +14,7 @@ const ProfileSideBar = ({ profileUser }) => {
             <div>
               <p className="font-semibold text-sm text-gray-400">Name</p>
               <p className="font-bold">
-                {profileUser?.username && profileUser?.username}
+                {profileUser?.username?.lastName && profileUser?.username?.lastName}
               </p>
             </div>
           </div>

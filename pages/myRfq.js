@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const MyRfq = ({ user }) => {
   const rfqCollection = collection(db, "rfqs");
-  const [rfqData,setRfqData] = useState([])
+  const [rfqData, setRfqData] = useState([]);
   const getRfq = async (id) => {
     try {
       const data = await getDocs(rfqCollection);
@@ -16,8 +16,8 @@ const MyRfq = ({ user }) => {
         id: doc.id,
       }));
       const rfq = filteredData.filter((item) => item.user == user.uid);
-     setRfqData(rfq)
-     console.log("ssassa",rfq)
+      setRfqData(rfq);
+      console.log("ssassa", rfq);
       // console.log("usedatadfinprofile", userData[0]);
       // const sliceData = userData[0];
       // console.log(sliceData, "slicedata");
@@ -33,7 +33,7 @@ const MyRfq = ({ user }) => {
   };
   useEffect(() => {
     getRfq();
-  },[user]);
+  }, [user]);
   return (
     <div className="h-[640px] overflow-hidden">
       <div className="flex">

@@ -43,7 +43,7 @@ const Profile = ({
       const sliceData = userData[0];
       console.log(sliceData, "slicedata");
 
-      setProfileUser(sliceData);
+      setProfileUser(sliceData)
       console.log("rohit siva sai", profileUser);
       // getCurrentUser(profileUser)
       if (sliceData && sliceData.id === id) return true;
@@ -53,7 +53,7 @@ const Profile = ({
     }
   }
   const submitNewUser = async (id) => {
-    const value = await getUser(id);
+    const value = await getUser(id)
     console.log("value", value);
 
     try {
@@ -104,16 +104,16 @@ const Profile = ({
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         const id = userDetails.uid;
         submitNewUser(id)
-        getCurrentUser(profileUser)
+        // getCurrentUser(profileUser)
 
         // console.log(userDetails.uid);
       }
     } catch (error) {
       console.log(error.message);
     }
-    if (!user) {
-      router.push("/");
-    }
+    // if (!user) {
+    //   router.push("/");
+    // }
   }, [router]);
   return (
     <div>
