@@ -134,7 +134,7 @@ const BrandStore = ({
             }}
           />
         </div>
-        <div></div>
+        <div>jhsvjhsjhsdvj</div>
         <EmailSender
           companyName={companyName}
           showEnquiry={showEnquiry}
