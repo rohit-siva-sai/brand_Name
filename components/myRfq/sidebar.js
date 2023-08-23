@@ -11,7 +11,7 @@ const Inquiries = [
   { label: "Starred", value: "starredInquiries", link: "" },
 ];
 const Rfqs = [
-  { label: "All", value: "allRfqs", link: "" },
+  { label: "All", value: "allRfqs", link: "/myRfq/rfqList" },
   { label: "Starred", value: "starredRfqs", link: "" },
 ];
 
@@ -51,6 +51,7 @@ const Sidebar = () => {
     <div className="h-[640px]  bg-white  py-4 overflow-y-scroll w-1/6 scroll-smooth">
       <div className="flex flex-col space-y-2">
         <>
+          <Link href={"/myRfq/home"}>
           <div
             className={`flex space-x-2 mx-4  px-2 cursor-pointer  py-2 rounded-xl items-center ${
               linkActive == "home"
@@ -71,6 +72,7 @@ const Sidebar = () => {
               Home
             </p>
           </div>
+          </Link>
         </>
         <SideCard
           head={"Inquiries"}

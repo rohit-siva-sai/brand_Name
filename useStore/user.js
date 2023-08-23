@@ -12,8 +12,12 @@ const user = (set) => ({
   userId: "",
   userEmail: null,
   userDetails: {},
+  userUpdate: "",
+  openUserModel: false,
 
   updateUserName: async (user) => set((store) => ({ username: user })),
+  updateOpenUserModel: async (value) => set((store) => ({ openUserModel: value })), 
+  updateUserUpdate: async (value) => set((store) => ({ userUpdate: value })),
   updateAddress: async (address) => set((store) => ({ userAddress: address })),
   updateUserEmail: async (email) => set((store) => ({ userEmail: email })),
   updateCountry: async (country) => set((store) => ({ country: country })),

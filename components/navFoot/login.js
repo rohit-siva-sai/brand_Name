@@ -23,6 +23,7 @@ import { onCaptchaVerify } from "./captcha";
 // import * as firebase from "firebase/app";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
+import { User } from "@/useStore/user";
 
 const Login = ({
   changeShowLogin,
@@ -31,6 +32,8 @@ const Login = ({
   submitNewUser,
   getPhoneNumber,
 }) => {
+  const [updateUserId] = User((store) => [store.updateUserId]);
+
   const [phoneNumber, setPhoneNumber] = useState(false);
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
@@ -134,12 +137,13 @@ const Login = ({
       .then(async (res) => {
         console.log("sdcd", res);
         handleUser(res.user);
+        updateUserId(res.user.uid)
         console.log("uxeuyvwedwveug", user);
 
         localStorage.setItem("userDetails", JSON.stringify(res.user));
         // const id = res.user.uid;
         changeShowLogin(false);
-        router.push("/profile");
+        router.push("/myRfq/home");
       })
       .catch((err) => {
         console.log(err, "wedwede");

@@ -29,6 +29,7 @@ const CompanyUpdate = ({ getUser }) => {
     purchasingRole,
     panCardNo,
     gstNo,
+    companyUpdate,
   ] = Company((store) => [
     store.company,
     store.bussinessType,
@@ -41,6 +42,7 @@ const CompanyUpdate = ({ getUser }) => {
     store.purchasingRole,
     store.panCardNo,
     store.gstNo,
+    store.companyUpdate,
   ]);
   const updateUser = async (id) => {
     const userDoc = doc(db, "users", id);
@@ -63,20 +65,37 @@ const CompanyUpdate = ({ getUser }) => {
   };
   return (
     <div className="relative">
-      <div className="py-3 relative px-4 h-[500px] overflow-y-scroll  border-t flex flex-col space-y-2">
-        <CompanyName />
-        <div className="grid grid-cols-2 gap-x-4">
-          <BussinessType />
-          <CompanySize />
+      <div className={`py-3 relative px-4 ${companyUpdate=="all" ?" h-[500px]":"h-[300px]"} overflow-y-auto  border-t flex flex-col space-y-2`}>
+        {(companyUpdate == "companyName" || companyUpdate == "all") && (
+          <CompanyName />
+        )}
+
+        <div className={`grid ${companyUpdate=="all"? "grid-cols-2":"grid-cols-1"}  gap-x-4`}>
+          {(companyUpdate == "bussinessTupe" || companyUpdate == "all") && (
+            <BussinessType />
+          )}
+          {(companyUpdate == "companySize" || companyUpdate == "all") && (
+            <CompanySize />
+          )}
         </div>
-        <SellingChannel />
-        <AnnualValue />
-        <Suppliers />
-        <MarketImport />
-        <MarketSell />
-        <PurchasingRole />
-        <PanCardNo />
-        <GstNo />
+
+        {(companyUpdate == "sellingChannel" ||
+          companyUpdate == "all") && <SellingChannel />}
+        {(companyUpdate == "annualValue" ||
+          companyUpdate == "all") && <AnnualValue />}
+        {(companyUpdate == "suppliers" ||
+          companyUpdate == "all") && <Suppliers />}
+        {(companyUpdate == "marketImport" ||
+          companyUpdate == "all") && <MarketImport />}
+        {(companyUpdate == "marketSell" || companyUpdate == "all") && (
+          <MarketSell />
+        )}
+        {(companyUpdate == "purchasingRole" ||
+          companyUpdate == "all") && <PurchasingRole />}
+        {(companyUpdate == "panCardNo" || companyUpdate == "all") && (
+          <PanCardNo />
+        )}
+        {(companyUpdate == "gstNo" || companyUpdate == "all") && <GstNo />}
       </div>
       <div
         className="bg-gray-50 sticky flex justify-center -bottom-5  py-2 "

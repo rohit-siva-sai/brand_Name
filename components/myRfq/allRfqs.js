@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { AiOutlineStar } from "react-icons/ai";
 
-const RfqList = ({ rfqData }) => {
+const AllRfqs = ({ rfqData }) => {
   return (
     <div className="bg-gray-100 flex-1 px-6 h-[640px] pb-8  overflow-y-scroll  ">
       <p className="font-light text-sm py-4">
@@ -54,7 +54,7 @@ const RfqList = ({ rfqData }) => {
         <div className="flex flex-col space-y-0">
           {rfqData.map((item) => {
             return (
-              <Link passHref={true} href={`/myRfq/${item.id}`}>
+              <Link passHref={true} href={`/myRfq/rfqList/${item.id}`}>
                 <div className="grid-cols-12 py-3 border px-8 hover:bg-gray-50  grid place-items-start ">
                   <div className="col-span-1 flex space-x-4 items-center">
                     <input type="checkbox" name="" id="" />
@@ -107,4 +107,4 @@ const RfqList = ({ rfqData }) => {
   );
 };
 
-export default RfqList;
+export default AllRfqs;

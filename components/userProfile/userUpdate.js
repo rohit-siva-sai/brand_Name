@@ -1,5 +1,5 @@
 import { User } from "@/useStore/user";
-import React from "react";
+import React, { useMemo } from "react";
 import UserName from "./userUpdate/username";
 import JobDetail from "./userUpdate/jobDetail";
 import Email from "./userUpdate/email";
@@ -19,6 +19,7 @@ const UserUpdate = ({ getUser }) => {
     comapnyWebsite,
     linkedinProfile,
     email,
+    userUpdate,
   ] = User((store) => [
     store.phoneNumber,
     store.userId,
@@ -28,12 +29,15 @@ const UserUpdate = ({ getUser }) => {
     store.comapnyWebsite,
     store.linkedinProfile,
     store.userEmail,
+    store.userUpdate,
   ]);
-  console.log("usessssr", userId);
+  // console.log("usessssr", userId);
 
-  console.log("update", phoneNumber);
+  // console.log("update", phoneNumber);
+  console.log("update", userUpdate);
   const updateUser = async (id) => {
     const userDoc = doc(db, "users", id);
+   
 
     await updateDoc(userDoc, {
       username,
@@ -49,13 +53,17 @@ const UserUpdate = ({ getUser }) => {
 
   return (
     <div className="relative">
-      <div className="py-3 relative px-4 h-[500px] overflow-y-scroll  border-t flex flex-col space-y-2">
-        <UserName />
-        <JobDetail />
-        <Email />
-        <Address />
-        <Website />
-        <Linkedin />
+      <div className={`py-3 relative px-4 ${userUpdate=="all"? "h-[500px]": "h-[300px]"}  overflow-y-auto  border-t flex flex-col space-y-2`}>
+        {(userUpdate == "username" || userUpdate=="all") && <UserName />}
+        {(userUpdate == "jobTitle" || userUpdate=="all") && <JobDetail />}
+        {( userUpdate == "email" || userUpdate == "all") && <Email />}
+        {(userUpdate == "address" || userUpdate == "all") && <Address />}
+        {(userUpdate == "companyWebsite" || userUpdate == "all") && (
+          <Website />
+        )}
+        {(userUpdate == "linkedinProfile" || userUpdate == "all") && (
+          <Linkedin />
+        )}
       </div>
       <div className="bg-gray-50 sticky flex justify-center -bottom-5  py-2 ">
         <div

@@ -14,8 +14,12 @@ const company = (set) => ({
   gstNo: "",
   panCardNo: "",
   comapanyDetails: {},
+  openCompanyModel: false,
+  companyUpdate: "",
 
   updateCompany: async (value) => set((store) => ({ company: value })),
+  updateCompanyUpdate: async (value) => set((store) => ({ companyUpdate: value })),
+  updateOpenCompanyModel: async (value) => set((store) => ({ openCompanyModel: value })),
   updateBussinessType: async (value) => set((store) => ({ bussinessType: value })),
   updateCompanySize: async (value) => set((store) => ({ companySize: value })),
   updateAnnualValue: async (value) => set((store) => ({ annualValue: value })),

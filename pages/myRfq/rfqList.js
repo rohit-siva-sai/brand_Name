@@ -5,7 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
-const MyRfq = ({ user }) => {
+const RfqList = ({ user }) => {
   const rfqCollection = collection(db, "rfqs");
   const [rfqData, setRfqData] = useState([]);
   const getRfq = async (id) => {
@@ -44,4 +44,4 @@ const MyRfq = ({ user }) => {
   );
 };
 
-export default MyRfq;
+export default RfqList;

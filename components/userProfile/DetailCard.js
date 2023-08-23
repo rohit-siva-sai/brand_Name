@@ -1,13 +1,32 @@
+import { User } from "@/useStore/user";
+import { Modal } from "antd";
 import React from "react";
+import { HiPencil } from "react-icons/hi";
 
-const DetailCard = ({ Icon, title, value }) => {
+const DetailCard = ({name, Icon, title, value }) => {
+  const [userUpdate, updateUserUpdate,updateOpenUserModel] = User((store) => [
+    store.userUpdate,
+    store.updateUserUpdate,
+    store.updateOpenUserModel
+  ]);
+
   return (
     <div className="flex items-center">
       <div className="flex space-x-2 items-center w-1/4">
         <Icon className=" text-gray-500" size={20} />
         <p className="text-base font-semibold text-gray-600">{title} : </p>
       </div>
-      <p className="font-semibold text-gray-700 text-base">{value}</p>
+      <div className="flex space-x-3 items-center cursor-pointer group">
+        <p className="font-semibold text-gray-700 text-base">{value}</p>
+        <HiPencil
+          size={20}
+          className="invisible group-hover:visible hover:text-rose-500 "
+          onClick={() => {
+            updateUserUpdate(name);
+            updateOpenUserModel(true)
+          }}
+        />
+      </div>
     </div>
   );
 };

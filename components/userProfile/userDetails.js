@@ -10,8 +10,10 @@ import { FiLink, FiPhone } from "react-icons/fi";
 import { AiOutlineHome, AiOutlineLinkedin } from "react-icons/ai";
 import { User } from "@/useStore/user";
 import { useEffect } from "react";
+import UserName from "./userUpdate/username";
+import PhotoCard from "./photoCard";
 
-const UserDetails = ({profileUser,getUser}) => {
+const UserDetails = ({ profileUser, getUser }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [
     updateUserName,
@@ -20,7 +22,9 @@ const UserDetails = ({profileUser,getUser}) => {
     updateUserEmail,
     updateCompanyWebsite,
     updateLinkedinProfile,
-    
+    updateUserUpdate,
+    openUserModel,
+    updateOpenUserModel,
   ] = User((store) => [
     store.updateUserName,
     store.updateJob,
@@ -28,17 +32,20 @@ const UserDetails = ({profileUser,getUser}) => {
     store.updateUserEmail,
     store.updateCompanyWebsite,
     store.updateLinkedinProfile,
+    store.updateUserUpdate,
+    store.openUserModel,
+    store.updateOpenUserModel,
   ]);
-  console.log('userdeatils',profileUser);
-  useEffect(()=>{
-    updateUserName(profileUser.username)
-    updateJob(profileUser.job)
-    updateAddress(profileUser.address)
-    updateUserEmail(profileUser.email)
-    updateCompanyWebsite(profileUser.comapnyWebsite)
-    updateLinkedinProfile(profileUser.linkedinProfile)
-  },[profileUser])
-  
+  console.log("userdeatils", profileUser);
+  useEffect(() => {
+    updateUserName(profileUser.username);
+    updateJob(profileUser.job);
+    updateAddress(profileUser.address);
+    updateUserEmail(profileUser.email);
+    updateCompanyWebsite(profileUser.comapnyWebsite);
+    updateLinkedinProfile(profileUser.linkedinProfile);
+  }, [profileUser]);
+
   return (
     <div className="  ">
       <p className="font-light text-sm py-4">
@@ -49,7 +56,9 @@ const UserDetails = ({profileUser,getUser}) => {
           <p className="font-medium text-xl text-gray-800">Conatct Info</p>
           <div
             onClick={() => {
-              setModalOpen(true);
+              updateUserUpdate("all");
+              // setModalOpen(true)
+              updateOpenUserModel(true);
             }}
             className="cursor-pointer"
           >
@@ -59,41 +68,48 @@ const UserDetails = ({profileUser,getUser}) => {
           <Modal
             title="Edit Contact Info"
             centered
-            open={modalOpen}
+            open={openUserModel}
             //   onOk={() => setModalOpen(false)}
             footer={null}
-            onCancel={() => setModalOpen(false)}
+            onCancel={() => updateOpenUserModel(false)}
             width={600}
           >
             <UserUpdate getUser={getUser} />
           </Modal>
         </div>
         <div className="flex justify-center py-8 border-t divide-x">
-          <div className="flex flex-col items-center  space-y-3  w-1/4 ">
-            <div className="w-28 h-28 rounded-full border bg-gray-s100 "></div>
-            <p className="font-semibold text-lg text-gray-700">
-              {profileUser.username?.firstName} {profileUser.username?.lastName}
-            </p>
+          <div className="  w-1/4 ">
+            <PhotoCard profileUser={profileUser} />
           </div>
+
           <div className="w-3/4 pl-24">
             <div className="flex flex-col space-y-3">
               <DetailCard
+              name="email"
                 Icon={MdMailOutline}
                 title={"Email"}
                 value={profileUser.email}
               />
-              <DetailCard Icon={FiPhone} title={"Phone"} value={profileUser.phone_number} />
               <DetailCard
+              name="phoneNumber"
+                Icon={FiPhone}
+                title={"Phone"}
+                value={profileUser.phone_number}
+              />
+              <DetailCard
+              name="address"
                 Icon={AiOutlineHome}
                 title={"Office Address"}
                 value={profileUser.address?.country}
               />
               <DetailCard
+              name="companyWebsite"
                 Icon={FiLink}
-                title={"Comapny Website"}
+                title={"Company Website"}
                 value={profileUser?.comapnyWebsite}
               />
               <DetailCard
+              name="linkedinProfile"
                 Icon={AiOutlineLinkedin}
                 title={"Linkedin Profile"}
                 value={profileUser.linkedinProfile}

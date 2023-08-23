@@ -6,6 +6,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Login from "./login";
+import { User } from "@/useStore/user";
+import { SideBar } from "@/useStore/sideBar";
 
 const Navbar = ({
   filterSearch,
@@ -19,7 +21,11 @@ const Navbar = ({
 }) => {
   const [searchValue, setSearchValue] = useState("");
   const [showSideCart, setShowSidecart] = useState(false);
-  const router = useRouter();
+  const router = useRouter()
+  const [username] = User((store)=>[store.username])
+  const [updateLinkActive] = SideBar((store)=>[store.updateLinkActive])
+  // console.log('sdd',username);
+  
 
   const [searchShow, setSearchShow] = useState(true);
 
@@ -100,14 +106,15 @@ const Navbar = ({
               <div
                 onClick={() => {
                   !user && changeShowLogin(true);
-                  user && router.push("/myRfq");
+                  updateLinkActive("home")
+                  user && router.push("/myRfq/home");
                 }}
                 className="flex items-center md:px-8 rounded-md py-2 px-2 cursor-pointer hover:bg-blue-500 bg-blue-600  space-x-2"
               >
                 <FaRegUserCircle className="text-white text-2xl " />
                 {user ? (
                   <p className="text-white font-semibold md:block hidden ">
-                    Welcome,User
+                    Welcome{username?.firstName.length > 2 && <span>,{username?.firstName}</span> }
                   </p>
                 ) : (
                   <p className="text-white font-semibold md:block hidden ">
