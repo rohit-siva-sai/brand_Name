@@ -12,7 +12,9 @@ const PhotoCard = ({ profileUser }) => {
   );
   return (
     <div className="flex flex-col items-center   space-y-3">
-      <div className="w-28 border h-28 rounded-full  bg-gray-s100 "></div>
+      <picture>
+       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIn-gE6j6sjvg0ekFgFBIzVP5VdN3aBu9dLg&usqp=CAU"  className="w-28 border h-28 rounded-full  bg-gray-s100 "  />
+       </picture>
       <div className="flex items-center space-y-2 flex-col">
         <div className="flex  space-x-3 items-center cursor-pointer group">
           <p className="font-semibold text-lg text-gray-700">
