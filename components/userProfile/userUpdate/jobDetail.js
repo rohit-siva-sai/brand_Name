@@ -132,7 +132,7 @@ const JobDetail = () => {
             onBlur={() => {
               updateJob(desc);
             }}
-            options={level.children}
+            options={level[0].children}
           />
         </div>}
       </div>

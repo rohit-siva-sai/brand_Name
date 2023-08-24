@@ -9,7 +9,7 @@ const user = (set) => ({
   comapnyWebsite: "",
   linkedinProfile: "",
   phoneNumber: "",
-  userId: "",
+  userId: null,
   userEmail: null,
   userDetails: {},
   userUpdate: "",

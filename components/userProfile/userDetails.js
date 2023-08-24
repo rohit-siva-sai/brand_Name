@@ -36,14 +36,17 @@ const UserDetails = ({ profileUser, getUser }) => {
     store.openUserModel,
     store.updateOpenUserModel,
   ]);
-  console.log("userdeatils", profileUser);
+  // console.log("userdeatils", profileUser);
   useEffect(() => {
+   if(profileUser)
+   {
     updateUserName(profileUser.username);
     updateJob(profileUser.job);
     updateAddress(profileUser.address);
     updateUserEmail(profileUser.email);
     updateCompanyWebsite(profileUser.comapnyWebsite);
     updateLinkedinProfile(profileUser.linkedinProfile);
+   }
   }, [profileUser]);
 
   return (

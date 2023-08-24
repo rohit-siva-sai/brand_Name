@@ -17,7 +17,7 @@ const Address = () => {
         </label>
         <input
           type="text"
-          value={add.businnesAddress}
+          value={add.bussinessAddress}
           id="productName"
           onChange={(e) => {
             setAdd((prev) => ({ ...prev, businnesAddress: e.target.value }));
