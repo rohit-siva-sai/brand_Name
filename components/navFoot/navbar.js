@@ -114,7 +114,7 @@ const Navbar = ({
                 <FaRegUserCircle className="text-white text-2xl " />
                 {user ? (
                   <p className="text-white font-semibold md:block hidden ">
-                    Welcome{username?.firstName.length > 2 && <span>,{username?.firstName}</span> }
+                    Welcome{<span>,{username?.firstName}</span> }
                   </p>
                 ) : (
                   <p className="text-white font-semibold md:block hidden ">
