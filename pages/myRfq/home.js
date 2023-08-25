@@ -176,7 +176,7 @@ const Home = ({ user, phoneNumber }) => {
         <div className=" hidden md:block w-1/6">
           <Sidebar />
         </div>
-        <Drawer
+        {/* <Drawer
           placement={"left"}
           width={800}
           height={825}
@@ -187,7 +187,7 @@ const Home = ({ user, phoneNumber }) => {
           <div className=" w-1/6">
           <Sidebar />
         </div>
-        </Drawer>
+        </Drawer> */}
         <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
             <UserDetails profileUser={profileUser} getUser={getUser} />
