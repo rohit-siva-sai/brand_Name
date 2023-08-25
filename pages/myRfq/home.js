@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "@/useStore/user";
 import { Company } from "@/useStore/company";
+import { Drawer } from "antd";
 
 const Home = ({ user, phoneNumber }) => {
   const [
@@ -170,10 +171,24 @@ const Home = ({ user, phoneNumber }) => {
     }
   }, [router]);
   return (
-    <div className="h-[640px] overflow-hidden">
+    <div className="md:h-[640px]  overflow-hidden">
       <div className="flex">
-        <Sidebar />
-        <div className="h-[640px] bg-gray-100  px-6 flex-1 pb-8  overflow-y-scroll ">
+        <div className=" hidden md:block w-1/6">
+          <Sidebar />
+        </div>
+        <Drawer
+          placement={"left"}
+          width={800}
+          height={825}
+          className="rounded-l-3xl md:hidden block "
+          open={showFilter}
+          onClose={onClose}
+        >
+          <div className=" w-1/6">
+          <Sidebar />
+        </div>
+        </Drawer>
+        <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
             <UserDetails profileUser={profileUser} getUser={getUser} />
             <ComapnyDetails profileUser={profileUser} getUser={getUser} />

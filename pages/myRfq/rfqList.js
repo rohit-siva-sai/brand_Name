@@ -37,7 +37,9 @@ const RfqList = ({ user }) => {
   return (
     <div className="h-[640px] overflow-hidden">
       <div className="flex">
-        <Sidebar />
+      <div className="w-1/6">
+          <Sidebar />
+        </div>
         <AllRfqs rfqData={rfqData} />
       </div>
     </div>

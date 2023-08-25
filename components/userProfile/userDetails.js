@@ -80,13 +80,13 @@ const UserDetails = ({ profileUser, getUser }) => {
             <UserUpdate getUser={getUser} />
           </Modal>
         </div>
-        <div className="flex justify-center py-8 border-t divide-x">
-          <div className="  w-1/4 ">
+        <div className="flex md:flex-row flex-col md:space-y-0 space-y-2 items-center justify-center py-8 border-t md:divide-y-0 divide-y md:divide-x">
+          <div className="  md:w-1/4 ">
             <PhotoCard profileUser={profileUser} />
           </div>
 
-          <div className="w-3/4 pl-24">
-            <div className="flex flex-col space-y-3">
+          <div className="md:w-3/4 pl-6 pt-4 md:pt-0  md:pl-24">
+            <div className="flex flex-col  space-y-3">
               <DetailCard
               name="email"
                 Icon={MdMailOutline}

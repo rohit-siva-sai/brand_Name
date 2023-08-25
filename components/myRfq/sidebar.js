@@ -48,7 +48,7 @@ const Sidebar = () => {
   const [subName, setSubName] = useState("");
   const [show, setShow] = useState(false);
   return (
-    <div className="h-[640px]  bg-white  py-4 overflow-y-scroll w-1/6 scroll-smooth">
+    <div className="h-[640px]  bg-white  py-4 overflow-y-scroll w-full scroll-smooth">
       <div className="flex flex-col space-y-2">
         <>
           <Link href={"/myRfq/home"}>

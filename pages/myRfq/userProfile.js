@@ -176,7 +176,9 @@ const Home = ({ user, phoneNumber }) => {
   return (
     <div className="h-[640px] overflow-hidden">
       <div className="flex">
-        <Sidebar />
+      <div className="w-1/6">
+          <Sidebar />
+        </div>
         <div className="h-[640px] bg-gray-100  px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
             <UserDetails profileUser={profileUser} getUser={getUser} />
