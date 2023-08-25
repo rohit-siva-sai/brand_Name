@@ -29,11 +29,11 @@ const ValidTo = () => {
   const [i, setI] = useState(1);
   const dateFormat = "DD/MM/YYYY";
   const [day, setDay] = useState(
-    `${a + validDays < 10 ? "0" : ""}${a + validDays}/0${b}/${c}`
+    `${a + validDays < 10 ? "0" : ""}${a + validDays}/0${a+ validDays > 31  ? b+1: b}/${c}`
   );
   //   const day = ;
   // day.toString();
-  console.log("day", day);
+  console.log("day rohit", day);
 
   const handleChange = (value) => {
     // console.log(`selected ${value}`);
@@ -48,17 +48,20 @@ const ValidTo = () => {
           defaultValue={dayjs(day, dateFormat)}
           format={dateFormat}
           onChange={(date, dateString) => {
+            console.log('date',date);
+            
             setNewDate(date);
-            console.log("dsdssd", newDate?.$D);
-            console.log("dsdssd", newDate?.$M);
-            console.log("dsdssd", newDate?.$y);
-            console.log("bakj", newDate);
+          
             setA(newDate?.$D);
             setB(newDate?.$M);
             setC(newDate?.$y);
             setDay();
           }}
           onBlur={() => {
+            console.log("dsdssd", newDate?.$D);
+            console.log("dsdssd", newDate?.$M);
+            console.log("dsdssd", newDate?.$y);
+            console.log("bakj", newDate);
             updateValidTo(validDays);
             newDate != null
               ? (scoreProduct[7].score = true)

@@ -20,6 +20,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { useRouter } from "next/router";
 
+
 const Product = () => {
   const router = useRouter()
   const [updateIncreaseProgress, updateDecreaseProgress, productName, score,productCategory] =
@@ -90,6 +91,7 @@ const Product = () => {
             <UnitPrice />
           </div>
           <ValidTo />
+          {/* <ValidDate/> */}
           <Require />
           <Email />
           <div>

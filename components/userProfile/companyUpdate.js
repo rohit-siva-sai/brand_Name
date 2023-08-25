@@ -14,6 +14,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/config/firebase";
 import { Company } from "@/useStore/company";
 import { User } from "@/useStore/user";
+import { Toaster, toast } from "react-hot-toast";
 
 const CompanyUpdate = ({ getUser }) => {
   const [userId] = User((store) => [store.userId]);
@@ -30,6 +31,7 @@ const CompanyUpdate = ({ getUser }) => {
     panCardNo,
     gstNo,
     companyUpdate,
+    updateOpenCompanyModel
   ] = Company((store) => [
     store.company,
     store.bussinessType,
@@ -43,11 +45,12 @@ const CompanyUpdate = ({ getUser }) => {
     store.panCardNo,
     store.gstNo,
     store.companyUpdate,
+    store.updateOpenCompanyModel
   ]);
   const updateUser = async (id) => {
     const userDoc = doc(db, "users", id);
 
-    await updateDoc(userDoc, {
+   await updateDoc(userDoc, {
       company,
       bussinessType,
       companySize,
@@ -60,11 +63,22 @@ const CompanyUpdate = ({ getUser }) => {
       panCardNo,
       gstNo,
     });
-    console.log("updated successfully");
-    getUser(id);
+    // console.log("updated successfully",data);
+    toast.success("Updated Successfully", {
+      duration: 500,
+      position: "top-center",
+      style: {
+        background: "black",
+        color: "white",
+      },
+    });
+    await getUser(id);
+    updateOpenCompanyModel(false)
   };
   return (
-    <div className="relative">
+    <div>
+      <Toaster/>
+      <div className="relative">
       <div className={`py-3 relative px-4 ${companyUpdate=="all" ?" h-[500px]":"h-[300px]"} overflow-y-auto  border-t flex flex-col space-y-2`}>
         {(companyUpdate == "companyName" || companyUpdate == "all") && (
           <CompanyName />
@@ -107,6 +121,7 @@ const CompanyUpdate = ({ getUser }) => {
           Save
         </div>
       </div>
+    </div>
     </div>
   );
 };

@@ -26,6 +26,7 @@ const ProgressBar = () => {
 
   const exempted = [
     "/laonType",
+    "/loanAmount",
     "/primaryEmail",
     "/primaryName",
     "/primaryIncome",

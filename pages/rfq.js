@@ -3,7 +3,9 @@ import Product from "@/components/rfq/product";
 import Score from "@/components/rfq/score";
 import { db } from "@/config/firebase";
 import { useStore } from "@/useStore/details";
+import { SideBar } from "@/useStore/sideBar";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import {  useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 
@@ -33,6 +35,7 @@ const Rfq = ({ user, changeShowLogin }) => {
     store.email,
     store.progress
   ]);
+  const [updateLinkActive] = SideBar((store)=>[store.updateLinkActive])
 
   const rfqCollection = collection(db, "rfqs");
   //  console.log('product category',attributes);
@@ -43,6 +46,7 @@ const Rfq = ({ user, changeShowLogin }) => {
   //   console.log("updated successfully");
   //   // getUser(id)
   // };
+  const router  = useRouter()
 
   const submitNewUser = async () => {
     try {
@@ -65,8 +69,6 @@ const Rfq = ({ user, changeShowLogin }) => {
       console.log(err);
     }
   };
-  // console.log('ass',user);
-
   return (
     <div className="bg-gray-50 py-6 md:py-12">
       <div className="grid grid-cols-1 gap-y-4 md:gap-y-0 md:grid-cols-12 md:gap-x-7 px-2  md:px-36">
@@ -76,6 +78,8 @@ const Rfq = ({ user, changeShowLogin }) => {
             onClick={() => {
               !user && changeShowLogin(true)
               user && email!=0 && submitNewUser()
+              updateLinkActive("rfqs")
+              user && router.push("/myRfq/rfqList")
             }}
             // onClick={submitNewUser}
             className="mx-4 cursor-pointer mt-5 text-base w-fit font-semibold px-7 rounded-md text-white bg-gradient-to-l from-blue-400  to-blue-600 py-2"

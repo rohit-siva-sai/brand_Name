@@ -17,6 +17,8 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "@/useStore/user";
 import { Company } from "@/useStore/company";
+import SimpleSideBar from "@/components/myRfq/simpleSideBar";
+import { Drawer } from "antd";
 
 const Home = ({ user, phoneNumber }) => {
   const [
@@ -67,6 +69,14 @@ const Home = ({ user, phoneNumber }) => {
   ]);
 
   const [profileUser, setProfileUser] = useState({});
+  const [showFilter, setShowFilter] = useState(false);
+
+  const onClose = () => {
+    setShowFilter(false);
+  };
+  const showDrawer = () => {
+    setShowFilter(!showFilter);
+  };
 
   const getUser = async (id) => {
     try {
@@ -176,9 +186,21 @@ const Home = ({ user, phoneNumber }) => {
   return (
     <div className="h-[640px] overflow-hidden">
       <div className="flex">
-      <div className="w-1/6">
-          <Sidebar />
+      <div className=" hidden md:block w-1/6">
+          {/* <Sidebar /> */}
+          <SimpleSideBar />
         </div>
+
+        <Drawer
+          placement={"left"}
+          width={300}
+          height={825}
+          className=" md:hidden block  "
+          open={showFilter}
+          onClose={onClose}
+        >
+          <SimpleSideBar />
+        </Drawer>
         <div className="h-[640px] bg-gray-100  px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
             <UserDetails profileUser={profileUser} getUser={getUser} />

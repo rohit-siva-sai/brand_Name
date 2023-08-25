@@ -2,7 +2,7 @@ import React from "react";
 
 const RequestDetails = ({ rfqData }) => {
   return (
-    <div className="w-1/3 flex-1 px-6 bg-white py-4  rounded-xl h-[800px]">
+    <div className="md:w-1/3 w-full flex-1 px-6 bg-white py-4  rounded-xl h-[800px]">
       {rfqData!=null && <div>
         <div className="flex justify-between items-center pb-4 border-b">
           <p className="font-semibold text-xl text-gray-800">

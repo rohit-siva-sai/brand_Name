@@ -35,11 +35,11 @@ const About = () => {
         rows={5}
         onBlur={() => {
           updateAboutProduct(about);
-          about?.length > 10
+          about?.length > 0
             ? (scoreProduct[2].score = true)
             : (scoreProduct[2].score = false);
           if (scoreProduct[2].score && i == 1) {
-            updateIncreaseProgress(about?.length > 10 ? 42 : 0);
+            updateIncreaseProgress(42);
             setI(2);
           }
           if (!scoreProduct[2].score) {

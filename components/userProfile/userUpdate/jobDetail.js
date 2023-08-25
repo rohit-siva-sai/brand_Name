@@ -49,6 +49,8 @@ const JobDetail = () => {
     
      const data = options.filter((item)=> item.value == num )
      setLevel(data[0])
+     console.log('level',level,"dtaa",data[0]);
+     
   
   }
 
@@ -101,18 +103,7 @@ const JobDetail = () => {
                 value: "Engineering",
                 label: "Engineering",
               },
-              {
-                value: "Non-Customized Product",
-                label: "Non-Customized Product",
-              },
-              {
-                value: "Total Solution",
-                label: "Total Solution",
-              },
-              {
-                value: "Others",
-                label: "Others",
-              },
+              
             ]}
           />
         </div>
@@ -132,7 +123,7 @@ const JobDetail = () => {
             onBlur={() => {
               updateJob(desc);
             }}
-            options={level[0].children}
+            options={level.children}
           />
         </div>}
       </div>

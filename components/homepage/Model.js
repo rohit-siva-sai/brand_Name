@@ -16,6 +16,7 @@ const Model = () => {
           near: 0.1,
           far: 200,
           position: [0, 0, 6],
+          
           // position: [0,0,0]
         }}
       >

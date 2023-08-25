@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { User } from "@/useStore/user";
 import { Company } from "@/useStore/company";
 import { Drawer } from "antd";
+import SimpleSideBar from "@/components/myRfq/simpleSideBar";
 
 const Home = ({ user, phoneNumber }) => {
   const [
@@ -66,6 +67,15 @@ const Home = ({ user, phoneNumber }) => {
     store.gstNo,
     store.companyUpdate,
   ]);
+
+  const [showFilter, setShowFilter] = useState(false);
+
+  const onClose = () => {
+    setShowFilter(false);
+  };
+  const showDrawer = () => {
+    setShowFilter(!showFilter);
+  };
 
   const [profileUser, setProfileUser] = useState({});
 
@@ -174,20 +184,21 @@ const Home = ({ user, phoneNumber }) => {
     <div className="md:h-[640px]  overflow-hidden">
       <div className="flex">
         <div className=" hidden md:block w-1/6">
-          <Sidebar />
+          {/* <Sidebar /> */}
+          <SimpleSideBar />
         </div>
-        {/* <Drawer
+
+        <Drawer
           placement={"left"}
-          width={800}
+          width={300}
           height={825}
-          className="rounded-l-3xl md:hidden block "
+          className=" md:hidden block  "
           open={showFilter}
           onClose={onClose}
         >
-          <div className=" w-1/6">
-          <Sidebar />
-        </div>
-        </Drawer> */}
+          <SimpleSideBar />
+        </Drawer>
+
         <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
             <UserDetails profileUser={profileUser} getUser={getUser} />
