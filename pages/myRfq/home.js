@@ -200,10 +200,7 @@ const Home = ({ user, phoneNumber }) => {
         </Drawer>
 
         <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
-          <div className="flex flex-col space-y-8">
-            <UserDetails profileUser={profileUser} getUser={getUser} />
-            <ComapnyDetails profileUser={profileUser} getUser={getUser} />
-          </div>
+          
         </div>
       </div>
     </div>

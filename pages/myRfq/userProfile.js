@@ -17,8 +17,8 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { User } from "@/useStore/user";
 import { Company } from "@/useStore/company";
-import SimpleSideBar from "@/components/myRfq/simpleSideBar";
 import { Drawer } from "antd";
+import SimpleSideBar from "@/components/myRfq/simpleSideBar";
 
 const Home = ({ user, phoneNumber }) => {
   const [
@@ -68,7 +68,6 @@ const Home = ({ user, phoneNumber }) => {
     store.companyUpdate,
   ]);
 
-  const [profileUser, setProfileUser] = useState({});
   const [showFilter, setShowFilter] = useState(false);
 
   const onClose = () => {
@@ -77,6 +76,8 @@ const Home = ({ user, phoneNumber }) => {
   const showDrawer = () => {
     setShowFilter(!showFilter);
   };
+
+  const [profileUser, setProfileUser] = useState({});
 
   const getUser = async (id) => {
     try {
@@ -159,9 +160,6 @@ const Home = ({ user, phoneNumber }) => {
 
   const router = useRouter();
   useEffect(() => {
-    if (!userId) {
-      router.push("/");
-    }
     try {
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -171,22 +169,21 @@ const Home = ({ user, phoneNumber }) => {
 
         updateUserId(id);
         submitNewUser(id);
+
         // getCurrentUser(profileUser)
 
         // console.log(userDetails.uid);
+      } else {
+        router.push("/");
       }
     } catch (error) {
       console.log(error.message);
     }
-
-    if (!user) {
-      // router.push("/");
-    }
   }, [router]);
   return (
-    <div className="h-[640px] overflow-hidden">
+    <div className="md:h-[640px]  overflow-hidden">
       <div className="flex">
-      <div className=" hidden md:block w-1/6">
+        <div className=" hidden md:block w-1/6">
           {/* <Sidebar /> */}
           <SimpleSideBar />
         </div>
@@ -201,7 +198,8 @@ const Home = ({ user, phoneNumber }) => {
         >
           <SimpleSideBar />
         </Drawer>
-        <div className="h-[640px] bg-gray-100  px-6 flex-1 pb-8  overflow-y-scroll ">
+
+        <div className="md:h-[640px] bg-gray-100 px-4  md:px-6 flex-1 pb-8  overflow-y-scroll ">
           <div className="flex flex-col space-y-8">
             <UserDetails profileUser={profileUser} getUser={getUser} />
             <ComapnyDetails profileUser={profileUser} getUser={getUser} />
