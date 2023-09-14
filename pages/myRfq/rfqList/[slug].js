@@ -1,10 +1,11 @@
 import Sidebar from "@/components/myRfq/sidebar";
 import SimpleSideBar from "@/components/myRfq/simpleSideBar";
 import Admin from "@/components/slug/admin";
+import AllQuotes from "@/components/slug/quotesReceived/allQuotes";
 import RequestDetails from "@/components/slug/requestDetails";
 import { db } from "@/config/firebase";
 import { Drawer } from "antd";
-import { doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
@@ -21,6 +22,7 @@ const Post = () => {
     setShowFilter(!showFilter);
   };
   const [rfqData, setRfqData] = useState(null);
+  const [quoteData, setQuoteData] = useState(null);
   const getRfq = async (id) => {
     try {
       const rfqRef = doc(db, "rfqs", id); // 'people' is the collection name
@@ -37,11 +39,34 @@ const Post = () => {
       return null;
     }
   };
+  const quoteCollection = collection(db, "quotations");
+  
+  const getQuotes = async (id) => {
+    try {
+      const data = await getDocs(quoteCollection);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      const quote = filteredData.filter(
+        (item) => item.rfqId == id
+      );
+      
+    setQuoteData(quote)
+    console.log("ssassa", quoteData);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+
 
   const SingleRfq = async () => {
-    const data = await getRfq(router.query.slug);
-    setRfqData({ ...data });
-    console.log("hgsahgsxhgs", data);
+    const data1 = await getRfq(router.query.slug);
+    const data2 = await getQuotes(router.query.slug);
+    setRfqData({ ...data1 });
+    // setQuoteData({ ...data2 });
+    // console.log("hgsahgsxhgs", data2);
   };
 
   useEffect(() => {
@@ -69,7 +94,7 @@ const Post = () => {
         RFQs  &nbsp;/&nbsp;  All &nbsp; /&nbsp;  <span className="font-normal">Quotes Received</span>
       </p>
         <div className="flex  flex-col-reverse md:flex-row space-y-reverse space-y-6  md:space-x-3  ">
-          <Admin />
+          <AllQuotes quoteData={quoteData} />
           <RequestDetails rfqData={rfqData}  />
         </div>
       </div>

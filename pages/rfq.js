@@ -9,7 +9,7 @@ import {  useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 
-const Rfq = ({ user, changeShowLogin }) => {
+const Rfq = ({ user,changeShowLogin }) => {
   const [
     productName,
     productCategory,
@@ -21,7 +21,8 @@ const Rfq = ({ user, changeShowLogin }) => {
     validTo,
     requirements,
     email,
-    progress
+    progress,
+    updateProgress
   ] = useStore((store) => [
     store.productName,
     store.productCategory,
@@ -33,7 +34,8 @@ const Rfq = ({ user, changeShowLogin }) => {
     store.validTo,
     store.requirements,
     store.email,
-    store.progress
+    store.progress,
+    store.updateProgress
   ]);
   const [updateLinkActive] = SideBar((store)=>[store.updateLinkActive])
 
@@ -78,6 +80,7 @@ const Rfq = ({ user, changeShowLogin }) => {
             onClick={() => {
               !user && changeShowLogin(true)
               user && email!=0 && submitNewUser()
+              updateProgress()
               updateLinkActive("rfqs")
               user && router.push("/myRfq/rfqList")
             }}
