@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { BiChevronDown } from "react-icons/bi";
 
-import ReactStoreIndicator from "react-score-indicator";
+
+import { Progress } from "antd";
 
 const Score = () => {
   const [progress, productName, scoreProduct, scoreRequire,rfqScore,updateRfqScore] = useStore(
@@ -17,6 +18,7 @@ const Score = () => {
     ]
   );
   const [showRequire, setShowRequire] = useState(false);
+  const conicColors = {'0%': '#108ee9', '100%': '#87d068'  };
   // console.log('kjsdkjds',progress,productName);
 
   return (
@@ -31,7 +33,11 @@ const Score = () => {
           </p>
         </div>
         <div className="flex flex-col space-y-4">
-          <ReactStoreIndicator value={progress} maxValue={100} />
+          
+          <div className="flex justify-center">
+
+          <Progress strokeColor={conicColors} type="dashboard" percent={progress} size={180} />
+          </div>
           <div className="flex flex-col space-y-3">
             <div className="flex flex-col space-y-3">
               {scoreProduct.map((item) => {

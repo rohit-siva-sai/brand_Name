@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 const details = (set) => ({
-  progress: 0,
+  progress: 2,
 
   productName: "",
   productCategory: "",
@@ -17,6 +17,7 @@ const details = (set) => ({
     paymentMethod: "",
     company: "",
   },
+  rfqDate : {rfqPostedDate: "",rfqExpireDate: "" },
   email: null,
   rfqScore: 0,
   score: [false, false, false, false, false, false,false,false,false],
@@ -59,7 +60,7 @@ const details = (set) => ({
     { 
       label: "Valid To",
       marks: "2",
-      score: false
+      score: true
     },
     { 
       label: "Email",
@@ -112,6 +113,7 @@ const details = (set) => ({
     set((store) => ({
       progress: store.progress - 10 < 0 ? 0 : store.progress - number,
     })),
+    updateRfqDate: async (value) => set((store) => ({ rfqDate: value })),
   updateProductName: async (name) => set((store) => ({ productName: name })),
   updateRfqScore: async (score) => set((store) => ({ rfqScore: score })),
   updateProductCategory: async (category) =>
@@ -130,7 +132,7 @@ const details = (set) => ({
     set((store) => ({ requirements: require })),
   updateProductDetails: async (details) =>
     set((store) => ({ productDetails: details })),
-  updateProgress: async (user) => set((store) => ({ progress: 0 })),
+  updateProgress: async (user) => set((store) => ({ progress: 2 })),
   updateScore: async (array) => set(() => ({ score: array })),
   // set(
   //   produce((store) => ({

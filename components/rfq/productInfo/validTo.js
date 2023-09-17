@@ -1,43 +1,58 @@
-import { useStore } from "@/useStore/details";
+
 import { DatePicker } from "antd";
+import React, { useEffect } from "react";
 import dayjs from "dayjs";
-import React from "react";
 import { useState } from "react";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-dayjs.extend(customParseFormat);
+import { useStore } from "@/useStore/details";
+
 const ValidTo = () => {
-  const [
-    updateValidTo,
-    updateIncreaseProgress,
-    updateDecreaseProgress,
-    validTo,
-    scoreProduct,
-  ] = useStore((store) => [
-    store.updateValidTo,
-    store.updateIncreaseProgress,
-    store.updateDecreaseProgress,
-    store.validTo,
-    store.scoreProduct,
+  const [updateRfqDate, rfqDate] = useStore((store) => [
+    store.updateRfqDate,
+
+    store.rfqDate,
   ]);
-  const date = new Date();
-  const [a, setA] = useState(date.getDate());
-  const [b, setB] = useState(date.getMonth());
-  const [c, setC] = useState(date.getFullYear());
-
-  const [validDays, setValidDays] = useState(7);
-  const [newDate, setNewDate] = useState("");
-  const [i, setI] = useState(1);
   const dateFormat = "DD/MM/YYYY";
-  const [day, setDay] = useState(
-    `${a + validDays < 10 ? "0" : ""}${a + validDays}/0${a+ validDays > 31  ? b+1: b}/${c}`
-  );
-  //   const day = ;
-  // day.toString();
-  console.log("day rohit", day);
+  const postDate = new Date();
+  const presentDate = new Date();
+  const [newDate, setNewDate] = useState("");
 
-  const handleChange = (value) => {
-    // console.log(`selected ${value}`);
+  const f = new Intl.DateTimeFormat("ru-RU", {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+  const [validDays, setValidDays] = useState(7);
+  presentDate.setDate(presentDate.getDate() + validDays);
+  console.log("prsernt", presentDate);
+  const [a, setA] = useState(presentDate.getDate());
+  const [b, setB] = useState(presentDate.getMonth() + 1);
+  const [c, setC] = useState(presentDate.getFullYear());
+  const [day, setDay] = useState(
+    `${a < 10 ? "0" : ""}${a}/${b < 10 ? "0" : ""}${b}/${c}`
+  );
+
+  const newValiDays = (date) => {
+    console.log("date", f.format(date?.$d), "day");
+
+    const bun = new Date();
+    setValidDays(Math.floor((date?.$d - bun) / (1000 * 24 * 60 * 60)) + 1);
+    console.log("days", Math.floor((date?.$d - bun) / (1000 * 24 * 60 * 60)));
+    setDay(f.format(date?.$d));
+
+    setA(date?.$D);
+    setB(date?.$M);
+    setC(date?.$y);
   };
+  console.log("present date", rfqDate);
+  useEffect(() => {
+    updateRfqDate({
+      rfqPostedDate: f.format(postDate),
+      rfqExpireDate: day,
+    });
+  }, []);
+
   return (
     <div className="flex flex-col space-y-1">
       <label className="leading-7 text-base font-semibold text-gray-800">
@@ -48,32 +63,15 @@ const ValidTo = () => {
           defaultValue={dayjs(day, dateFormat)}
           format={dateFormat}
           onChange={(date, dateString) => {
-            console.log('date',date);
-            
-            setNewDate(date);
-          
-            setA(newDate?.$D);
-            setB(newDate?.$M);
-            setC(newDate?.$y);
-            setDay();
+            setNewDate(date?.$d);
+            newValiDays(date);
+            console.log("date", date);
           }}
           onBlur={() => {
-            console.log("dsdssd", newDate?.$D);
-            console.log("dsdssd", newDate?.$M);
-            console.log("dsdssd", newDate?.$y);
-            console.log("bakj", newDate);
-            updateValidTo(validDays);
-            newDate != null
-              ? (scoreProduct[7].score = true)
-              : (scoreProduct[7].score = false);
-            if (scoreProduct[7].score && i == 1) {
-              updateIncreaseProgress(2);
-              setI(2);
-            }
-            if (!scoreProduct[7].score) {
-              updateDecreaseProgress(2);
-              setI(1);
-            }
+            updateRfqDate({
+              rfqPostedDate: f.format(postDate),
+              rfqExpireDate: day,
+            });
           }}
           className="w-40"
         />

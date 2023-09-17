@@ -58,7 +58,7 @@ const AllRfqs = ({ rfqData }) => {
         <div className="flex flex-col space-y-0">
           {rfqData.map((item) => {
             return (
-              <Link passHref={true} href={`/myRfq/rfqList/${item.id}`}>
+              <Link href={`/myRfq/rfqList/${item.id}`}>
                 <div className="md:grid-cols-12 grid-cols-5 py-3 border px-2 md:px-8 hover:bg-gray-50  grid place-items-start ">
                   <div className="md:col-span-1 md:flex hidden  space-x-4 items-center">
                     <input type="checkbox" name="" id="" />
@@ -74,30 +74,30 @@ const AllRfqs = ({ rfqData }) => {
                       <p className="font-semibold text-sm md:text-base text-gray-400 ">
                         {item.productName}
                       </p>
-                      <p className="font-semibold text-sm md:text-base text-gray-400 ">
+                      <p className="font-semibold text-sm md:text-base text-gray-400">
                         {item.productCategory[2]}
                       </p>
                     </div>
                   </div>
-                  <div className="col-span-1 text-sm md:text-base md:col-span-2 text-gray-400 font-semibold">
-                    {item.validDate}654654
+                  <div className="col-span-1 text-xs md:text-base md:col-span-2 text-gray-400 font-semibold">
+                  {item.rfqDate?.rfqExpireDate}
+                  </div>
+                  <div className="col-span-1 text-xs md:text-base md:col-span-2 text-gray-400 font-semibold">
+                  {item.rfqDate?.rfqPostedDate}
                   </div>
                   <div className="col-span-1 text-sm md:text-base md:col-span-2 text-gray-400 font-semibold">
-                    {item.validDate}654654
-                  </div>
-                  <div className="col-span-1 text-sm md:text-base md:col-span-2 text-gray-400 font-semibold">
-                    <div className="flex flex-col text-sm md:text-base space-y-1">
+                    <div className="flex flex-col text-xs md:text-base space-y-1">
                       <p>Quotes Recieved</p>
                       <div className="flex space-x-2 items-center">
                         <div className="flex-1 opacity-50">
                           <Progress
-                            percent={50}
+                            percent={item.quotesReceived?(item.quotesReceived/10)*100 : 0}
                             className="flex-1"
                             showInfo={false}
                             size={"small"}
                           />
                         </div>
-                        <p className="text-xs">0/20</p>
+                        <p className="text-xs">{item.quotesReceived}/10</p>
                       </div>
                     </div>
                   </div>

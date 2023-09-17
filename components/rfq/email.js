@@ -35,7 +35,7 @@ const Email = () => {
         }}
         onBlur={() => {
           updateEmail(userMail);
-          userMail?.length > 1 && userMail.includes("@.com")
+          userMail?.length > 1 && userMail.includes("@")
             ? (scoreProduct[8].score = true)
             : (scoreProduct[8].score = false);
           if (scoreProduct[8].score && i == 1) {

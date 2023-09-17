@@ -42,7 +42,7 @@ const About = () => {
             updateIncreaseProgress(42);
             setI(2);
           }
-          if (!scoreProduct[2].score) {
+          if (!scoreProduct[2].score && i==2)  {
             updateDecreaseProgress(42);
             setI(1);
           }
