@@ -56,7 +56,7 @@ const AllRfqs = ({ rfqData }) => {
           </div>
         </div>
         <div className="flex flex-col space-y-0">
-          {rfqData.map((item) => {
+          {rfqData?.map((item) => {
             return (
               <Link href={`/myRfq/rfqList/${item.id}`}>
                 <div className="md:grid-cols-12 grid-cols-5 py-3 border px-2 md:px-8 hover:bg-gray-50  grid place-items-start ">

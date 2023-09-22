@@ -560,6 +560,38 @@ export default function App({ Component, pageProps }) {
     setShowLogin(value);
   }
 
+  const rfqCollection = collection(db, "rfqs");
+  const [rfqData, setRfqData] = useState([]);
+  const [isLoading,setIsLoading] = useState(true)
+  const getRfq = async (id) => {
+    try {
+      const data = await getDocs(rfqCollection);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      
+      const rfq = filteredData.filter((item) => item.user == user.uid);
+      setRfqData(rfq);
+      setIsLoading(false)
+      console.log("ssassa", rfq);
+      // console.log("usedatadfinprofile", userData[0]);
+      // const sliceData = userData[0];
+      // console.log(sliceData, "slicedata");
+
+      // setProfileUser(sliceData);
+      // console.log("rohit siva sai", profileUser);
+      // // getCurrentUser(profileUser)
+      // if (sliceData && sliceData.id === id) return true;
+      // else return false;
+    } catch (err) {
+      console.log(err.message);
+      setIsLoading(false)
+    }
+  };
+  useEffect( () => {
+    getRfq();
+ }, [user]);
   return (
     <>
       <Navbar
@@ -605,6 +637,7 @@ export default function App({ Component, pageProps }) {
         updateCurrentUser={updateCurrentUser}
         showLogin={showLogin}
         changeShowLogin={changeShowLogin}
+        rfqData={rfqData}
       />
       {/* <Footer /> */}
     </>
