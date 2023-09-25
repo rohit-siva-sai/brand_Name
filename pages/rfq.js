@@ -8,6 +8,7 @@ import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import {  useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
+// import firebase from 'firebase/app';
 
 const Rfq = ({ user,changeShowLogin }) => {
   const [
@@ -18,7 +19,7 @@ const Rfq = ({ user,changeShowLogin }) => {
     sourcingType,
     order,
     unitPrice,
-    validTo,
+    rfqDate,
     requirements,
     email,
     progress,
@@ -31,13 +32,13 @@ const Rfq = ({ user,changeShowLogin }) => {
     store.sourcingType,
     store.order,
     store.unitPrice,
-    store.validTo,
+    store.rfqDate,
     store.requirements,
     store.email,
     store.progress,
     store.updateProgress
   ]);
-  const [updateLinkActive] = SideBar((store)=>[store.updateLinkActive])
+  const [updateLinkActive,updateNewRfq] = SideBar((store)=>[store.updateLinkActive,store.updateNewRfq])
 
   const rfqCollection = collection(db, "rfqs");
   //  console.log('product category',attributes);
@@ -60,12 +61,16 @@ const Rfq = ({ user,changeShowLogin }) => {
         sourcingType: sourcingType,
         order: order,
         unitPrice: unitPrice,
-        validTo: validTo,
+        rfqDate: rfqDate,
         requirements: requirements,
         email: email,
         rfqScore: progress,
-        user: user.uid
+        user: user.uid,
+        starred: false,
+        timestamp: new Date()
       })
+
+      updateNewRfq()
       
     } catch (err) {
       console.log(err);

@@ -1,16 +1,18 @@
 import React from "react";
 
 const RequestDetails = ({ rfqData }) => {
+  console.log('rfqData',rfqData);
+  
   return (
-    <div className="md:w-1/3 w-full flex-1 px-6 bg-white py-4  rounded-xl h-[800px]">
+    <div className="md:w-full w-full flex-1 px-6 bg-white py-4  rounded-xl h-[550px] overflow-y-auto ">
       {rfqData!=null && <div>
         <div className="flex justify-between items-center pb-4 border-b">
           <p className="font-semibold text-xl text-gray-800">
             My Request Details
           </p>
-          <p className="font-semibold text-base text-blue-600">
+          {/* <p className="font-semibold text-base text-blue-600">
             Close the Request
-          </p>
+          </p> */}
         </div>
         <div className="flex  space-x-16  items-center py-4">
           <p className="font-semibold text-xl w-1/3 text-gray-800">RFQ Score</p>
@@ -114,13 +116,13 @@ const RequestDetails = ({ rfqData }) => {
               Post Date
             </p>
             <p className="text-gray-500 font-normal text-base">
-              {"2023/08/15 10:30"}
+              {rfqData.rfqDate?.rfqPostedDate}
             </p>
           </div>
           <div className="flex  space-x-16  items-center">
             <p className="font-normal text-base w-1/3 text-gray-500">Expires</p>
             <p className="text-gray-500 font-normal text-base">
-              {"2023/08/22"}
+              {rfqData.rfqDate?.rfqExpireDate}
             </p>
           </div>
         </div>

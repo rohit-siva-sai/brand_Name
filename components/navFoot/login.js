@@ -142,7 +142,7 @@ const Login = ({
 
         localStorage.setItem("userDetails", JSON.stringify(res.user));
         // const id = res.user.uid;
-        changeShowLogin(false);
+        changeShowLogin(false)
         router.push("/myRfq/home");
       })
       .catch((err) => {

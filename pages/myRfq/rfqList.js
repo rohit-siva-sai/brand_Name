@@ -6,8 +6,9 @@ import { Drawer } from "antd";
 import { collection, getDocs } from "firebase/firestore";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { TbCircleDotted } from "react-icons/tb";
 
-const RfqList = ({ user,rfqData }) => {
+const RfqList = ({ user, updatedRfqData, isLoading,filterRfqData }) => {
   const [showFilter, setShowFilter] = useState(false);
 
   const onClose = () => {
@@ -16,7 +17,7 @@ const RfqList = ({ user,rfqData }) => {
   const showDrawer = () => {
     setShowFilter(!showFilter);
   };
-  
+
   // useEffect( () => {
   //    getRfq();
   // }, []);
@@ -38,7 +39,11 @@ const RfqList = ({ user,rfqData }) => {
         >
           <SimpleSideBar />
         </Drawer>
-        <AllRfqs rfqData={rfqData} />
+
+          
+      
+          <AllRfqs isLoading={isLoading} updatedRfqData={updatedRfqData} filterRfqData={filterRfqData} />
+       
       </div>
     </div>
   );

@@ -87,8 +87,8 @@ const Home = ({ user, phoneNumber }) => {
       if (userDoc.exists()) {
         const userData = userDoc.data();
         setProfileUser(userData);
-        updateUserDetails(userData);
-        updatePhoneNumber(userData.phone_number);
+        updateUserDetails(userData)
+        updatePhoneNumber(userData.phone_number)
         console.log(userData, "rohit siva sai");
         return true;
       } else {

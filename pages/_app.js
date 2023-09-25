@@ -15,6 +15,8 @@ import {
 import Footer from "@/components/navFoot/footer";
 import { getAuth, signOut } from "firebase/auth";
 import ProgressBar from "@/components/laons/progressBar";
+import { useMemo } from "react";
+import { SideBar } from "@/useStore/sideBar";
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({});
@@ -27,7 +29,12 @@ export default function App({ Component, pageProps }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [userId, setUserId] = useState("");
-  const [currentUser, setCurrentUser] = useState({username: "rohit siva sai",email: "example@gmail.com",phone_number: "8276545555",cart: []})
+  const [currentUser, setCurrentUser] = useState({
+    username: "rohit siva sai",
+    email: "example@gmail.com",
+    phone_number: "8276545555",
+    cart: [],
+  });
   const [showCart, setShowCart] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
 
@@ -74,6 +81,7 @@ export default function App({ Component, pageProps }) {
     { id: 133, checked: false, label: "aerospace" },
     { id: 134, checked: false, label: "apparel" },
   ]);
+  const [newRfq] = SideBar((store) => [store.newRfq]);
 
   const productCollection = collection(db, "materials");
   const brandCollection = collection(db, "brands");
@@ -104,76 +112,74 @@ export default function App({ Component, pageProps }) {
     }
   };
 
-  const getCurrentUser = (cuser)=>{
-    console.log(cuser,"currentuser");
-    
-    setCurrentUser(cuser)
-  }
+  const getCurrentUser = (cuser) => {
+    console.log(cuser, "currentuser");
 
-  const getUser = async (id) => {
-    //read the data
-    //set the movie list
-
-    // getAuth()
-    //   .getUser("GCiTcEWLwbOBNj2n5JEmivzN8A62")
-    //   .then((userRecord) => {
-    //     // See the UserRecord reference doc for the contents of userRecord.
-    //     console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error fetching user data:", error);
-    //   });
-    try {
-      // const snapshot = await getDoc(doc(db, "users", id));
-      // if (snapshot.exists()) {
-      //   const userData = snapshot.data()
-      //   setCurrentUser(userData);
-      //   console.log(snapshot.data(),"rohit siva sai");
-
-      //   console.log(currentUser, "rohit siba saiasazassasas");
-      // } else {
-      //   console.log("User doc missing");
-      // }
-
-      const data = await getDocs(userCollection);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      const userData = filteredData.filter((item) => item.id === id);
-      console.log("usedatadf", userData[0]);
-      const sliceData = userData[0]
-      console.log(sliceData,"slicedata");
-      
-
-      setCurrentUser(sliceData);
-      console.log("rohit siva sai", currentUser);
-      if(sliceData && sliceData.id === id)
-       return true
-      else
-       return false
-    
-
-      // console.log(filteredData, "users");
-      // const ref = doc(db, "users", "GCiTcEWLwbOBNj2n5JEmivzN8A62").withConverter(cityConverter);
-      // const docSnap = await getDoc(ref)
-      // if (docSnap.exists()) {
-      //   // Convert to City object
-      //   const city = docSnap.data();
-      //   // Use a City instance method
-      //   console.log(city.toString());
-      // }
-      // //  const filteredData = data.docs.map((doc) => ({
-      // //   ...doc.data(),
-      // //   id: doc.id,
-      // // }));
-      // console.log(data);
-
-      // setMovielist(filteredData);
-    } catch (err) {
-      console.log(err.message);
-    }
+    setCurrentUser(cuser);
   };
+
+  // const getUser = async (id) => {
+  //   //read the data
+  //   //set the movie list
+
+  //   // getAuth()
+  //   //   .getUser("GCiTcEWLwbOBNj2n5JEmivzN8A62")
+  //   //   .then((userRecord) => {
+  //   //     // See the UserRecord reference doc for the contents of userRecord.
+  //   //     console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+  //   //   })
+  //   //   .catch((error) => {
+  //   //     console.log("Error fetching user data:", error);
+  //   //   });
+  //   try {
+  //     // const snapshot = await getDoc(doc(db, "users", id));
+  //     // if (snapshot.exists()) {
+  //     //   const userData = snapshot.data()
+  //     //   setCurrentUser(userData);
+  //     //   console.log(snapshot.data(),"rohit siva sai");
+
+  //     //   console.log(currentUser, "rohit siba saiasazassasas");
+  //     // } else {
+  //     //   console.log("User doc missing");
+  //     // }
+
+  //     const data = await getDocs(userCollection);
+  //     const filteredData = data.docs.map((doc) => ({
+  //       ...doc.data(),
+  //       id: doc.id,
+  //     }));
+  //     const userData = filteredData.filter((item) => item.id === id);
+  //     console.log("usedatadf", userData[0]);
+  //     const sliceData = userData[0]
+  //     console.log(sliceData,"slicedata");
+
+  //     setCurrentUser(sliceData);
+  //     console.log("rohit siva sai", currentUser);
+  //     if(sliceData && sliceData.id === id)
+  //      return true
+  //     else
+  //      return false
+
+  //     // console.log(filteredData, "users");
+  //     // const ref = doc(db, "users", "GCiTcEWLwbOBNj2n5JEmivzN8A62").withConverter(cityConverter);
+  //     // const docSnap = await getDoc(ref)
+  //     // if (docSnap.exists()) {
+  //     //   // Convert to City object
+  //     //   const city = docSnap.data();
+  //     //   // Use a City instance method
+  //     //   console.log(city.toString());
+  //     // }
+  //     // //  const filteredData = data.docs.map((doc) => ({
+  //     // //   ...doc.data(),
+  //     // //   id: doc.id,
+  //     // // }));
+  //     // console.log(data);
+
+  //     // setMovielist(filteredData);
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
 
   const logOut = async () => {
     signOut(getAuth())
@@ -181,13 +187,13 @@ export default function App({ Component, pageProps }) {
         console.log("Sign-out successful.");
         localStorage.removeItem("userDetails");
         handleUser(null);
-        setCurrentUser(null)
+        setCurrentUser(null);
         router.push("/");
       })
       .catch((error) => {
         // An error happened.
         console.log(error);
-      })
+      });
   };
 
   const getPhoneNumber = (number) => {
@@ -195,32 +201,31 @@ export default function App({ Component, pageProps }) {
     console.log("phone", phoneNumber);
   };
 
-  const submitNewUser = async (id) => {
-    const value = getUser(id)
-    try {
-      if (!value) {
-        await setDoc(doc(db, "users", id), {
-          username: "user",
-          email: "example@gmail.com",
-          phone_number: phoneNumber,
-          // id: auth?.currentUser?.uid,
-          // id: "GCiTcEWLwbOBNj2n5JEmivzN8A62",
-        });
-      } else {
-        // getUser(currentUser.id);
-        return;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const submitNewUser = async (id) => {
+  //   const value = getUser(id)
+  //   try {
+  //     if (!value) {
+  //       await setDoc(doc(db, "users", id), {
+  //         username: "user",
+  //         email: "example@gmail.com",
+  //         phone_number: phoneNumber,
+  //         // id: auth?.currentUser?.uid,
+  //         // id: "GCiTcEWLwbOBNj2n5JEmivzN8A62",
+  //       });
+  //     } else {
+  //       // getUser(currentUser.id);
+  //       return;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const updateCurrentUser = async (id, updateName, updateEmail) => {
-    const userDoc = doc(db, "users", id)
+    const userDoc = doc(db, "users", id);
 
     await updateDoc(userDoc, { username: updateName, email: updateEmail });
-    console.log("updated successfully")
-   
+    console.log("updated successfully");
   };
 
   useEffect(() => {
@@ -232,7 +237,7 @@ export default function App({ Component, pageProps }) {
         // const id = userDetails.uid;
         // setUserId(userDetails.uid);
         // getUser(id)
-        setUser(userDetails)
+        setUser(userDetails);
 
         // console.log(userDetails.uid);
       }
@@ -254,7 +259,7 @@ export default function App({ Component, pageProps }) {
   //user details
 
   const handleUser = (userDetails) => {
-    setUser(userDetails)
+    setUser(userDetails);
     console.log("userinapp", user);
   };
 
@@ -555,14 +560,14 @@ export default function App({ Component, pageProps }) {
   const [showLogin, setShowLogin] = useState(false);
   // console.log('user',user);
 
-
   const changeShowLogin = (value) => {
     setShowLogin(value);
-  }
+  };
 
   const rfqCollection = collection(db, "rfqs");
   const [rfqData, setRfqData] = useState([]);
-  const [isLoading,setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
+  const [updatedRfqData, setUpdatedRfqData] = useState([]);
   const getRfq = async (id) => {
     try {
       const data = await getDocs(rfqCollection);
@@ -570,11 +575,17 @@ export default function App({ Component, pageProps }) {
         ...doc.data(),
         id: doc.id,
       }));
-      
-      const rfq = filteredData.filter((item) => item.user == user.uid);
+      const user = JSON.parse(localStorage.getItem("userDetails"));
+      const rfq = filteredData
+        .filter((item) => item.user == user.uid)
+        .sort((a, b) => b.timestamp["seconds"] - a.timestamp["seconds"]);
+      // const rfq = rfqData.sort((a,b)=>  b.timestamp["seconds"] -  a.timestamp["seconds"] )
+
       setRfqData(rfq);
-      setIsLoading(false)
-      console.log("ssassa", rfq);
+      // filterRfqData(1)
+      setUpdatedRfqData(rfq);
+      setIsLoading(false);
+      // console.log("ssassa", rfq);
       // console.log("usedatadfinprofile", userData[0]);
       // const sliceData = userData[0];
       // console.log(sliceData, "slicedata");
@@ -586,12 +597,104 @@ export default function App({ Component, pageProps }) {
       // else return false;
     } catch (err) {
       console.log(err.message);
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
-  useEffect( () => {
+
+  const filterRfqData = (id) => {
+    if (id == 0) {
+      const data = rfqData.filter((item) => item.starred == true);
+      setUpdatedRfqData(data);
+    } else {
+      console.log("rfadata", rfqData);
+
+      setUpdatedRfqData(rfqData);
+    }
+  };
+  useEffect(() => {
     getRfq();
- }, [user]);
+  }, [newRfq]);
+  //user details from firebase
+
+  const getUser = async (id) => {
+    try {
+      const userRef = doc(db, "users", id); // 'people' is the collection name
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        setProfileUser(userData);
+        updateUserDetails(userData);
+        updatePhoneNumber(userData.phone_number);
+        console.log(userData, "rohit siva sai");
+        return true;
+      } else {
+        console.log("No such document!");
+        return false;
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+  const submitNewUser = async (id) => {
+    const value = await getUser(id);
+    console.log("value", value);
+    try {
+      if (!value) {
+        await setDoc(doc(db, "users", id), {
+          username: { firstName: "first", lastName: "Last" },
+          email: "example@gmail.com",
+          phone_number: user?.phoneNumber,
+          job: job,
+          address: userAddress,
+          companyWebsite: companyWebsite,
+          linkedinProfile: linkedinProfile,
+          company,
+          bussinessType,
+          companySize,
+          sellingChannel,
+          annualValue,
+          suppliers,
+          marketImport,
+          marketSell,
+          purchasingRole,
+          panCardNo,
+          gstNo,
+          companyUpdate,
+        });
+        await getUser(id);
+      } else {
+        // getUser(currentUser.id);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("userDetails")) {
+        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        console.log("usredd", userDetails);
+
+        const id = userDetails.uid;
+
+        updateUserId(id);
+        submitNewUser(id);
+
+        // getCurrentUser(profileUser)
+
+        // console.log(userDetails.uid);
+      } else {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, [router]);
+
+  
   return (
     <>
       <Navbar
@@ -638,6 +741,9 @@ export default function App({ Component, pageProps }) {
         showLogin={showLogin}
         changeShowLogin={changeShowLogin}
         rfqData={rfqData}
+        isLoading={isLoading}
+        filterRfqData={filterRfqData}
+        updatedRfqData={updatedRfqData}
       />
       {/* <Footer /> */}
     </>
