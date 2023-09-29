@@ -25,7 +25,7 @@ const ValidTo = () => {
   });
   const [validDays, setValidDays] = useState(7);
   presentDate.setDate(presentDate.getDate() + validDays);
-  console.log("prsernt", presentDate);
+  // console.log("prsernt", presentDate);
   const [a, setA] = useState(presentDate.getDate());
   const [b, setB] = useState(presentDate.getMonth() + 1);
   const [c, setC] = useState(presentDate.getFullYear());
@@ -34,18 +34,18 @@ const ValidTo = () => {
   );
 
   const newValiDays = (date) => {
-    console.log("date", f.format(date?.$d), "day");
+    // console.log("date", f.format(date?.$d), "day");
 
     const bun = new Date();
     setValidDays(Math.floor((date?.$d - bun) / (1000 * 24 * 60 * 60)) + 1);
-    console.log("days", Math.floor((date?.$d - bun) / (1000 * 24 * 60 * 60)));
+    // console.log("days", Math.floor((date?.$d - bun) / (1000 * 24 * 60 * 60)));
     setDay(f.format(date?.$d));
 
     setA(date?.$D);
     setB(date?.$M);
     setC(date?.$y);
   };
-  console.log("present date", rfqDate);
+  // console.log("present date", rfqDate);
   useEffect(() => {
     updateRfqDate({
       rfqPostedDate: f.format(postDate),
@@ -65,7 +65,7 @@ const ValidTo = () => {
           onChange={(date, dateString) => {
             setNewDate(date?.$d);
             newValiDays(date);
-            console.log("date", date);
+            // console.log("date", date);
           }}
           onBlur={() => {
             updateRfqDate({

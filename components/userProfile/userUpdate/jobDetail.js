@@ -3,59 +3,54 @@ import { Select } from "antd";
 import React from "react";
 import { useState } from "react";
 const options = [
-    {
-        value: "Engineering",
-        children: [
-            {
-                value: "Director",
-                label: "Director",
-            },
-            {
-                value: "Executive",
-                label: "Executive",
-            },
-            {
-                value: "Manager",
-                label: "Manager",
-            },
-        ]
-    },
-    {
-        value: "Accounting",
-        children: [
-            {
-                value: "Accounter",
-                label: "Accounter",
-            },
-            {
-                value: "CFO",
-                label: "CFO",
-            },
-            {
-                value: "Accounting Manager",
-                label: "Accounting Manager",
-            },
-        ]
-    },
-]
+  {
+    value: "Engineering",
+    children: [
+      {
+        value: "Director",
+        label: "Director",
+      },
+      {
+        value: "Executive",
+        label: "Executive",
+      },
+      {
+        value: "Manager",
+        label: "Manager",
+      },
+    ],
+  },
+  {
+    value: "Accounting",
+    children: [
+      {
+        value: "Accounter",
+        label: "Accounter",
+      },
+      {
+        value: "CFO",
+        label: "CFO",
+      },
+      {
+        value: "Accounting Manager",
+        label: "Accounting Manager",
+      },
+    ],
+  },
+];
 
 const JobDetail = () => {
   const [job, updateJob] = User((store) => [store.job, store.updateJob]);
-  const [level,setLevel] = useState(options)
+  const [level, setLevel] = useState(options);
 
-  
-  const showJobLevel = (num)=>{
-   
-    
-     const data = options.filter((item)=> item.value == num )
-     setLevel(data[0])
-     console.log('level',level,"dtaa",data[0]);
-     
-  
-  }
+  const showJobLevel = (num) => {
+    const data = options.filter((item) => item.value == num);
+    setLevel(data[0]);
+    //  console.log('level',level,"dtaa",data[0]);
+  };
 
   const [desc, setDesc] = useState(job);
-  console.log("sss", desc);
+  // console.log("sss", desc);
   return (
     <div className="felx flex-col space-y-2">
       <div className="flex flex-col space-y-1 ">
@@ -84,15 +79,15 @@ const JobDetail = () => {
           </label>
           <Select
             // defaultValue="Bussiness Service"
-            value={desc.jobCategory}
+            value={desc?.jobCategory}
             placeholder="Select One"
             className="w-full md:w-full text-sm font-semibold"
             onChange={(value) => {
               setDesc((prev) => ({ ...prev, jobCategory: value }));
             }}
             onBlur={() => {
-              updateJob(desc)
-              showJobLevel(desc.jobCategory)
+              updateJob(desc);
+              showJobLevel(desc?.jobCategory);
             }}
             options={[
               {
@@ -103,29 +98,29 @@ const JobDetail = () => {
                 value: "Engineering",
                 label: "Engineering",
               },
-              
             ]}
           />
         </div>
-        {desc.jobCategory && <div className="flex flex-col space-y-1 ">
-          <label className="leading-7 text-sm font-semibold text-gray-800">
-            Last Name<span className="text-red-600 text-lg">*</span>
-          </label>
-          <Select
-            // defaultValue="Bussiness Service"
-            placeholder="Select One"
-            value={desc.jobLevel}
-
-            className="w-full md:w-full text-sm font-semibold"
-            onChange={(value) => {
-              setDesc((prev) => ({ ...prev, jobLevel: value }));
-            }}
-            onBlur={() => {
-              updateJob(desc);
-            }}
-            options={level.children}
-          />
-        </div>}
+        {desc?.jobCategory && (
+          <div className="flex flex-col space-y-1 ">
+            <label className="leading-7 text-sm font-semibold text-gray-800">
+              Last Name<span className="text-red-600 text-lg">*</span>
+            </label>
+            <Select
+              // defaultValue="Bussiness Service"
+              placeholder="Select One"
+              value={desc?.jobLevel}
+              className="w-full md:w-full text-sm font-semibold"
+              onChange={(value) => {
+                setDesc((prev) => ({ ...prev, jobLevel: value }));
+              }}
+              onBlur={() => {
+                updateJob(desc);
+              }}
+              options={level.children}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

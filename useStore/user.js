@@ -6,7 +6,7 @@ const user = (set) => ({
   job: { jobTitle: "",jobCategory: "",jobLevel: ""},
   userAddress: { bussinessAddress: "", city: "", state: "", pincode: null,country: "" },
   country: "",
-  comapnyWebsite: "",
+  companyWebsite: "",
   linkedinProfile: "",
   phoneNumber: "",
   userId: null,
@@ -27,7 +27,7 @@ const user = (set) => ({
   updateJob: async (title) => set((store) => ({ job: title })),
   updateUserDetails: async (user) => set((store) => ({ userDetails: user })),
   updateCompanyWebsite: async (url) =>
-    set((store) => ({ comapnyWebsite: url })),
+    set((store) => ({ companyWebsite: url })),
   updateLinkedinProfile: async (profile) =>
     set((store) => ({ linkedinProfile: profile })),
 });

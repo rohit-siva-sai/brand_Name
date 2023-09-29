@@ -17,7 +17,7 @@ const UserUpdate = ({ getUser }) => {
     username,
     address,
     job,
-    comapnyWebsite,
+    companyWebsite,
     linkedinProfile,
     email,
     userUpdate,
@@ -28,7 +28,7 @@ const UserUpdate = ({ getUser }) => {
     store.username,
     store.userAddress,
     store.job,
-    store.comapnyWebsite,
+    store.companyWebsite,
     store.linkedinProfile,
     store.userEmail,
     store.userUpdate,
@@ -37,7 +37,7 @@ const UserUpdate = ({ getUser }) => {
   // console.log("usessssr", userId);
 
   // console.log("update", phoneNumber);
-  console.log("update", userUpdate);
+  // console.log("update", userUpdate);
   const updateUser = async (id) => {
     const userDoc = doc(db, "users", id);
 
@@ -45,7 +45,7 @@ const UserUpdate = ({ getUser }) => {
       username,
       address,
       job,
-      comapnyWebsite,
+      companyWebsite,
       linkedinProfile,
       email,
     });
@@ -58,7 +58,7 @@ const UserUpdate = ({ getUser }) => {
         color: "white",
       },
     });
-    await getUser(id);
+    await getUser(id)
     updateOpenUserModel(false);
   };
 

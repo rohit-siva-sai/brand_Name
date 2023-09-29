@@ -85,6 +85,35 @@ const QuotationDetails = ({singleQuote}) => {
             </p>
           </div>
         </div>
+        <p className="font-semibold text-xl text-gray-800 pt-4 ">Seller Details</p>
+        <div className="flex flex-col space-y-3 py-4">
+          <div className="flex  space-x-16  items-center">
+            <p className="font-normal text-base w-1/3 text-gray-500">
+              Name
+            </p>
+            <p className="text-gray-500 font-normal text-base">
+              {singleQuote?.sellerDetails?.sellerName}
+            </p>
+          </div>
+          <div className="flex  space-x-16  items-center">
+            <p className="font-normal text-base w-1/3 text-gray-500">Company Name</p>
+            <p className="text-gray-500 font-normal text-base">
+              {singleQuote?.sellerDetails?.sellerCompany}
+            </p>
+          </div>
+          <div className="flex  space-x-16  items-center">
+            <p className="font-normal text-base w-1/3 text-gray-500">Email</p>
+            <p className="text-gray-500 font-normal text-base">
+              {singleQuote?.sellerDetails?.sellerEmail}
+            </p>
+          </div>
+          <div className="flex  space-x-16  items-center">
+            <p className="font-normal text-base w-1/3 text-gray-500">Phone Number</p>
+            <p className="text-gray-500 font-normal text-base">
+              {singleQuote?.sellerDetails?.sellerPhoneNumber}
+            </p>
+          </div>
+        </div>
       </div>}
     </div>
   )

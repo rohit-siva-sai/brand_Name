@@ -44,7 +44,7 @@ const UserDetails = ({ profileUser, getUser }) => {
     updateJob(profileUser.job);
     updateAddress(profileUser.address);
     updateUserEmail(profileUser.email);
-    updateCompanyWebsite(profileUser.comapnyWebsite);
+    updateCompanyWebsite(profileUser.companyWebsite);
     updateLinkedinProfile(profileUser.linkedinProfile);
    }
   }, [profileUser]);
@@ -109,7 +109,7 @@ const UserDetails = ({ profileUser, getUser }) => {
               name="companyWebsite"
                 Icon={FiLink}
                 title={"Company Website"}
-                value={profileUser?.comapnyWebsite}
+                value={profileUser?.companyWebsite}
               />
               <DetailCard
               name="linkedinProfile"

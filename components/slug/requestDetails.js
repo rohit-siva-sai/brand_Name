@@ -1,7 +1,7 @@
 import React from "react";
 
 const RequestDetails = ({ rfqData }) => {
-  console.log('rfqData',rfqData);
+  // console.log('rfqData',rfqData);
   
   return (
     <div className="md:w-full w-full flex-1 px-6 bg-white py-4  rounded-xl h-[550px] overflow-y-auto ">

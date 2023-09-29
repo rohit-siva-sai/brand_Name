@@ -4,7 +4,7 @@ import { HiPencil } from "react-icons/hi";
 
 const CompanyCard = ({ name,title, value }) => {
   // console.log(title,Array.isArray(value));
-  const array = Array.isArray(value);
+  const array = Array.isArray(value)
   const [updateCompanyUpdate, updateOpenCompanyModel] = Company((store) => [
     store.updateCompanyUpdate,
     store.updateOpenCompanyModel,

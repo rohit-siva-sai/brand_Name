@@ -37,7 +37,7 @@ const Home = ({ user, phoneNumber }) => {
     store.updateUserId,
     store.userAddress,
     store.job,
-    store.comapnyWebsite,
+    store.companyWebsite,
     store.linkedinProfile,
   ]);
   const [
@@ -89,7 +89,7 @@ const Home = ({ user, phoneNumber }) => {
         setProfileUser(userData);
         updateUserDetails(userData)
         updatePhoneNumber(userData.phone_number)
-        console.log(userData, "rohit siva sai");
+        // console.log(userData, "rohit siva sai");
         return true;
       } else {
         console.log("No such document!");
@@ -127,7 +127,7 @@ const Home = ({ user, phoneNumber }) => {
         });
         await getUser(id);
       } else {
-        // getUser(currentUser.id);
+        
         return;
       }
     } catch (err) {
@@ -163,16 +163,14 @@ const Home = ({ user, phoneNumber }) => {
     try {
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        console.log("usredd", userDetails);
+        // console.log("usredd", userDetails);
 
         const id = userDetails.uid;
 
         updateUserId(id);
-        submitNewUser(id);
+        submitNewUser(id)
 
-        // getCurrentUser(profileUser)
-
-        // console.log(userDetails.uid);
+   
       } else {
         router.push("/");
       }
@@ -180,6 +178,8 @@ const Home = ({ user, phoneNumber }) => {
       console.log(error.message);
     }
   }, [router]);
+
+  
   return (
     <div className="md:h-[640px]  overflow-hidden">
       <div className="flex">

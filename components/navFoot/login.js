@@ -24,6 +24,7 @@ import { onCaptchaVerify } from "./captcha";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { User } from "@/useStore/user";
+import { SideBar } from "@/useStore/sideBar";
 
 const Login = ({
   changeShowLogin,
@@ -33,6 +34,7 @@ const Login = ({
   getPhoneNumber,
 }) => {
   const [updateUserId] = User((store) => [store.updateUserId]);
+  const [updateNewRfq] = SideBar((store) => [store.updateNewRfq]);
 
   const [phoneNumber, setPhoneNumber] = useState(false);
   const [otp, setOtp] = useState("");
@@ -138,11 +140,11 @@ const Login = ({
         console.log("sdcd", res);
         handleUser(res.user);
         updateUserId(res.user.uid)
-        console.log("uxeuyvwedwveug", user);
-
+        // console.log("uxeuyvwedwveug", user);
         localStorage.setItem("userDetails", JSON.stringify(res.user));
         // const id = res.user.uid;
         changeShowLogin(false)
+        updateNewRfq()
         router.push("/myRfq/home");
       })
       .catch((err) => {

@@ -3,8 +3,8 @@ import React from 'react'
 import { useState } from 'react';
 
 const Website = () => {
-    const [comapnyWebsite, updateCompanyWebsite] = User((store) => [store.comapnyWebsite, store.updateCompanyWebsite]);
-    const [url,setUrl] = useState(comapnyWebsite)
+    const [companyWebsite, updateCompanyWebsite] = User((store) => [store.companyWebsite, store.updateCompanyWebsite]);
+    const [url,setUrl] = useState(companyWebsite)
   return (
     <div className="flex flex-col space-y-1 ">
         <label className="leading-7 text-sm font-semibold text-gray-800">
@@ -18,7 +18,7 @@ const Website = () => {
             setUrl(e.target.value);
           }}
           onBlur={() => {
-            updateCompanyWebsite(url)  
+             updateCompanyWebsite(url)  
           }}
           name="firstName"
           placeholder=""

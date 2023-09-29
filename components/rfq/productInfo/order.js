@@ -41,7 +41,7 @@ const Order = () => {
               : (scoreProduct[5].score = false);
             if (scoreProduct[5].score && i == 1) {
               updateIncreaseProgress(4);
-              setI(2);
+              setI(2)
             }
             if (!scoreProduct[5].score) {
               updateDecreaseProgress(4);

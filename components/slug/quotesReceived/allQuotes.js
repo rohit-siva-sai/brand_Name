@@ -122,7 +122,7 @@ const AllQuotes = ({ isLoading, rfqData, quoteData, changeSingleQuote }) => {
             </div>
           </div>
           <div className="flex flex-col my-6 divide-y">
-            {quoteData?.length == 0 && <p>no quotes</p>}
+            {quoteData?.length == 0 && <p className="text-center font-semibold text-lg text-gray-500">no quotes</p>}
             {quoteData?.map((item, index) => {
               return (
                 <div

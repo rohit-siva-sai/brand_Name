@@ -17,6 +17,7 @@ import { getAuth, signOut } from "firebase/auth";
 import ProgressBar from "@/components/laons/progressBar";
 import { useMemo } from "react";
 import { SideBar } from "@/useStore/sideBar";
+import { User } from "@/useStore/user";
 
 export default function App({ Component, pageProps }) {
   const [cart, setCart] = useState({});
@@ -82,6 +83,7 @@ export default function App({ Component, pageProps }) {
     { id: 134, checked: false, label: "apparel" },
   ]);
   const [newRfq] = SideBar((store) => [store.newRfq]);
+  const [updateUserId] = User((store) => [store.updateUserId]);
 
   const productCollection = collection(db, "materials");
   const brandCollection = collection(db, "brands");
@@ -520,7 +522,7 @@ export default function App({ Component, pageProps }) {
         materialBrandChecked.includes(item.material.toLowerCase())
       );
     }
-
+    
     const certificateBrandChecked = certificateBrand
       .filter((item) => item.checked)
       .map((item) => item.label.toLowerCase());
@@ -578,7 +580,7 @@ export default function App({ Component, pageProps }) {
       const user = JSON.parse(localStorage.getItem("userDetails"));
       const rfq = filteredData
         .filter((item) => item.user == user.uid)
-        .sort((a, b) => b.timestamp["seconds"] - a.timestamp["seconds"]);
+        .sort((a, b) => a.timestamp && b.timestamp && b.timestamp["seconds"] - a.timestamp["seconds"]);
       // const rfq = rfqData.sort((a,b)=>  b.timestamp["seconds"] -  a.timestamp["seconds"] )
 
       setRfqData(rfq);
@@ -606,82 +608,81 @@ export default function App({ Component, pageProps }) {
       const data = rfqData.filter((item) => item.starred == true);
       setUpdatedRfqData(data);
     } else {
-      console.log("rfadata", rfqData);
+      // console.log("rfadata", rfqData);
 
       setUpdatedRfqData(rfqData);
     }
   };
   useEffect(() => {
-    getRfq();
+    getRfq()
   }, [newRfq]);
   //user details from firebase
 
-  const getUser = async (id) => {
-    try {
-      const userRef = doc(db, "users", id); // 'people' is the collection name
-      const userDoc = await getDoc(userRef);
+  // const getUser = async (id) => {
+  //   try {
+  //     const userRef = doc(db, "users", id); // 'people' is the collection name
+  //     const userDoc = await getDoc(userRef);
 
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setProfileUser(userData);
-        updateUserDetails(userData);
-        updatePhoneNumber(userData.phone_number);
-        console.log(userData, "rohit siva sai");
-        return true;
-      } else {
-        console.log("No such document!");
-        return false;
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-  const submitNewUser = async (id) => {
-    const value = await getUser(id);
-    console.log("value", value);
-    try {
-      if (!value) {
-        await setDoc(doc(db, "users", id), {
-          username: { firstName: "first", lastName: "Last" },
-          email: "example@gmail.com",
-          phone_number: user?.phoneNumber,
-          job: job,
-          address: userAddress,
-          companyWebsite: companyWebsite,
-          linkedinProfile: linkedinProfile,
-          company,
-          bussinessType,
-          companySize,
-          sellingChannel,
-          annualValue,
-          suppliers,
-          marketImport,
-          marketSell,
-          purchasingRole,
-          panCardNo,
-          gstNo,
-          companyUpdate,
-        });
-        await getUser(id);
-      } else {
-        // getUser(currentUser.id);
-        return;
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //     if (userDoc.exists()) {
+  //       const userData = userDoc.data();
+  //       setProfileUser(userData);
+  //       updateUserDetails(userData);
+  //       updatePhoneNumber(userData.phone_number);
+  //       // console.log(userData, "userdata");
+  //       return true;
+  //     } else {
+  //       console.log("No such document!");
+  //       return false;
+  //     }
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+  // };
+  // const submitNewUser = async (id) => {
+  //   const value = await getUser(id);
+  //   console.log("value", value);
+  //   try {
+  //     if (!value) {
+  //       await setDoc(doc(db, "users", id), {
+  //         username: { firstName: "first", lastName: "Last" },
+  //         email: "example@gmail.com",
+  //         phone_number: user?.phoneNumber,
+  //         job: job,
+  //         address: userAddress,
+  //         companyWebsite: companyWebsite,
+  //         linkedinProfile: linkedinProfile,
+  //         company,
+  //         bussinessType,
+  //         companySize,
+  //         sellingChannel,
+  //         annualValue,
+  //         suppliers,
+  //         marketImport,
+  //         marketSell,
+  //         purchasingRole,
+  //         panCardNo,
+  //         gstNo,
+  //         companyUpdate,
+  //       });
+  //       await getUser(id);
+  //     } else {
+  //       // getUser(currentUser.id);
+  //       return;
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   useEffect(() => {
     try {
       if (localStorage.getItem("userDetails")) {
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        console.log("usredd", userDetails);
-
+        // console.log("usredd", userDetails);
         const id = userDetails.uid;
 
         updateUserId(id);
-        submitNewUser(id);
+       
 
         // getCurrentUser(profileUser)
 
@@ -702,7 +703,7 @@ export default function App({ Component, pageProps }) {
         handleShowCart={handleShowCart}
         currentUser={currentUser}
         handleUser={handleUser}
-        submitNewUser={submitNewUser}
+        
         user={user}
         getPhoneNumber={getPhoneNumber}
         changeShowLogin={changeShowLogin}

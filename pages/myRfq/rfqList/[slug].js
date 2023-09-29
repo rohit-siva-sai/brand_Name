@@ -60,7 +60,7 @@ const Post = () => {
         .sort((a, b) => b.timestamp["seconds"] - a.timestamp["seconds"]);
       setSingleQuote(quote[0]);
       setQuoteData(quote.slice(0,9));
-      console.log("ssassa", quote);
+      // console.log("ssassa", quote);
     } catch (err) {
       console.log(err.message);
     }
